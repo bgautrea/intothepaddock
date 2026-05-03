@@ -4,7 +4,7 @@ shortName: 'Red Bull'
 base: 'Milton Keynes, United Kingdom'
 teamPrincipal: 'Christian Horner'
 foundedSeason: 2005
-powerUnit: 'Honda RBPT'
+powerUnit: 'Red Bull Powertrains-Ford'
 championships: 6
 constructorTitles: 6
 primaryColor: '#1e41ff'

@@ -7,7 +7,8 @@ const drivers = defineCollection({
     z.object({
       name: z.string(),
       number: z.number().int().min(1).max(99),
-      team: reference('teams'),
+      team: reference('teams').optional(),
+      legendaryTeam: z.string().optional(),
       nationality: z.string(),
       dob: z.coerce.date(),
       birthplace: z.string(),

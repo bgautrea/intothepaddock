@@ -1,0 +1,52 @@
+---
+type Sector = 'purple' | 'green' | 'yellow';
+
+interface Props {
+  sector: Sector;
+  label?: string;
+}
+
+const { sector, label } = Astro.props;
+
+const default_label: Record<Sector, string> = {
+  purple: 'Fastest',
+  green: 'Personal best',
+  yellow: 'Slower',
+};
+---
+
+<span class={`sector-badge sector-badge--${sector}`} aria-label={label ?? default_label[sector]}>
+  <span class="sector-bar" aria-hidden="true"></span>
+  <span class="sector-text mono">{label ?? default_label[sector]}</span>
+</span>
+
+<style>
+  .sector-badge {
+    --sector-color: var(--sector-purple);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    padding: 2px var(--sp-3);
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: var(--radius-sm);
+    line-height: 1;
+  }
+
+  .sector-badge--purple { --sector-color: var(--sector-purple); }
+  .sector-badge--green { --sector-color: var(--sector-green); }
+  .sector-badge--yellow { --sector-color: var(--sector-yellow); }
+
+  .sector-bar {
+    width: 4px;
+    height: 14px;
+    background: var(--sector-color);
+    border-radius: 1px;
+  }
+
+  .sector-text {
+    color: var(--sector-color);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+</style>

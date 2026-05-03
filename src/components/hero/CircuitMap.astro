@@ -1,0 +1,97 @@
+---
+/**
+ * CircuitMap — shell for Milestone 2.
+ * In Milestone 3 this will render an actual SVG path from GeoJSON.
+ *
+ * For now: stylized abstract closed-loop placeholder with the GP label.
+ */
+
+interface Props {
+  grandPrix: string;
+  country: string;
+  round?: number;
+}
+
+const { grandPrix, country, round } = Astro.props;
+---
+
+<figure class="cmap">
+  <svg
+    class="cmap-svg"
+    viewBox="0 0 480 280"
+    role="img"
+    aria-label={`${grandPrix} circuit placeholder`}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <!-- Stylized track loop -->
+    <path
+      d="M 60 140 C 80 60, 200 40, 260 80 S 420 140, 400 200 S 240 250, 160 220 S 40 220, 60 140 Z"
+      fill="none"
+      stroke="#fce700"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <!-- Start-finish marker -->
+    <line x1="55" y1="135" x2="65" y2="145" stroke="#f5f5f3" stroke-width="3" />
+    <line x1="65" y1="135" x2="75" y2="145" stroke="#f5f5f3" stroke-width="3" />
+    <!-- Sector dots (representative) -->
+    <circle cx="260" cy="80" r="4" fill="#b545ff" />
+    <circle cx="400" cy="200" r="4" fill="#2ecc71" />
+    <circle cx="160" cy="220" r="4" fill="#f4d03f" />
+  </svg>
+
+  <figcaption class="cmap-caption">
+    {round && <span class="cmap-round mono">Round {String(round).padStart(2, '0')}</span>}
+    <span class="cmap-name">{grandPrix}</span>
+    <span class="cmap-country mono">{country}</span>
+  </figcaption>
+</figure>
+
+<style>
+  .cmap {
+    margin: 0;
+    padding: var(--sp-6);
+    background: var(--asphalt-800);
+    border: var(--border-thin);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .cmap-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .cmap-caption {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    align-items: flex-start;
+  }
+
+  .cmap-round {
+    color: var(--kerb-yellow);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .cmap-name {
+    color: var(--text-primary);
+    font-size: var(--fs-500);
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .cmap-country {
+    color: var(--concrete);
+    font-size: var(--fs-200);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+</style>

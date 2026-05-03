@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Lewis Hamilton'
   year: 2021
 firstGp: 1929
+calendarRound: 6
 nickname: 'The Jewel of F1'
 difficulty: 'legendary'
 overtakingDifficulty: 'brutal'

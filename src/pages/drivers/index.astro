@@ -5,20 +5,54 @@ import Hero from '../../components/hero/Hero.astro';
 import EntityCard from '../../components/cards/EntityCard.astro';
 import KerbDivider from '../../components/ui/KerbDivider.astro';
 import { getTeamColor } from '../../lib/teamColors';
+import { getDriverStandings } from '../../lib/jolpica';
 
 const drivers = await getCollection('drivers');
 
+const stripDiacritics = (s: string): string =>
+  s.normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+// Build a position lookup keyed by driver slug. Tries multiple match strategies
+// because jolpica driverIds (e.g. "max_verstappen", "hulkenberg") don't always match
+// our content slugs (e.g. "max-verstappen", "nico-hulkenberg").
+const standings = await getDriverStandings();
+const positionBySlug = new Map<string, number>();
+for (const s of standings) {
+  const pos = parseInt(s.position, 10);
+  const family = stripDiacritics(s.Driver.familyName.toLowerCase());
+  const given = stripDiacritics(s.Driver.givenName.toLowerCase());
+  const candidates = [
+    s.Driver.driverId.replace(/_/g, '-'),
+    family,
+    `${given.split(' ').join('-')}-${family}`,
+    `${given.split(' ')[0]}-${family}`,
+  ];
+  for (const slug of candidates) positionBySlug.set(slug, pos);
+}
+
 const cards = await Promise.all(
   drivers.map(async (d) => {
-    const team = await getEntry(d.data.team);
+    const teamRef = d.data.team;
+    const team = teamRef ? await getEntry(teamRef) : null;
     const accent = team
       ? team.data.primaryColor
-      : getTeamColor(typeof d.data.team === 'string' ? d.data.team : d.data.team.id);
+      : getTeamColor(typeof teamRef === 'string' ? teamRef : teamRef?.id ?? '');
+
+    // Resolve current championship position
+    const family = stripDiacritics(d.data.name.toLowerCase()).split(' ').slice(-1)[0];
+    const pos =
+      positionBySlug.get(d.id) ??
+      positionBySlug.get(family) ??
+      undefined;
+
     return {
+      slug: d.id,
+      status: d.data.status,
+      pos,
       href: `/drivers/${d.id}`,
       title: d.data.name,
-      badge: `#${d.data.number}`,
-      subtitle: team?.data.shortName ?? '—',
+      badge: pos ? `P${pos}` : `#${d.data.number}`,
+      subtitle: team?.data.shortName ?? d.data.legendaryTeam ?? '—',
       accent,
       stats: [
         { label: 'Wins', value: d.data.careerWins },
@@ -28,20 +62,39 @@ const cards = await Promise.all(
     };
   })
 );
+
+const active = cards
+  .filter((c) => c.status === 'active')
+  .sort((a, b) => (a.pos ?? 99) - (b.pos ?? 99));
+const legends = cards
+  .filter((c) => c.status === 'legend')
+  .sort((a, b) => b.stats[2].value - a.stats[2].value);
 ---
 
 <BaseLayout title="Drivers" description="The current F1 grid plus selected legends — every driver, decoded.">
   <Hero
     eyebrow="Section 01"
     title="The Drivers"
-    subtitle="Twenty active racers. Five legends. Each one is a deep-dive into who they are, how they drive, and why they matter."
+    subtitle="Twenty-two active racers. Five legends. Each one is a deep-dive into who they are, how they drive, and why they matter."
   />
 
   <KerbDivider variant="thin" />
 
   <section class="container drivers-section">
+    <header class="section-head">
+      <h2 class="section-title">Current grid</h2>
+      <p class="section-sub mono">2026 season — sorted by championship position</p>
+    </header>
     <div class="grid">
-      {cards.map((c) => <EntityCard {...c} />)}
+      {active.map((c) => <EntityCard {...c} />)}
+    </div>
+
+    <header class="section-head section-head--legends">
+      <h2 class="section-title">Legends</h2>
+      <p class="section-sub mono">Five drivers who shaped the sport</p>
+    </header>
+    <div class="grid">
+      {legends.map((c) => <EntityCard {...c} />)}
     </div>
   </section>
 </BaseLayout>
@@ -49,6 +102,36 @@ const cards = await Promise.all(
 <style>
   .drivers-section {
     padding-block: var(--sp-12);
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    margin-bottom: var(--sp-6);
+    padding-bottom: var(--sp-3);
+    border-bottom: var(--border-thin);
+  }
+
+  .section-head--legends {
+    margin-top: var(--sp-16);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-700);
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+  }
+
+  .section-sub {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
   }
 
   .grid {

@@ -1,0 +1,158 @@
+---
+import type { DriverStanding, ConstructorStanding } from '../../lib/jolpica';
+
+interface Props {
+  variant: 'drivers' | 'constructors';
+  rows: DriverStanding[] | ConstructorStanding[];
+  asOfRound?: string;
+  season?: string;
+}
+
+const { variant, rows, asOfRound, season } = Astro.props;
+
+const isDrivers = variant === 'drivers';
+const headLabel = isDrivers ? 'Driver standings' : 'Constructor standings';
+---
+
+<section class="standings" aria-labelledby="standings-heading">
+  <header class="standings-head">
+    <h2 id="standings-heading" class="mono">{headLabel}</h2>
+    {(season || asOfRound) && (
+      <span class="standings-meta mono">
+        {season}{asOfRound ? ` · After Round ${asOfRound}` : ''}
+      </span>
+    )}
+  </header>
+
+  <table class="standings-table">
+    <thead>
+      <tr>
+        <th class="col-pos">P</th>
+        <th class="col-name">{isDrivers ? 'Driver' : 'Constructor'}</th>
+        {isDrivers && <th class="col-team">Team</th>}
+        <th class="col-pts">Pts</th>
+        <th class="col-wins">Wins</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row) => {
+        if (isDrivers) {
+          const r = row as DriverStanding;
+          return (
+            <tr>
+              <td class="col-pos mono">{r.position}</td>
+              <td class="col-name">
+                <span class="driver-name">{r.Driver.givenName} {r.Driver.familyName}</span>
+                {r.Driver.code && <span class="driver-code mono">{r.Driver.code}</span>}
+              </td>
+              <td class="col-team">{r.Constructors[0]?.name ?? '—'}</td>
+              <td class="col-pts mono">{r.points}</td>
+              <td class="col-wins mono">{r.wins}</td>
+            </tr>
+          );
+        }
+        const c = row as ConstructorStanding;
+        return (
+          <tr>
+            <td class="col-pos mono">{c.position}</td>
+            <td class="col-name">{c.Constructor.name}</td>
+            <td class="col-pts mono">{c.points}</td>
+            <td class="col-wins mono">{c.wins}</td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+</section>
+
+<style>
+  .standings {
+    background: var(--asphalt-800);
+    border: var(--border-thin);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .standings-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    padding: var(--sp-4) var(--sp-6);
+    background: var(--asphalt-900);
+    border-bottom: var(--border-thin);
+  }
+
+  .standings-head h2 {
+    color: var(--kerb-yellow);
+    font-size: var(--fs-300);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .standings-meta {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .standings-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--fs-300);
+  }
+
+  .standings-table th,
+  .standings-table td {
+    padding: var(--sp-3) var(--sp-4);
+    text-align: left;
+    border-bottom: 1px solid var(--asphalt-600);
+  }
+
+  .standings-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .standings-table th {
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+    background: var(--asphalt-900);
+  }
+
+  .col-pos {
+    width: 3rem;
+    color: var(--kerb-yellow);
+  }
+
+  .col-pts,
+  .col-wins {
+    width: 4rem;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .col-team {
+    color: var(--text-secondary);
+  }
+
+  .driver-name {
+    color: var(--text-primary);
+    margin-right: var(--sp-2);
+  }
+
+  .driver-code {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.08em;
+  }
+
+  .standings-table tbody tr:hover {
+    background: var(--asphalt-700);
+  }
+</style>

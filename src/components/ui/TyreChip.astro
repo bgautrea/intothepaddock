@@ -1,0 +1,73 @@
+---
+type Compound = 'soft' | 'medium' | 'hard' | 'intermediate' | 'wet';
+
+interface Props {
+  compound: Compound;
+  label?: string;
+}
+
+const { compound, label } = Astro.props;
+
+const display: Record<Compound, string> = {
+  soft: 'S',
+  medium: 'M',
+  hard: 'H',
+  intermediate: 'INT',
+  wet: 'WET',
+};
+
+const long: Record<Compound, string> = {
+  soft: 'Soft',
+  medium: 'Medium',
+  hard: 'Hard',
+  intermediate: 'Intermediate',
+  wet: 'Wet',
+};
+---
+
+<span class={`tyre-chip tyre-chip--${compound}`} aria-label={`${long[compound]} compound tyre`}>
+  <span class="tyre-ring" aria-hidden="true"></span>
+  <span class="tyre-letter mono">{display[compound]}</span>
+  {label && <span class="tyre-label">{label}</span>}
+</span>
+
+<style>
+  .tyre-chip {
+    --tyre-color: var(--tyre-soft);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    padding: var(--sp-1) var(--sp-3);
+    background: var(--asphalt-800);
+    border: 1px solid var(--asphalt-600);
+    border-radius: var(--radius-sm);
+    line-height: 1;
+  }
+
+  .tyre-chip--soft { --tyre-color: var(--tyre-soft); }
+  .tyre-chip--medium { --tyre-color: var(--tyre-medium); }
+  .tyre-chip--hard { --tyre-color: var(--tyre-hard); }
+  .tyre-chip--intermediate { --tyre-color: var(--tyre-intermediate); }
+  .tyre-chip--wet { --tyre-color: var(--tyre-wet); }
+
+  .tyre-ring {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 3px solid var(--tyre-color);
+    background: transparent;
+  }
+
+  .tyre-letter {
+    color: var(--tyre-color);
+    font-size: var(--fs-200);
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  .tyre-label {
+    font-size: var(--fs-200);
+    color: var(--text-secondary);
+    letter-spacing: 0.04em;
+  }
+</style>

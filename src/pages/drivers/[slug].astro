@@ -11,9 +11,10 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const team = await getEntry(entry.data.team);
+const team = entry.data.team ? await getEntry(entry.data.team) : null;
 const { Content } = await render(entry);
 
+const teamLabel = team?.data.shortName ?? entry.data.legendaryTeam ?? 'Driver';
 const teamColor = team?.data.primaryColor ?? '#fce700';
 const dobYear = entry.data.dob.getFullYear();
 const age = new Date().getFullYear() - dobYear;
@@ -21,7 +22,7 @@ const age = new Date().getFullYear() - dobYear;
 
 <BaseLayout title={entry.data.name} description={entry.data.bio}>
   <article style={`--team-primary: ${teamColor};`}>
-    <Hero eyebrow={`#${entry.data.number} · ${team?.data.shortName ?? 'Driver'}`} title={entry.data.name} subtitle={entry.data.bio}>
+    <Hero eyebrow={`#${entry.data.number} · ${teamLabel}`} title={entry.data.name} subtitle={entry.data.bio}>
       <Fragment slot="visual">
         <div class="driver-stats-grid">
           <StatBlock value={entry.data.careerWins} label="Race wins" />
