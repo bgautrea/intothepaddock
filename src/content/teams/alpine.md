@@ -11,7 +11,7 @@ primaryColor: '#0093cc'
 secondaryColor: '#ff87bc'
 tagline: 'The Enstone team — twice champion as Benetton and Renault, now flying the Alpine flag.'
 car: '../../assets/photos/teams/alpine.jpg'
-carCredit: 'Photo: Unknown authorUnknown author (Public domain) via Wikimedia Commons'
+carCredit: 'Photo: Jen_ross83 (CC BY 4.0) via Wikimedia Commons'
 ---
 
 Behind the Alpine name is a chassis factory in Enstone, Oxfordshire that has worn many liveries. As Benetton it won back-to-back championships in 1994 and 1995 with Michael Schumacher. As Renault it won again in 2005 and 2006 with Fernando Alonso. The factory is the same. The walls have stories.

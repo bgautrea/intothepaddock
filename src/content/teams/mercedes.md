@@ -11,7 +11,7 @@ primaryColor: '#27f4d2'
 secondaryColor: '#000000'
 tagline: 'The team that defined the hybrid era — and is rewriting itself for 2026.'
 car: '../../assets/photos/teams/mercedes.jpg'
-carCredit: 'Photo: Mercedes-AMG Petronas F1 Team (Public domain) via Wikimedia Commons'
+carCredit: 'Photo: Liauzh (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 Mercedes returned to F1 as a works team in 2010 and, between 2014 and 2021, won eight straight constructors' titles in what is the most dominant team era in the sport's history. The hybrid V6 turbo engine introduced in 2014 was simply better than anyone else's, and Lewis Hamilton drove it.

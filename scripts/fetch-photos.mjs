@@ -28,6 +28,12 @@ const CONTENT_DIR = path.join(ROOT, 'src/content');
 
 const UA = 'IntoThePaddockBuilder/1.0 (https://intothepaddock.com; brian.gautreau@gmail.com)';
 
+const CROP_BY_TYPE = {
+  drivers: { width: 1200, height: 900, position: 'top' },           // 4:3, faces are typically high in source
+  teams:   { width: 1600, height: 900, position: 'attention' },     // 16:9, attention finds the car
+  tracks:  { width: 1600, height: 900, position: 'attention' },     // 16:9, attention finds the action
+};
+
 const ACCEPTED_LICENSES = new Set([
   'cc0',
   'cc by 1.0', 'cc by 2.0', 'cc by 2.5', 'cc by 3.0', 'cc by 4.0',
@@ -113,12 +119,34 @@ async function processOne(type, entry, state) {
     return { type, slug, status: 'error', note: `unacceptable license "${meta.LicenseShortName}" for ${fileTitle}` };
   }
 
-  // Step 4: Download + resize
+  // Step 4: Download + crop to type-specific aspect ratio.
+  //
+  // Cropping strategy:
+  //   - drivers: 4:3 landscape, anchored to the top of the source. Wikipedia
+  //     portrait photos place faces in the upper third; "top" reliably keeps
+  //     the face in frame after the horizontal-band crop.
+  //   - teams / tracks: 16:9 landscape, sharp's `attention` strategy picks
+  //     the most visually salient region (cars, grandstands, signature
+  //     architecture) instead of geometric center.
+  //
+  // Per-entry override via manifest `crop: { width, height, position }`.
   if (!DRY_RUN) {
     await fs.mkdir(path.dirname(targetPath), { recursive: true });
     const buf = await fetchBuffer(meta.url);
+    const cfg = entry.crop ?? CROP_BY_TYPE[type];
+    const position = cfg.position === 'attention'
+      ? sharp.strategy.attention
+      : cfg.position === 'entropy'
+        ? sharp.strategy.entropy
+        : cfg.position;
     await sharp(buf)
-      .resize({ width: type === 'drivers' ? 900 : 1600, withoutEnlargement: true })
+      .resize({
+        width: cfg.width,
+        height: cfg.height,
+        fit: 'cover',
+        position,
+        withoutEnlargement: false,
+      })
       .jpeg({ quality: 82, mozjpeg: true })
       .toFile(targetPath);
   }

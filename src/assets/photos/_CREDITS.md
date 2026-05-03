@@ -48,19 +48,19 @@ public domain.
 | `drivers/pierre-gasly.jpg` | [Source](https://commons.wikimedia.org/wiki/File:2022_French_Grand_Prix_(52279065728)_(midcrop).png) | nabtifal | CC BY 2.0 |
 | `drivers/sergio-perez.jpg` | [Source](https://commons.wikimedia.org/wiki/File:2021_US_GP_driver_parade_(cropped2).jpg) | Grahampurse | CC BY-SA 4.0 |
 | `drivers/valtteri-bottas.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Valtteri_Bottas_at_the_2026_Adelaide_Motorsport_Festival_(028A7567).jpg) | Yu Chu Chin | CC BY-SA 4.0 |
-| `teams/alpine.jpg` | [Source](https://commons.wikimedia.org/wiki/File:BWT_Alpine_F1_Team_Logo.png) | Unknown authorUnknown author | Public domain |
+| `teams/alpine.jpg` | [Source](https://commons.wikimedia.org/wiki/File:FIA_F1_Imola_2025_No._10_Gasly.jpg) | Jen_ross83 | CC BY 4.0 |
 | `teams/aston-martin.jpg` | [Source](https://commons.wikimedia.org/wiki/File:2024_Aston_Martin_AMR24.jpg) | MrWalkr | CC BY-SA 4.0 |
-| `teams/audi.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Audif1.com_logo17_(cropped).svg) | Audi Revolut F1 Team / Sauber Motorsports AG | Public domain |
+| `teams/audi.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Audi_Revolut_F1.jpg) | Mustang Joe | CC0 |
 | `teams/cadillac.jpg` | [Source](https://commons.wikimedia.org/wiki/File:2026_Chinese_GP_-_Cadillac_-_MAC-26.jpg) | Liauzh | CC BY 4.0 |
 | `teams/ferrari.jpg` | [Source](https://commons.wikimedia.org/wiki/File:2025_Japan_GP_-_Ferrari_-_SF-25_-_Thursday.jpg) | Liauzh | CC BY-SA 4.0 |
-| `teams/haas.jpg` | [Source](https://commons.wikimedia.org/wiki/File:TGR_Haas_F1_Team_Logo_(2026).svg) | Haas F1 Team | Public domain |
-| `teams/mclaren.jpg` | [Source](https://commons.wikimedia.org/wiki/File:McLaren_Mastercard_F1.jpg) | McLaren Mastercard F1 Team | CC0 |
-| `teams/mercedes.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Mercedes-AMG_Petronas_F1_Team_logo_(2026).svg) | Mercedes-AMG Petronas F1 Team | Public domain |
+| `teams/haas.jpg` | [Source](https://commons.wikimedia.org/wiki/File:2025_Japan_GP_-_Haas_-_Oliver_Bearman_-_FP2.jpg) | Liauzh | CC BY-SA 4.0 |
+| `teams/mclaren.jpg` | [Source](https://commons.wikimedia.org/wiki/File:2025_Japan_GP_-_McLaren_-_MCL39_-_Thursday.jpg) | Liauzh | CC BY-SA 4.0 |
+| `teams/mercedes.jpg` | [Source](https://commons.wikimedia.org/wiki/File:2025_Japan_GP_-_Mercedes_-_W16_-_Thursday.jpg) | Liauzh | CC BY-SA 4.0 |
 | `teams/racing-bulls.jpg` | [Source](https://commons.wikimedia.org/wiki/File:RB_VCARB_02_in_Imola_-_Front.jpg) | Danysan1 | CC BY-SA 4.0 |
 | `teams/red-bull.jpg` | [Source](https://commons.wikimedia.org/wiki/File:2025_Japan_GP_-_Red_Bull_-_Max_Verstappen_-_Race.jpg) | Liauzh | CC BY-SA 4.0 |
-| `teams/williams.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Atlassian_Williams_F1_Team_logo.svg) | Atlassian Williams F1 Team | Public domain |
-| `tracks/austin.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Austin_circuit.svg) | Gustavo GirardelliOwn work This W3C-unspecified vector image was created with Inkscape . | CC BY-SA 2.0 |
-| `tracks/baku.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Baku_Formula_One_circuit_map.svg) | HumanBodyPiloter5 | CC0 |
+| `teams/williams.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Williams_FW47_(55012521784).jpg) | Txemari. (Navarra). from Navarra, España | CC BY-SA 4.0 |
+| `tracks/austin.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Tower_at_Circuit_of_the_Americas.jpg) | Earl McGehee | CC BY-SA 3.0 |
+| `tracks/baku.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Four_Seasons_Hotel_Baku_during_2019_Formula-1_Azerbaijan_Grand_Prix.jpg) | Press Service of the President of the Republic of Azerbaijan | CC BY 4.0 |
 | `tracks/catalunya.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Curvas_1-6_de_Circuit_de_Barcelona-Catalunya_Montmel%C3%B3_(2023).jpg) | Wilnel José Verdú Guerrero | CC BY-SA 4.0 |
 | `tracks/hungaroring.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Pest_county_Mogyor%C3%B3d_Hungariring_raceway_IMG_0210.JPG) | Bjoertvedt | CC BY-SA 4.0 |
 | `tracks/interlagos.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Aut%C3%B3dromo_de_Interlagos_em_Dezembro_de_2023.jpg) | Boaventuravinicius | CC BY-SA 4.0 |
@@ -79,5 +79,5 @@ public domain.
 | `tracks/silverstone.jpg` | [Source](https://commons.wikimedia.org/wiki/File:International_Pits_Straight_Stand,_Silverstone_-_geograph.org.uk_-_4590072.jpg) | Ian S | CC BY-SA 2.0 |
 | `tracks/spa.jpg` | [Source](https://commons.wikimedia.org/wiki/File:2022_6_Hours_of_Spa-Francorchamps_-_Eau_Rouge_Corner_stands.jpg) | United Autosports | CC BY-SA 2.0 |
 | `tracks/suzuka.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Suzuka_Circuit_21-09-2024.jpg) | BWard 1997 | CC BY 4.0 |
-| `tracks/yas-marina.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Yas_Marina_Circuit.png) | Anthony Alessio Tralongo | CC BY-SA 4.0 |
-| `tracks/zandvoort.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Zandvoort_Circuit.png) | Anthony Alessio Tralongo | CC BY-SA 4.0 |
+| `tracks/yas-marina.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Felipe_Massa_Yas_Marina_Circuit_2017.jpg) | Kristin Greenwood | CC BY-SA 4.0 |
+| `tracks/zandvoort.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Aerial_view_of_Motorsport_race_track_Circuit_Zandvoort_Formula_one_(40889997713).jpg) | dronepicr | CC BY 2.0 |

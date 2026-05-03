@@ -19,7 +19,7 @@ nickname: 'COTA'
 difficulty: 'high'
 overtakingDifficulty: 'medium'
 photo: '../../assets/photos/tracks/austin.jpg'
-photoCredit: 'Photo: Gustavo GirardelliOwn work This W3C-unspecified vector image was created with Inkscape . (CC BY-SA 2.0) via Wikimedia Commons'
+photoCredit: 'Photo: Earl McGehee (CC BY-SA 3.0) via Wikimedia Commons'
 ---
 
 ## America's modern F1 home

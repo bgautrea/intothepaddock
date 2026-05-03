@@ -29,21 +29,21 @@
     { "slug": "valtteri-bottas",        "wp": "Valtteri Bottas" }
   ],
   "teams": [
-    { "slug": "alpine",        "wp": "Alpine F1 Team" },
+    { "slug": "alpine",        "wp": "Alpine F1 Team", "commonsFile": "File:FIA F1 Imola 2025 No. 10 Gasly.jpg" },
     { "slug": "aston-martin",  "wp": "Aston Martin in Formula One", "commonsFile": "File:2024 Aston Martin AMR24.jpg" },
-    { "slug": "audi",          "wp": "Audi in Formula One" },
+    { "slug": "audi",          "wp": "Audi in Formula One", "commonsFile": "File:Audi Revolut F1.jpg" },
     { "slug": "cadillac",      "wp": "Cadillac Formula 1 Team", "commonsFile": "File:2026 Chinese GP - Cadillac - MAC-26.jpg" },
     { "slug": "ferrari",       "wp": "Scuderia Ferrari", "commonsFile": "File:2025 Japan GP - Ferrari - SF-25 - Thursday.jpg" },
-    { "slug": "haas",          "wp": "Haas F1 Team" },
-    { "slug": "mclaren",       "wp": "McLaren" },
-    { "slug": "mercedes",      "wp": "Mercedes-AMG Petronas F1 Team" },
+    { "slug": "haas",          "wp": "Haas F1 Team", "commonsFile": "File:2025 Japan GP - Haas - Oliver Bearman - FP2.jpg" },
+    { "slug": "mclaren",       "wp": "McLaren", "commonsFile": "File:2025 Japan GP - McLaren - MCL39 - Thursday.jpg" },
+    { "slug": "mercedes",      "wp": "Mercedes-AMG Petronas F1 Team", "commonsFile": "File:2025 Japan GP - Mercedes - W16 - Thursday.jpg" },
     { "slug": "racing-bulls",  "wp": "RB Formula One Team", "commonsFile": "File:RB VCARB 02 in Imola - Front.jpg" },
     { "slug": "red-bull",      "wp": "Red Bull Racing", "commonsFile": "File:2025 Japan GP - Red Bull - Max Verstappen - Race.jpg" },
-    { "slug": "williams",      "wp": "Williams Racing" }
+    { "slug": "williams",      "wp": "Williams Racing", "commonsFile": "File:Williams FW47 (55012521784).jpg" }
   ],
   "tracks": [
-    { "slug": "austin",        "wp": "Circuit of the Americas" },
-    { "slug": "baku",          "wp": "Baku City Circuit" },
+    { "slug": "austin",        "wp": "Circuit of the Americas", "commonsFile": "File:Tower at Circuit of the Americas.jpg" },
+    { "slug": "baku",          "wp": "Baku City Circuit", "commonsFile": "File:Four Seasons Hotel Baku during 2019 Formula-1 Azerbaijan Grand Prix.jpg" },
     { "slug": "catalunya",     "wp": "Circuit de Barcelona-Catalunya", "commonsFile": "File:Curvas 1-6 de Circuit de Barcelona-Catalunya Montmeló (2023).jpg" },
     { "slug": "hungaroring",   "wp": "Hungaroring", "commonsFile": "File:Pest county Mogyoród Hungariring raceway IMG 0210.JPG" },
     { "slug": "interlagos",    "wp": "Autódromo José Carlos Pace", "commonsFile": "File:Autódromo de Interlagos em Dezembro de 2023.jpg" },
@@ -62,7 +62,7 @@
     { "slug": "silverstone",   "wp": "Silverstone Circuit", "commonsFile": "File:International Pits Straight Stand, Silverstone - geograph.org.uk - 4590072.jpg" },
     { "slug": "spa",           "wp": "Circuit de Spa-Francorchamps", "commonsFile": "File:2022 6 Hours of Spa-Francorchamps - Eau Rouge Corner stands.jpg" },
     { "slug": "suzuka",        "wp": "Suzuka International Racing Course", "commonsFile": "File:Suzuka Circuit 21-09-2024.jpg" },
-    { "slug": "yas-marina",    "wp": "Yas Marina Circuit" },
-    { "slug": "zandvoort",     "wp": "Circuit Zandvoort" }
+    { "slug": "yas-marina",    "wp": "Yas Marina Circuit", "commonsFile": "File:Felipe Massa Yas Marina Circuit 2017.jpg" },
+    { "slug": "zandvoort",     "wp": "Circuit Zandvoort", "commonsFile": "File:Aerial view of Motorsport race track Circuit Zandvoort Formula one (40889997713).jpg" }
   ]
 }
