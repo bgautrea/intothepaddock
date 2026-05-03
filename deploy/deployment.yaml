@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: f1fordummies
-  namespace: f1fordummies
+  name: intothepaddock
+  namespace: intothepaddock
   labels:
-    app: f1fordummies
+    app: intothepaddock
 spec:
   replicas: 2
   revisionHistoryLimit: 5
   selector:
     matchLabels:
-      app: f1fordummies
+      app: intothepaddock
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -19,12 +19,12 @@ spec:
   template:
     metadata:
       labels:
-        app: f1fordummies
+        app: intothepaddock
     spec:
       containers:
         - name: site
           # CI overwrites this image tag with the SHA of each main commit.
-          image: docker.io/REPLACE_ME/f1fordummies:latest
+          image: docker.io/REPLACE_DOCKERHUB_USERNAME/intothepaddock:latest
           imagePullPolicy: IfNotPresent
           ports:
             - name: http

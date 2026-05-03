@@ -1,4 +1,4 @@
-# Caddyfile for the f1fordummies static site.
+# Caddyfile for the intothepaddock static site.
 # TLS is terminated upstream (k8s ingress + Cloudflare edge), so we serve plain HTTP.
 
 {

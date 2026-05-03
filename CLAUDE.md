@@ -1,6 +1,8 @@
-# F1 for Dummies
+# Into the Paddock
 
-An educational website covering Formula 1: drivers, teams, cars, parts, history, etc. Inspired by the visual style of ethereallearning.com.
+An independent, educational guide to Formula 1 — drivers, teams, the car, race weekends, rules, tracks, and strategy. Lives at `intothepaddock.com`. Built for newcomers and casual fans leveling up.
+
+The local working directory remains `f1fordummies/` (legacy from the working title). The public-facing brand and code identifiers are `intothepaddock` / "Into the Paddock".
 
 ## Conventions
 
@@ -11,3 +13,5 @@ When starting any local server for mockups, visuals, diagrams, or the brainstorm
 ```bash
 scripts/start-server.sh --project-dir /home/brian/f1fordummies --host 0.0.0.0
 ```
+
+The Astro dev server is already pinned to `0.0.0.0:4321` in `astro.config.mjs` — `npm run dev` is sufficient.

@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: f1fordummies
-  namespace: f1fordummies
+  name: intothepaddock
+  namespace: intothepaddock
   annotations:
     # Adjust if the cluster uses Traefik (kubernetes.io/ingress.class: traefik) instead.
     cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -12,16 +12,27 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - REPLACE_ME.example
-      secretName: f1fordummies-tls
+        - intothepaddock.com
+        - www.intothepaddock.com
+      secretName: intothepaddock-tls
   rules:
-    - host: REPLACE_ME.example
+    - host: intothepaddock.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: f1fordummies
+                name: intothepaddock
+                port:
+                  number: 80
+    - host: www.intothepaddock.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: intothepaddock
                 port:
                   number: 80

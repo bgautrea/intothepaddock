@@ -31,7 +31,7 @@ async function safeFetch<T>({ url, snapshotFile }: FetchOpts): Promise<T> {
   if (memCache.has(url)) return memCache.get(url) as T;
 
   try {
-    const res = await fetch(url, { headers: { 'user-agent': 'f1fordummies-build/0.1' } });
+    const res = await fetch(url, { headers: { 'user-agent': 'intothepaddock-build/0.1' } });
     if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
     const json = (await res.json()) as T;
     memCache.set(url, json);

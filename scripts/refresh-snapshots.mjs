@@ -27,7 +27,7 @@ let failures = 0;
 for (const { url, file } of targets) {
   try {
     console.log(`[snapshot] ${url}`);
-    const res = await fetch(url, { headers: { 'user-agent': 'f1fordummies-snapshot/0.1' } });
+    const res = await fetch(url, { headers: { 'user-agent': 'intothepaddock-snapshot/0.1' } });
     if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
     const text = await res.text();
     JSON.parse(text); // sanity-parse; throws on garbage

@@ -1,43 +1,61 @@
-# Astro Starter Kit: Minimal
+# Into the Paddock
+
+An independent, educational guide to Formula 1 — drivers, teams, the car, race weekends, rules, tracks, and strategy. Built for newcomers and casual fans leveling up.
+
+Production: **[intothepaddock.com](https://intothepaddock.com)** (deploying soon).
+
+## Stack
+
+- [Astro](https://astro.build/) (static output) with MDX content
+- Live data via [jolpica-f1](https://github.com/jolpica/jolpica-f1) (community continuation of the Ergast API), with committed JSON snapshots in `data/snapshots/` as a fallback
+- Self-hosted fonts (Barlow Condensed, Inter, JetBrains Mono) via Fontsource
+- Containerized with Caddy (`Dockerfile`), deployed to DigitalOcean Kubernetes (manifests in `deploy/`)
+- CI: GitHub Actions for image build/push and daily snapshot refresh
+
+## Local development
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev          # binds 0.0.0.0:4321 — open from any device on the network
+npm run build        # static output in dist/
+npm run preview      # serve dist/ at 0.0.0.0:4321
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Refreshing live data manually
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```sh
+npm run refresh-snapshots   # writes data/snapshots/*.json from jolpica
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+CI runs this daily at 06:00 UTC and pushes any changes to `main`, which triggers a redeploy.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Project layout
 
-Any static assets, like images, can be placed in the `public/` directory.
+- `src/pages/` — one file per route. Hub + detail for drivers, teams, tracks; single-topic pages for the car, race weekend, rules, strategy.
+- `src/content/` — Markdown / MDX content for drivers, teams, tracks, and the four single-topic deep-dives. Schemas in `src/content.config.ts`.
+- `src/components/` — UI primitives (`Hero`, `KerbDivider`, `EntityCard`, `StepCard`, `StatBlock`, `JargonTip`, `AnalogyCallout`, etc.) and the live `NextRaceCountdown` island.
+- `src/styles/` — design tokens (`tokens.css`), kerb-stripe utilities (`kerb.css`), global resets (`global.css`).
+- `src/lib/jolpica.ts` — typed wrappers around the jolpica API with snapshot fallback.
+- `data/snapshots/` — committed jolpica responses (driver standings, constructor standings, season schedule).
+- `deploy/` — Kubernetes manifests + Caddyfile.
+- `.github/workflows/` — `build-and-deploy.yml`, `refresh-snapshots.yml`.
 
-## 🧞 Commands
+## Deployment notes
 
-All commands are run from the root of the project, from a terminal:
+Before the first cluster apply, fill in:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+- `deploy/deployment.yaml`: replace `REPLACE_DOCKERHUB_USERNAME` with your Docker Hub username
+- GitHub repo secrets: `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`, `DIGITALOCEAN_ACCESS_TOKEN`, `DO_CLUSTER_NAME`
 
-## 👀 Want to learn more?
+Bootstrap once:
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```sh
+kubectl apply -f deploy/namespace.yaml
+kubectl apply -f deploy/
+```
+
+CI takes over from there.
+
+## License & attribution
+
+Independent fan project. Not affiliated with Formula 1, FIA, FOM, or any team. Driver / car photography is sourced from Wikimedia Commons under the contributors' chosen licenses; full credits ship with the v1 launch.

@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/f1fordummies
+  IMAGE: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/intothepaddock
 
 jobs:
   build:
@@ -54,7 +54,7 @@ jobs:
 
       - name: Roll out new image
         run: |
-          kubectl -n f1fordummies set image \
-            deployment/f1fordummies \
+          kubectl -n intothepaddock set image \
+            deployment/intothepaddock \
             site=${{ env.IMAGE }}:${{ github.sha }}
-          kubectl -n f1fordummies rollout status deployment/f1fordummies --timeout=120s
+          kubectl -n intothepaddock rollout status deployment/intothepaddock --timeout=120s

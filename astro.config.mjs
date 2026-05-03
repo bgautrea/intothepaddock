@@ -4,7 +4,7 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://f1fordummies.local',
+  site: 'https://intothepaddock.com',
   server: {
     host: '0.0.0.0',
     port: 4321,
