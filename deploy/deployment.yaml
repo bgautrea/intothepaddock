@@ -24,7 +24,7 @@ spec:
       containers:
         - name: site
           # CI overwrites this image tag with the SHA of each main commit.
-          image: docker.io/REPLACE_DOCKERHUB_USERNAME/intothepaddock:latest
+          image: docker.io/bgautrea/intothepaddock:latest
           imagePullPolicy: IfNotPresent
           ports:
             - name: http

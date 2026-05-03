@@ -4,17 +4,12 @@ metadata:
   name: intothepaddock
   namespace: intothepaddock
   annotations:
-    # Adjust if the cluster uses Traefik (kubernetes.io/ingress.class: traefik) instead.
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    # nginx.org/ingress-controller (NGINX Inc) is what's installed in this cluster.
+    # TLS is terminated UPSTREAM at the standalone NGINX reverse proxy that fronts
+    # this cluster (it owns the Let's Encrypt cert for intothepaddock.com via ACME).
+    # The cluster ingress only serves plain HTTP and trusts the upstream proxy.
 spec:
   ingressClassName: nginx
-  tls:
-    - hosts:
-        - intothepaddock.com
-        - www.intothepaddock.com
-      secretName: intothepaddock-tls
   rules:
     - host: intothepaddock.com
       http:
