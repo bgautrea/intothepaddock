@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/hero/Hero.astro';
+import EntityCard from '../../components/cards/EntityCard.astro';
+import KerbDivider from '../../components/ui/KerbDivider.astro';
+
+const teams = await getCollection('teams');
+
+const cards = teams.map((t) => ({
+  href: `/teams/${t.id}`,
+  title: t.data.shortName,
+  badge: `EST ${t.data.foundedSeason}`,
+  subtitle: t.data.tagline,
+  accent: t.data.primaryColor,
+  stats: [
+    { label: 'Titles', value: t.data.constructorTitles },
+    { label: 'Power unit', value: t.data.powerUnit },
+  ],
+}));
+---
+
+<BaseLayout title="Teams" description="The ten F1 constructors — every team's story, base, and engineering philosophy.">
+  <Hero
+    eyebrow="Section 02"
+    title="The Teams"
+    subtitle="Ten constructors fighting for the championship. Each one designs and builds its own car under the regulations — and that engineering identity is what makes a team."
+  />
+
+  <KerbDivider variant="thin" />
+
+  <section class="container teams-section">
+    <div class="grid">
+      {cards.map((c) => <EntityCard {...c} />)}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .teams-section {
+    padding-block: var(--sp-12);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--sp-5);
+  }
+</style>

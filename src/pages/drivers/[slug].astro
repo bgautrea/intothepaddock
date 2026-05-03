@@ -1,0 +1,161 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/hero/Hero.astro';
+import KerbDivider from '../../components/ui/KerbDivider.astro';
+import StatBlock from '../../components/ui/StatBlock.astro';
+
+export async function getStaticPaths() {
+  const drivers = await getCollection('drivers');
+  return drivers.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const team = await getEntry(entry.data.team);
+const { Content } = await render(entry);
+
+const teamColor = team?.data.primaryColor ?? '#fce700';
+const dobYear = entry.data.dob.getFullYear();
+const age = new Date().getFullYear() - dobYear;
+---
+
+<BaseLayout title={entry.data.name} description={entry.data.bio}>
+  <article style={`--team-primary: ${teamColor};`}>
+    <Hero eyebrow={`#${entry.data.number} · ${team?.data.shortName ?? 'Driver'}`} title={entry.data.name} subtitle={entry.data.bio}>
+      <Fragment slot="visual">
+        <div class="driver-stats-grid">
+          <StatBlock value={entry.data.careerWins} label="Race wins" />
+          <StatBlock value={entry.data.careerPodiums} label="Podiums" />
+          <StatBlock value={entry.data.careerPoles} label="Pole positions" />
+          <StatBlock value={entry.data.championships} label="Championships" />
+        </div>
+      </Fragment>
+    </Hero>
+
+    <KerbDivider variant="thin" />
+
+    <section class="container meta-strip">
+      <dl class="meta">
+        <div><dt>Nationality</dt><dd>{entry.data.nationality}</dd></div>
+        <div><dt>Born</dt><dd>{entry.data.dob.toISOString().slice(0, 10)} · {entry.data.birthplace} · age {age}</dd></div>
+        <div><dt>Debut</dt><dd>{entry.data.debutSeason}</dd></div>
+        <div><dt>Status</dt><dd class="status">{entry.data.status}</dd></div>
+      </dl>
+    </section>
+
+    <KerbDivider variant="thin" />
+
+    <section class="container long-form">
+      <Content />
+
+      {entry.data.funFact && (
+        <aside class="fun-fact">
+          <span class="eyebrow">Fun fact</span>
+          <p>{entry.data.funFact}</p>
+        </aside>
+      )}
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .driver-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-3);
+    width: 100%;
+  }
+
+  .meta-strip {
+    padding-block: var(--sp-6);
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--sp-5) var(--sp-8);
+    margin: 0;
+  }
+
+  .meta div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    border-left: 2px solid var(--asphalt-600);
+    padding-left: var(--sp-4);
+  }
+
+  .meta dt {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .meta dd {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: var(--fs-400);
+  }
+
+  .meta .status {
+    text-transform: uppercase;
+    color: var(--team-primary);
+    font-family: var(--font-mono);
+    letter-spacing: 0.12em;
+    font-size: var(--fs-300);
+  }
+
+  .long-form {
+    padding-block: var(--sp-12);
+    max-width: 720px;
+  }
+
+  .long-form :global(h2) {
+    font-size: var(--fs-600);
+    margin-block: var(--sp-8) var(--sp-3);
+    border-left: 4px solid var(--team-primary);
+    padding-left: var(--sp-3);
+  }
+
+  .long-form :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .long-form :global(p) {
+    color: var(--text-secondary);
+    font-size: var(--fs-500);
+    line-height: 1.7;
+    margin-bottom: var(--sp-4);
+  }
+
+  .long-form :global(ul) {
+    color: var(--text-secondary);
+    font-size: var(--fs-400);
+    line-height: 1.7;
+    padding-left: var(--sp-6);
+  }
+
+  .long-form :global(li) {
+    margin-bottom: var(--sp-2);
+  }
+
+  .fun-fact {
+    margin-top: var(--sp-8);
+    padding: var(--sp-5);
+    border-left: 3px solid var(--team-primary);
+    background: var(--asphalt-800);
+  }
+
+  .fun-fact .eyebrow {
+    color: var(--team-primary);
+    margin-bottom: var(--sp-2);
+  }
+
+  .fun-fact p {
+    margin: 0;
+    color: var(--text-primary);
+    font-style: italic;
+  }
+</style>

@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import KerbDivider from '../components/ui/KerbDivider.astro';
+---
+
+<BaseLayout title="DNF — Page not found" description="Did not finish — that page doesn't exist.">
+  <section class="container notfound">
+    <p class="eyebrow mono">DNF · 404</p>
+    <h1>Did Not Finish.</h1>
+    <p class="lead">The page you were looking for didn't make it across the line. Try one of the sections below — or head <a href="/">back to the start grid</a>.</p>
+
+    <KerbDivider />
+
+    <ul class="links mono">
+      <li><a href="/drivers">→ Drivers</a></li>
+      <li><a href="/teams">→ Teams</a></li>
+      <li><a href="/the-car">→ The Car</a></li>
+      <li><a href="/tracks">→ Tracks</a></li>
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    padding-block: var(--sp-24) var(--sp-16);
+    text-align: center;
+  }
+
+  .notfound h1 {
+    font-size: var(--fs-900);
+    margin-block: var(--sp-3) var(--sp-5);
+  }
+
+  .lead {
+    color: var(--text-secondary);
+    font-size: var(--fs-500);
+    max-width: 56ch;
+    margin-inline: auto;
+    margin-bottom: var(--sp-12);
+    line-height: 1.6;
+  }
+
+  .lead a {
+    color: var(--kerb-yellow);
+    text-decoration: underline;
+  }
+
+  .links {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--sp-12);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-4);
+    justify-content: center;
+    font-size: var(--fs-300);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .links a {
+    color: var(--text-primary);
+  }
+
+  .links a:hover {
+    color: var(--kerb-yellow);
+  }
+</style>

@@ -1,0 +1,37 @@
+name: Refresh jolpica snapshots
+
+on:
+  schedule:
+    # Daily at 06:00 UTC.
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Refresh snapshots
+        run: node scripts/refresh-snapshots.mjs
+
+      - name: Commit changes
+        run: |
+          if [[ -n "$(git status --porcelain data/snapshots)" ]]; then
+            git config user.name "snapshot-bot"
+            git config user.email "snapshot-bot@users.noreply.github.com"
+            git add data/snapshots
+            git commit -m "chore(snapshots): refresh from jolpica"
+            git push
+          else
+            echo "No snapshot changes."
+          fi

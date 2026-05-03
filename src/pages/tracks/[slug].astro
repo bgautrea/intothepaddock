@@ -1,0 +1,126 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/hero/Hero.astro';
+import KerbDivider from '../../components/ui/KerbDivider.astro';
+import StatBlock from '../../components/ui/StatBlock.astro';
+
+export async function getStaticPaths() {
+  const tracks = await getCollection('tracks');
+  return tracks.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const t = entry.data;
+---
+
+<BaseLayout title={t.grandPrix} description={`${t.name} — ${t.city}, ${t.country}`}>
+  <article>
+    <Hero
+      eyebrow={t.nickname ? `${t.country} · ${t.nickname}` : t.country}
+      title={t.grandPrix}
+      subtitle={t.name}
+    >
+      <Fragment slot="visual">
+        <div class="track-stats-grid">
+          <StatBlock value={t.lengthKm} unit="km" label="Lap length" />
+          <StatBlock value={t.laps} label="Laps" />
+          <StatBlock value={t.corners} label="Corners" />
+          <StatBlock value={t.drsZones} label="DRS zones" />
+        </div>
+      </Fragment>
+    </Hero>
+
+    <KerbDivider variant="thin" />
+
+    <section class="container meta-strip">
+      <dl class="meta">
+        <div><dt>City</dt><dd>{t.city}</dd></div>
+        <div><dt>First GP</dt><dd>{t.firstGp}</dd></div>
+        <div><dt>Race distance</dt><dd>{t.raceDistanceKm} km</dd></div>
+        {t.lapRecord && (
+          <div>
+            <dt>Lap record</dt>
+            <dd>{t.lapRecord.time} · {t.lapRecord.driver} ({t.lapRecord.year})</dd>
+          </div>
+        )}
+      </dl>
+    </section>
+
+    <KerbDivider variant="thin" />
+
+    <section class="container long-form">
+      <Content />
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .track-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-3);
+    width: 100%;
+  }
+
+  .meta-strip {
+    padding-block: var(--sp-6);
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--sp-5) var(--sp-8);
+    margin: 0;
+  }
+
+  .meta div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    border-left: 2px solid var(--asphalt-600);
+    padding-left: var(--sp-4);
+  }
+
+  .meta dt {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .meta dd {
+    margin: 0;
+    color: var(--text-primary);
+  }
+
+  .long-form {
+    padding-block: var(--sp-12);
+    max-width: 720px;
+  }
+
+  .long-form :global(p) {
+    color: var(--text-secondary);
+    font-size: var(--fs-500);
+    line-height: 1.7;
+    margin-bottom: var(--sp-4);
+  }
+
+  .long-form :global(h2) {
+    font-size: var(--fs-600);
+    margin-block: var(--sp-8) var(--sp-3);
+    border-left: 4px solid var(--kerb-yellow);
+    padding-left: var(--sp-3);
+  }
+
+  .long-form :global(li) {
+    margin-bottom: var(--sp-2);
+    color: var(--text-secondary);
+  }
+
+  .long-form :global(strong) {
+    color: var(--text-primary);
+  }
+</style>

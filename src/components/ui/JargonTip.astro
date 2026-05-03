@@ -1,0 +1,64 @@
+---
+interface Props {
+  term: string;
+}
+
+const { term } = Astro.props;
+---
+
+<span class="jargon">
+  <span class="jargon-term">{term}</span>
+  <span class="jargon-tip" role="tooltip">
+    <slot />
+  </span>
+</span>
+
+<style>
+  .jargon {
+    position: relative;
+    display: inline-block;
+  }
+
+  .jargon-term {
+    border-bottom: 1px dotted var(--kerb-yellow);
+    color: var(--text-primary);
+    cursor: help;
+  }
+
+  .jargon-tip {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 8px);
+    transform: translateX(-50%);
+    background: var(--asphalt-700);
+    border: 1px solid var(--asphalt-600);
+    border-radius: var(--radius-sm);
+    padding: var(--sp-2) var(--sp-3);
+    font-size: var(--fs-300);
+    color: var(--text-primary);
+    width: max-content;
+    max-width: 280px;
+    line-height: 1.45;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-fast) var(--ease-snap);
+    z-index: 10;
+    box-shadow: var(--shadow-card);
+  }
+
+  .jargon-tip::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--asphalt-700);
+  }
+
+  .jargon:hover .jargon-tip,
+  .jargon:focus-within .jargon-tip {
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>

@@ -1,0 +1,38 @@
+---
+title: 'The Anatomy of an F1 Car'
+subtitle: "Halo. Diffuser. Turbo. Decoded — every part of the world's most advanced racing machine."
+slug: 'the-car'
+heroVisual: 'car-cutaway'
+---
+
+import StepCard from '../../components/cards/StepCard.astro';
+import AnalogyCallout from '../../components/ui/AnalogyCallout.astro';
+
+A modern Formula 1 car is, depending on who you ask, either a 750-kilogram missile or a 17-million-dollar science experiment. It's the most sophisticated four-wheeled machine on Earth — and like any complex tool, it's easier to understand once you break it down into its parts.
+
+This is a placeholder version of the page that exists to validate the build pipeline. The full interactive cutaway and 12+ part deep-dives ship in Milestone 4.
+
+<AnalogyCallout>
+  Reading this page in order is like reading a recipe — each part builds on the one before it.
+  Start at the chassis (the "skeleton") and work outward.
+</AnalogyCallout>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-block: 3rem;">
+
+<StepCard number={1} title="Chassis & Survival Cell" accent="var(--kerb-yellow)" analogy="It's the rollcage of a stunt car, but built from material that's stiffer than steel and lighter than aluminum.">
+The carbon-fiber tub at the heart of the car. The driver sits inside this monocoque. It has to survive impacts that would crumple anything else.
+</StepCard>
+
+<StepCard number={2} title="Power Unit" accent="#dc0000" analogy="A hybrid V6 turbo with the energy recovery of a Prius — but tuned to produce ~1,000 horsepower.">
+A 1.6-litre turbocharged V6 paired with two electric motors (MGU-K and MGU-H) and a battery pack. Burns fuel at over 50% thermal efficiency, which is unheard of in road cars.
+</StepCard>
+
+<StepCard number={3} title="Aerodynamics" accent="#27f4d2" analogy="An upside-down airplane. Wings push the car onto the road instead of into the sky.">
+Front wing, rear wing, floor, sidepods, and diffuser all work together to generate downforce — the invisible force that lets these cars corner at 5g.
+</StepCard>
+
+<StepCard number={4} title="Tyres" accent="#fcd700" analogy="A Pirelli soft compound has a useful life of roughly 20 minutes before it stops working.">
+Five compounds, supplied exclusively by Pirelli. Choosing which to run, when to change them, and how to manage their temperature is most of race strategy.
+</StepCard>
+
+</div>

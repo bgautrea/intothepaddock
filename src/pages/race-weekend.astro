@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/hero/Hero.astro';
+import KerbDivider from '../components/ui/KerbDivider.astro';
+---
+
+<BaseLayout title="Race Weekend" description="Practice, qualifying, sprint, race — what each session actually does.">
+  <Hero
+    eyebrow="Section 04 · Coming in Milestone 4"
+    title="The Race Weekend"
+    subtitle="The full FP1 → FP2 → FP3 → Quali → Race timeline, plus the sprint format. This page is on the way."
+  />
+
+  <KerbDivider variant="thin" />
+
+  <section class="container placeholder">
+    <p class="eyebrow">Status</p>
+    <p>This page will land in the single-topic deep-dive milestone. For now: practice on Friday, qualifying on Saturday, race on Sunday — with sprint weekends rearranging the order at six rounds per year.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .placeholder {
+    padding-block: var(--sp-12);
+    max-width: 720px;
+  }
+
+  .placeholder .eyebrow {
+    margin-bottom: var(--sp-2);
+  }
+
+  .placeholder p {
+    color: var(--text-secondary);
+    font-size: var(--fs-500);
+    line-height: 1.6;
+  }
+</style>

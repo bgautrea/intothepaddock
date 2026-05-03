@@ -1,0 +1,45 @@
+---
+interface Props {
+  label?: string;
+}
+
+const { label = 'Think of it like' } = Astro.props;
+---
+
+<aside class="analogy">
+  <span class="analogy-label mono">{label}</span>
+  <div class="analogy-body">
+    <slot />
+  </div>
+</aside>
+
+<style>
+  .analogy {
+    margin-block: var(--sp-6);
+    padding: var(--sp-5) var(--sp-6);
+    background: rgba(252, 231, 0, 0.04);
+    border: 1px solid rgba(252, 231, 0, 0.18);
+    border-left-width: 4px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .analogy-label {
+    color: var(--kerb-yellow);
+    font-size: var(--fs-200);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: var(--sp-2);
+  }
+
+  .analogy-body {
+    color: var(--text-primary);
+    font-size: var(--fs-500);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .analogy-body :global(p) {
+    margin: 0;
+  }
+</style>

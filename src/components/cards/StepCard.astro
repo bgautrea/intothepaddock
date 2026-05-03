@@ -1,0 +1,96 @@
+---
+interface Props {
+  number: string | number;
+  title: string;
+  accent?: string;
+  analogy?: string;
+}
+
+const { number, title, accent = 'var(--kerb-yellow)', analogy } = Astro.props;
+const numStr = typeof number === 'number' ? String(number).padStart(2, '0') : number;
+---
+
+<article class="step-card" style={`--accent: ${accent};`}>
+  <span class="step-stripe" aria-hidden="true"></span>
+  <p class="step-num mono">STEP {numStr}</p>
+  <h3 class="step-title">{title}</h3>
+  <div class="step-body">
+    <slot />
+  </div>
+  {analogy && (
+    <div class="step-analogy">
+      <span class="analogy-tag mono">THINK OF IT LIKE</span>
+      <p>{analogy}</p>
+    </div>
+  )}
+</article>
+
+<style>
+  .step-card {
+    --accent: var(--kerb-yellow);
+    background: var(--asphalt-800);
+    border: var(--border-thin);
+    border-radius: var(--radius-md);
+    padding: var(--sp-6) var(--sp-6) var(--sp-5);
+    position: relative;
+    overflow: hidden;
+    transition:
+      border-color var(--dur-base) var(--ease-snap),
+      transform var(--dur-base) var(--ease-snap);
+  }
+
+  .step-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .step-stripe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+  }
+
+  .step-num {
+    color: var(--concrete);
+    font-size: var(--fs-200);
+    letter-spacing: 0.18em;
+    margin-bottom: var(--sp-2);
+  }
+
+  .step-title {
+    color: var(--text-primary);
+    font-size: var(--fs-600);
+    margin-bottom: var(--sp-3);
+  }
+
+  .step-body {
+    color: var(--text-secondary);
+    font-size: var(--fs-400);
+    line-height: 1.6;
+  }
+
+  .step-analogy {
+    margin-top: var(--sp-5);
+    padding: var(--sp-3) var(--sp-4);
+    background: rgba(252, 231, 0, 0.05);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .analogy-tag {
+    color: var(--accent);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    display: block;
+    margin-bottom: var(--sp-1);
+  }
+
+  .step-analogy p {
+    color: var(--text-primary);
+    font-size: var(--fs-300);
+    font-style: italic;
+  }
+</style>

@@ -1,0 +1,92 @@
+/*
+ * F1 for Dummies — design tokens
+ * Trackside / pit-wall identity. Asphalt charcoal + racing-line yellow + kerb-stripe white.
+ */
+
+:root {
+  /* Surface palette */
+  --asphalt-900: #0e0f10;
+  --asphalt-800: #16181b;
+  --asphalt-700: #1f2226;
+  --asphalt-600: #2c3037;
+  --asphalt-500: #3a3f47;
+  --tarmac-shine: #3a3f47;
+
+  /* Primary accent */
+  --kerb-yellow: #fce700;
+  --kerb-yellow-dim: #c4b300;
+  --kerb-white: #f5f5f3;
+
+  /* Text */
+  --text-primary: #f5f5f3;
+  --text-secondary: #c8ccd3;
+  --concrete: #9ca0a6;
+  --text-muted: #6c7079;
+
+  /* Telemetry / sector colors */
+  --sector-purple: #b545ff;
+  --sector-green: #2ecc71;
+  --sector-yellow: #f4d03f;
+  --flag-red: #ff2e2e;
+  --flag-blue: #2e7bff;
+
+  /* Tyre compounds */
+  --tyre-soft: #e10600;
+  --tyre-medium: #f3d54e;
+  --tyre-hard: #f5f5f3;
+  --tyre-intermediate: #2bbf4d;
+  --tyre-wet: #2680ff;
+
+  /* Default team accent (overridden per page) */
+  --team-primary: var(--kerb-yellow);
+
+  /* Type */
+  --font-display: 'Barlow Condensed', 'Oswald', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace;
+
+  --fs-200: 0.75rem;
+  --fs-300: 0.875rem;
+  --fs-400: 1rem;
+  --fs-500: 1.125rem;
+  --fs-600: 1.5rem;
+  --fs-700: 2rem;
+  --fs-800: 3rem;
+  --fs-900: clamp(2.75rem, 6vw, 5.5rem);
+
+  --lh-tight: 1.1;
+  --lh-normal: 1.55;
+
+  /* Spacing */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.25rem;
+  --sp-6: 1.5rem;
+  --sp-8: 2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+  --sp-24: 6rem;
+
+  /* Layout */
+  --container-max: 1200px;
+  --nav-height: 56px;
+
+  /* Borders + radii */
+  --border-thin: 1px solid var(--asphalt-600);
+  --border-bright: 1px solid var(--kerb-yellow);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  /* Shadows */
+  --shadow-card: 0 1px 0 0 rgba(252, 231, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --glow-yellow: 0 0 24px rgba(252, 231, 0, 0.18);
+
+  /* Motion */
+  --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+}

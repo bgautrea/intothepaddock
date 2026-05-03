@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: f1fordummies
+  namespace: f1fordummies
+  annotations:
+    # Adjust if the cluster uses Traefik (kubernetes.io/ingress.class: traefik) instead.
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - REPLACE_ME.example
+      secretName: f1fordummies-tls
+  rules:
+    - host: REPLACE_ME.example
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: f1fordummies
+                port:
+                  number: 80

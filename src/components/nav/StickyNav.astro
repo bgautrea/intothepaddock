@@ -1,0 +1,208 @@
+---
+const { pathname } = Astro.url;
+
+const sections = [
+  { href: '/drivers', label: 'Drivers' },
+  { href: '/teams', label: 'Teams' },
+  { href: '/the-car', label: 'The Car' },
+  { href: '/race-weekend', label: 'Race Weekend' },
+  { href: '/rules', label: 'Rules' },
+  { href: '/tracks', label: 'Tracks' },
+  { href: '/strategy', label: 'Strategy' },
+];
+
+const isActive = (href: string) =>
+  href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(href + '/');
+---
+
+<nav class="nav-bar" aria-label="Primary">
+  <div class="nav-inner container">
+    <a href="/" class="nav-brand" aria-label="Home">
+      <span class="brand-mark">▮▮▮</span>
+      <span class="brand-text">F1 / FOR DUMMIES</span>
+    </a>
+
+    <button class="nav-toggle" aria-controls="primary-links" aria-expanded="false" id="nav-toggle">
+      <span class="sr-only">Toggle menu</span>
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+
+    <div class="nav-links" id="primary-links">
+      {
+        sections.map((s) => (
+          <a href={s.href} class={`nav-link ${isActive(s.href) ? 'active' : ''}`}>
+            {isActive(s.href) && <span class="active-marker" aria-hidden="true">▸ </span>}
+            {s.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+  <span class="kerb kerb--thin" aria-hidden="true"></span>
+</nav>
+
+<style>
+  .nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(14, 15, 16, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: var(--border-thin);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--nav-height);
+    gap: var(--sp-4);
+  }
+
+  .nav-brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--sp-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-200);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+
+  .brand-mark {
+    color: var(--kerb-yellow);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .nav-link {
+    font-family: var(--font-display);
+    font-size: var(--fs-300);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--concrete);
+    padding: var(--sp-2) var(--sp-3);
+    border-radius: var(--radius-sm);
+    transition: color var(--dur-fast) var(--ease-snap);
+    position: relative;
+  }
+
+  .nav-link:hover {
+    color: var(--text-primary);
+  }
+
+  .nav-link.active {
+    color: var(--kerb-yellow);
+  }
+
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: var(--sp-3);
+    right: var(--sp-3);
+    bottom: 2px;
+    height: 2px;
+    background: var(--kerb-yellow);
+  }
+
+  .active-marker {
+    display: inline;
+    color: var(--kerb-yellow);
+  }
+
+  .nav-toggle {
+    display: none;
+    background: transparent;
+    border: var(--border-thin);
+    border-radius: var(--radius-sm);
+    width: 36px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .hamburger,
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--kerb-yellow);
+    transition: transform var(--dur-fast) var(--ease-snap);
+  }
+
+  .hamburger::before {
+    transform: translateY(-6px);
+  }
+  .hamburger::after {
+    transform: translateY(4px);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 880px) {
+    .nav-toggle {
+      display: inline-flex;
+    }
+
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: var(--nav-height);
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      background: var(--asphalt-900);
+      border-bottom: var(--border-thin);
+      padding: var(--sp-4);
+      gap: var(--sp-1);
+    }
+
+    .nav-bar[data-open='true'] .nav-links {
+      display: flex;
+    }
+
+    .nav-link {
+      padding: var(--sp-3) var(--sp-4);
+    }
+
+    .nav-link.active::after {
+      left: var(--sp-4);
+      bottom: 6px;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const toggle = document.getElementById('nav-toggle');
+    const bar = toggle?.closest('.nav-bar');
+    if (!toggle || !bar) return;
+    toggle.addEventListener('click', () => {
+      const isOpen = bar.getAttribute('data-open') === 'true';
+      bar.setAttribute('data-open', String(!isOpen));
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+    });
+  })();
+</script>

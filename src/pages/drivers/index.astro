@@ -1,0 +1,59 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/hero/Hero.astro';
+import EntityCard from '../../components/cards/EntityCard.astro';
+import KerbDivider from '../../components/ui/KerbDivider.astro';
+import { getTeamColor } from '../../lib/teamColors';
+
+const drivers = await getCollection('drivers');
+
+const cards = await Promise.all(
+  drivers.map(async (d) => {
+    const team = await getEntry(d.data.team);
+    const accent = team
+      ? team.data.primaryColor
+      : getTeamColor(typeof d.data.team === 'string' ? d.data.team : d.data.team.id);
+    return {
+      href: `/drivers/${d.id}`,
+      title: d.data.name,
+      badge: `#${d.data.number}`,
+      subtitle: team?.data.shortName ?? '—',
+      accent,
+      stats: [
+        { label: 'Wins', value: d.data.careerWins },
+        { label: 'Podiums', value: d.data.careerPodiums },
+        { label: 'Titles', value: d.data.championships },
+      ],
+    };
+  })
+);
+---
+
+<BaseLayout title="Drivers" description="The current F1 grid plus selected legends — every driver, decoded.">
+  <Hero
+    eyebrow="Section 01"
+    title="The Drivers"
+    subtitle="Twenty active racers. Five legends. Each one is a deep-dive into who they are, how they drive, and why they matter."
+  />
+
+  <KerbDivider variant="thin" />
+
+  <section class="container drivers-section">
+    <div class="grid">
+      {cards.map((c) => <EntityCard {...c} />)}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .drivers-section {
+    padding-block: var(--sp-12);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--sp-5);
+  }
+</style>

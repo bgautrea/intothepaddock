@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/hero/Hero.astro';
+import KerbDivider from '../components/ui/KerbDivider.astro';
+import EntityCard from '../components/cards/EntityCard.astro';
+import StepCard from '../components/cards/StepCard.astro';
+import NextRaceCountdown from '../components/live/NextRaceCountdown.astro';
+import { getNextRace, raceStartISO } from '../lib/jolpica';
+
+const next = await getNextRace();
+
+const sections = [
+  { href: '/drivers', title: 'Drivers', badge: 'SECTION 01', subtitle: 'The current grid and the legends who built the sport.', accent: '#fce700' },
+  { href: '/teams', title: 'Teams', badge: 'SECTION 02', subtitle: 'Ten constructors. Ten engineering philosophies. Ten paint schemes.', accent: '#dc0000' },
+  { href: '/the-car', title: 'The Car', badge: 'SECTION 03', subtitle: 'Halo. Diffuser. Turbo. Every part of an F1 car decoded.', accent: '#27f4d2' },
+  { href: '/race-weekend', title: 'Race Weekend', badge: 'SECTION 04', subtitle: 'Practice, qualifying, sprint, race — what each session actually does.', accent: '#ff8000' },
+  { href: '/rules', title: 'Rules & Regs', badge: 'SECTION 05', subtitle: 'Points, flags, penalties, parc fermé — without the rulebook tedium.', accent: '#b545ff' },
+  { href: '/tracks', title: 'Tracks', badge: 'SECTION 06', subtitle: '24 circuits, 24 personalities. From Monaco to Las Vegas.', accent: '#2bbf4d' },
+  { href: '/strategy', title: 'Strategy', badge: 'SECTION 07', subtitle: 'Tyres, pit stops, undercut, DRS, ERS — the why behind every move.', accent: '#1e41ff' },
+];
+---
+
+<BaseLayout title="F1 for Dummies" description="An independent guide to Formula 1 for newcomers and casual fans leveling up.">
+  <Hero
+    eyebrow="An independent guide"
+    title="Understand Formula 1."
+    subtitle="No jargon left undefined. No knowledge assumed. Built for fans who started with Drive to Survive — and want to know how the sport actually works."
+  >
+    <Fragment slot="visual">
+      {next ? (
+        <NextRaceCountdown
+          raceName={next.raceName}
+          circuit={`${next.Circuit.circuitName} · ${next.Circuit.Location.locality}`}
+          raceDate={raceStartISO(next)}
+          round={Number(next.round)}
+        />
+      ) : (
+        <p class="muted-mono">Season schedule unavailable.</p>
+      )}
+    </Fragment>
+  </Hero>
+
+  <section class="container what-is">
+    <p class="eyebrow">What Is F1?</p>
+    <h2>Twenty drivers. Ten teams. The fastest cars on Earth.</h2>
+    <p class="lead">
+      Formula 1 is the top tier of motorsport. Each year, ten teams build two cars from scratch
+      under a strict rulebook, and twenty drivers race them around twenty-four circuits.
+      Whoever scores the most points becomes World Champion. That's the surface. The depth —
+      the engineering, the strategy, the politics — is what this site exists to explain.
+    </p>
+  </section>
+
+  <KerbDivider />
+
+  <section class="container sections">
+    <p class="eyebrow">Pick a section</p>
+    <h2>Where do you want to start?</h2>
+    <div class="section-grid">
+      {sections.map((s) => <EntityCard {...s} />)}
+    </div>
+  </section>
+
+  <KerbDivider variant="thin" />
+
+  <section class="container how-to-read">
+    <p class="eyebrow">How to read this site</p>
+    <h2>Two audiences. Same pages.</h2>
+
+    <div class="how-grid">
+      <StepCard number="A" title="Just here to get the basics" accent="#fce700" analogy="Read the top of every page and stop where you want.">
+        Each page opens in plain language. No jargon, no assumed knowledge. If you only read the
+        top of every section, you'll come away with a real understanding of what Formula 1 is.
+      </StepCard>
+
+      <StepCard number="B" title="Want the strategic 'why'" accent="#27f4d2" analogy="Keep scrolling. The deeper you go, the deeper the page goes.">
+        Every page has a deep end. Strategic context, technical detail, the reasoning behind why
+        teams make the calls they do. If you've watched a season or two and want to level up,
+        that's where you'll spend your time.
+      </StepCard>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .what-is {
+    padding-block: var(--sp-16) var(--sp-12);
+  }
+
+  .what-is h2 {
+    margin-block: var(--sp-3) var(--sp-5);
+  }
+
+  .lead {
+    color: var(--text-secondary);
+    font-size: var(--fs-500);
+    max-width: 70ch;
+    line-height: 1.6;
+  }
+
+  .sections {
+    padding-block: var(--sp-12);
+  }
+
+  .sections h2 {
+    margin-block: var(--sp-3) var(--sp-8);
+  }
+
+  .section-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--sp-5);
+  }
+
+  .how-to-read {
+    padding-block: var(--sp-12);
+  }
+
+  .how-to-read h2 {
+    margin-block: var(--sp-3) var(--sp-8);
+  }
+
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--sp-5);
+  }
+
+  .muted-mono {
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--fs-300);
+    text-align: center;
+  }
+</style>

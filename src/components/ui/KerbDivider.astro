@@ -1,0 +1,20 @@
+---
+interface Props {
+  variant?: 'thin' | 'normal' | 'thick';
+  diag?: boolean;
+  inverted?: boolean;
+}
+
+const { variant = 'normal', diag = false, inverted = false } = Astro.props;
+const classes = [
+  'kerb',
+  variant === 'thin' && 'kerb--thin',
+  variant === 'thick' && 'kerb--thick',
+  diag && 'kerb--diag',
+  inverted && 'kerb--inverted',
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<span class={classes} aria-hidden="true"></span>

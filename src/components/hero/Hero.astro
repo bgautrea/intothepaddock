@@ -1,0 +1,84 @@
+---
+import KerbDivider from '../ui/KerbDivider.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  align?: 'left' | 'center';
+}
+
+const { eyebrow, title, subtitle, align = 'left' } = Astro.props;
+---
+
+<section class={`hero ${align === 'center' ? 'hero--center' : ''}`}>
+  <KerbDivider variant="thin" />
+  <div class="container hero-grid">
+    <div class="hero-text">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1 class="hero-title">{title}</h1>
+      {subtitle && <p class="hero-sub">{subtitle}</p>}
+    </div>
+    {Astro.slots.has('visual') && (
+      <div class="hero-visual">
+        <slot name="visual" />
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: var(--sp-12) var(--sp-16);
+    background:
+      radial-gradient(circle at 95% 10%, rgba(252, 231, 0, 0.06) 0%, transparent 45%),
+      var(--asphalt-900);
+  }
+
+  .hero--center .hero-grid {
+    text-align: center;
+    grid-template-columns: 1fr;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: var(--sp-12);
+    align-items: center;
+    padding-top: var(--sp-8);
+  }
+
+  .hero-text .eyebrow {
+    margin-bottom: var(--sp-3);
+  }
+
+  .hero-title {
+    color: var(--text-primary);
+    margin-bottom: var(--sp-4);
+  }
+
+  .hero-sub {
+    font-size: var(--fs-500);
+    color: var(--text-secondary);
+    max-width: 56ch;
+    line-height: 1.5;
+  }
+
+  .hero-visual {
+    border: var(--border-thin);
+    background: var(--asphalt-800);
+    border-radius: var(--radius-md);
+    padding: var(--sp-6);
+    min-height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (max-width: 880px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: var(--sp-8);
+    }
+  }
+</style>

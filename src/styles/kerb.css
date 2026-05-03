@@ -1,0 +1,53 @@
+/*
+ * Kerb-stripe motif.
+ * The hallmark visual element — alternating yellow/white blocks like the run-off kerbs at a circuit.
+ */
+
+.kerb {
+  --kerb-block: 24px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--kerb-yellow) 0 var(--kerb-block),
+    var(--kerb-white) var(--kerb-block) calc(var(--kerb-block) * 2)
+  );
+  height: 8px;
+  width: 100%;
+  display: block;
+}
+
+.kerb--thick {
+  height: 14px;
+  --kerb-block: 32px;
+}
+
+.kerb--thin {
+  height: 4px;
+  --kerb-block: 16px;
+}
+
+.kerb--diag {
+  background: repeating-linear-gradient(
+    -28deg,
+    var(--kerb-yellow) 0 var(--kerb-block),
+    var(--kerb-white) var(--kerb-block) calc(var(--kerb-block) * 2)
+  );
+}
+
+.kerb--inverted {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--kerb-white) 0 var(--kerb-block),
+    var(--kerb-yellow) var(--kerb-block) calc(var(--kerb-block) * 2)
+  );
+}
+
+/* Vertical variant for side accents */
+.kerb--vertical {
+  background: repeating-linear-gradient(
+    0deg,
+    var(--kerb-yellow) 0 var(--kerb-block),
+    var(--kerb-white) var(--kerb-block) calc(var(--kerb-block) * 2)
+  );
+  width: 8px;
+  height: 100%;
+}

@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/hero/Hero.astro';
+import KerbDivider from '../components/ui/KerbDivider.astro';
+---
+
+<BaseLayout title="Strategy" description="Tyres, pit stops, undercut, DRS, ERS — the why behind every move.">
+  <Hero
+    eyebrow="Section 07 · Coming in Milestone 4"
+    title="Race Strategy"
+    subtitle="Tyre compounds, pit-stop windows, undercut/overcut, DRS, ERS deployment. This page is on the way."
+  />
+
+  <KerbDivider variant="thin" />
+
+  <section class="container placeholder">
+    <p class="eyebrow">Status</p>
+    <p>This page will land in the single-topic deep-dive milestone. The short version: every race is a chess match between teams, drivers, and four rubber compounds.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .placeholder {
+    padding-block: var(--sp-12);
+    max-width: 720px;
+  }
+
+  .placeholder .eyebrow {
+    margin-bottom: var(--sp-2);
+  }
+
+  .placeholder p {
+    color: var(--text-secondary);
+    font-size: var(--fs-500);
+    line-height: 1.6;
+  }
+</style>

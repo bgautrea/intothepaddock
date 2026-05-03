@@ -1,0 +1,106 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/hero/Hero.astro';
+import KerbDivider from '../../components/ui/KerbDivider.astro';
+import StatBlock from '../../components/ui/StatBlock.astro';
+
+export async function getStaticPaths() {
+  const teams = await getCollection('teams');
+  return teams.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const t = entry.data;
+---
+
+<BaseLayout title={t.name} description={t.tagline}>
+  <article style={`--team-primary: ${t.primaryColor};`}>
+    <Hero eyebrow="Constructor" title={t.shortName} subtitle={t.tagline}>
+      <Fragment slot="visual">
+        <div class="team-stats-grid">
+          <StatBlock value={t.constructorTitles} label="Constructor titles" />
+          <StatBlock value={t.foundedSeason} label="First season" />
+        </div>
+      </Fragment>
+    </Hero>
+
+    <KerbDivider variant="thin" />
+
+    <section class="container meta-strip">
+      <dl class="meta">
+        <div><dt>Full name</dt><dd>{t.name}</dd></div>
+        <div><dt>Base</dt><dd>{t.base}</dd></div>
+        <div><dt>Team principal</dt><dd>{t.teamPrincipal}</dd></div>
+        <div><dt>Power unit</dt><dd>{t.powerUnit}</dd></div>
+      </dl>
+    </section>
+
+    <KerbDivider variant="thin" />
+
+    <section class="container long-form">
+      <Content />
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .team-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-3);
+    width: 100%;
+  }
+
+  .meta-strip {
+    padding-block: var(--sp-6);
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--sp-5) var(--sp-8);
+    margin: 0;
+  }
+
+  .meta div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    border-left: 2px solid var(--asphalt-600);
+    padding-left: var(--sp-4);
+  }
+
+  .meta dt {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .meta dd {
+    margin: 0;
+    color: var(--text-primary);
+  }
+
+  .long-form {
+    padding-block: var(--sp-12);
+    max-width: 720px;
+  }
+
+  .long-form :global(p) {
+    color: var(--text-secondary);
+    font-size: var(--fs-500);
+    line-height: 1.7;
+    margin-bottom: var(--sp-4);
+  }
+
+  .long-form :global(h2) {
+    font-size: var(--fs-600);
+    margin-block: var(--sp-8) var(--sp-3);
+    border-left: 4px solid var(--team-primary);
+    padding-left: var(--sp-3);
+  }
+</style>

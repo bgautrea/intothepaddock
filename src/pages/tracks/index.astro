@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/hero/Hero.astro';
+import EntityCard from '../../components/cards/EntityCard.astro';
+import KerbDivider from '../../components/ui/KerbDivider.astro';
+
+const tracks = await getCollection('tracks');
+tracks.sort((a, b) => (a.data.calendarRound ?? 99) - (b.data.calendarRound ?? 99));
+
+const cards = tracks.map((t) => ({
+  href: `/tracks/${t.id}`,
+  title: t.data.grandPrix,
+  badge: t.data.calendarRound ? `ROUND ${t.data.calendarRound}` : t.data.country.toUpperCase(),
+  subtitle: t.data.nickname ?? t.data.name,
+  accent: '#fce700',
+  stats: [
+    { label: 'Length', value: `${t.data.lengthKm} km` },
+    { label: 'Corners', value: t.data.corners },
+    { label: 'Laps', value: t.data.laps },
+  ],
+}));
+---
+
+<BaseLayout title="Tracks" description="Every circuit on the F1 calendar — the layout, history, and what to watch for.">
+  <Hero
+    eyebrow="Section 06"
+    title="The Tracks"
+    subtitle="24 circuits, 24 personalities. Some are flat-out blasts; some are technical chess matches. Each demands a different car setup, different tyre strategy, and different driving style."
+  />
+
+  <KerbDivider variant="thin" />
+
+  <section class="container tracks-section">
+    <div class="grid">
+      {cards.map((c) => <EntityCard {...c} />)}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .tracks-section {
+    padding-block: var(--sp-12);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--sp-5);
+  }
+</style>
