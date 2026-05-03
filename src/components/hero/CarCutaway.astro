@@ -1,24 +1,28 @@
 ---
 /**
- * CarCutaway — placeholder for Milestone 2.
- * Full interactive cutaway with hotspots ships in Milestone 4.
+ * CarCutaway — interactive side-view of a 2026-spec F1 car.
  *
- * For now: a stylized side-profile silhouette with a pit-wall caption.
+ * 14 hotspots, each `<g class="part">` wrapped in `<a href="#part-…">`.
+ * Hover/focus paints the part in kerb-yellow and reveals a tooltip label.
+ * No JS — all state is CSS, all linking is anchor-based.
+ *
+ * ViewBox 1200×420 (panoramic, suiting the long, low silhouette).
+ *
+ * Coordinate guide:
+ *   ground/track surface  : y = 320
+ *   front wheel center    : (290, 265) r 58
+ *   rear  wheel center    : (910, 265) r 58
+ *   monocoque top         : y = 195
+ *   halo peak             : y = 135
  */
-
-interface Props {
-  caption?: string;
-}
-
-const { caption = 'Interactive cutaway coming soon' } = Astro.props;
 ---
 
 <figure class="cutaway">
   <svg
     class="cutaway-svg"
-    viewBox="0 0 800 240"
+    viewBox="0 0 1200 420"
     role="img"
-    aria-label="F1 car side profile placeholder"
+    aria-label="2026-spec Formula 1 car cutaway with 14 labeled parts"
     xmlns="http://www.w3.org/2000/svg"
   >
     <defs>
@@ -26,38 +30,321 @@ const { caption = 'Interactive cutaway coming soon' } = Astro.props;
         <stop offset="0%" stop-color="#2c3037" />
         <stop offset="100%" stop-color="#16181b" />
       </linearGradient>
+      <linearGradient id="halograd" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#3a3f47" />
+        <stop offset="100%" stop-color="#1f2226" />
+      </linearGradient>
+      <pattern id="kerbStripe" width="14" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(0)">
+        <rect width="7" height="6" fill="#fce700" />
+        <rect x="7" width="7" height="6" fill="#f5f5f3" />
+      </pattern>
     </defs>
 
-    <!-- Floor -->
-    <line x1="40" y1="200" x2="760" y2="200" stroke="#2c3037" stroke-width="1" stroke-dasharray="6 4" />
+    <!-- Asphalt strip -->
+    <rect x="0" y="320" width="1200" height="22" fill="#0e0f10" />
+    <line x1="0" y1="320" x2="1200" y2="320" stroke="#2c3037" stroke-width="1" />
+    <!-- Kerb stripe at the bottom edge of the figure -->
+    <rect x="0" y="342" width="1200" height="4" fill="url(#kerbStripe)" opacity="0.6" />
 
-    <!-- Front wing -->
-    <path d="M 80 175 L 140 175 L 150 165 L 145 155 L 110 155 Z" fill="url(#bodyGrad)" stroke="#fce700" stroke-width="1.2" />
-    <!-- Nose -->
-    <path d="M 145 165 L 280 130 L 360 110 L 360 145 L 250 165 Z" fill="url(#bodyGrad)" stroke="#fce700" stroke-width="1.2" />
-    <!-- Sidepod / chassis -->
-    <path d="M 360 110 L 540 105 L 600 130 L 600 175 L 360 175 Z" fill="url(#bodyGrad)" stroke="#fce700" stroke-width="1.2" />
-    <!-- Halo -->
-    <path d="M 360 110 Q 410 70 470 75 Q 510 80 530 105" fill="none" stroke="#f5f5f3" stroke-width="3" />
-    <!-- Engine cover / airbox -->
-    <path d="M 410 80 L 470 85 L 480 105 L 410 105 Z" fill="#1f2226" stroke="#fce700" stroke-width="1" />
-    <!-- Rear wing -->
-    <path d="M 600 100 L 680 98 L 685 92 L 720 90 L 720 130 L 690 132 L 600 130 Z" fill="url(#bodyGrad)" stroke="#fce700" stroke-width="1.2" />
-    <!-- Rear wheel -->
-    <circle cx="650" cy="180" r="34" fill="#0e0f10" stroke="#3a3f47" stroke-width="2" />
-    <circle cx="650" cy="180" r="18" fill="#1f2226" stroke="#fce700" stroke-width="1" />
-    <!-- Front wheel -->
-    <circle cx="200" cy="180" r="34" fill="#0e0f10" stroke="#3a3f47" stroke-width="2" />
-    <circle cx="200" cy="180" r="18" fill="#1f2226" stroke="#fce700" stroke-width="1" />
+    <!-- Faint horizon-ish reference lines (purely decorative) -->
+    <line x1="0" y1="195" x2="1200" y2="195" stroke="#1f2226" stroke-width="1" stroke-dasharray="2 6" />
 
-    <!-- Caption marker dots -->
-    <circle cx="115" cy="165" r="3" fill="#fce700" opacity="0.6" />
-    <circle cx="320" cy="135" r="3" fill="#fce700" opacity="0.6" />
-    <circle cx="450" cy="100" r="3" fill="#fce700" opacity="0.6" />
-    <circle cx="700" cy="105" r="3" fill="#fce700" opacity="0.6" />
+    <!-- ============== TYRES (front + rear) ============== -->
+    <a href="#part-tyres" aria-label="Tyres">
+      <g class="part part--tyres">
+        <!-- Front tyre -->
+        <circle cx="290" cy="265" r="58" fill="#0e0f10" stroke="#3a3f47" stroke-width="2.5" />
+        <circle cx="290" cy="265" r="38" fill="#16181b" stroke="#3a3f47" stroke-width="1" />
+        <!-- Tread blocks -->
+        <circle cx="290" cy="265" r="58" fill="none" stroke="#1f2226" stroke-width="1" stroke-dasharray="3 5" />
+        <!-- Rear tyre -->
+        <circle cx="910" cy="265" r="58" fill="#0e0f10" stroke="#3a3f47" stroke-width="2.5" />
+        <circle cx="910" cy="265" r="38" fill="#16181b" stroke="#3a3f47" stroke-width="1" />
+        <circle cx="910" cy="265" r="58" fill="none" stroke="#1f2226" stroke-width="1" stroke-dasharray="3 5" />
+        <!-- Hit overlays (front + rear) -->
+        <circle class="hit" cx="290" cy="265" r="60" fill="transparent" />
+        <circle class="hit" cx="910" cy="265" r="60" fill="transparent" />
+        <!-- Tooltips -->
+        <g class="label" transform="translate(290 195)">
+          <rect x="-44" y="-22" width="88" height="22" rx="3" />
+          <text x="0" y="-7" text-anchor="middle">Tyres</text>
+        </g>
+      </g>
+    </a>
+
+    <!-- ============== BRAKES ============== -->
+    <a href="#part-brakes" aria-label="Brakes">
+      <g class="part part--brakes">
+        <!-- Front brake disc + caliper -->
+        <circle cx="290" cy="265" r="22" fill="#1f2226" stroke="#fce700" stroke-width="1.2" />
+        <circle cx="290" cy="265" r="22" fill="none" stroke="#3a3f47" stroke-width="0.5" stroke-dasharray="2 3" />
+        <rect x="282" y="244" width="16" height="6" fill="#3a3f47" stroke="#1f2226" stroke-width="0.5" />
+        <!-- Brake duct intake (visible at outboard side of front wheel) -->
+        <path d="M 226,248 L 244,253 L 244,277 L 226,282 Z" fill="#16181b" stroke="#3a3f47" stroke-width="1" />
+        <!-- Rear brake disc -->
+        <circle cx="910" cy="265" r="22" fill="#1f2226" stroke="#fce700" stroke-width="1.2" />
+        <rect x="902" y="244" width="16" height="6" fill="#3a3f47" stroke="#1f2226" stroke-width="0.5" />
+        <!-- Hit overlays -->
+        <rect class="hit" x="222" y="240" width="32" height="50" fill="transparent" />
+        <rect class="hit" x="892" y="240" width="32" height="50" fill="transparent" />
+        <g class="label" transform="translate(220 248)">
+          <rect x="-50" y="-20" width="50" height="20" rx="3" />
+          <text x="-25" y="-6" text-anchor="middle">Brakes</text>
+        </g>
+      </g>
+    </a>
+
+    <!-- ============== FRONT WING ============== -->
+    <a href="#part-front-wing" aria-label="Front wing">
+      <g class="part part--front-wing">
+        <!-- Endplate (vertical, anchoring inboard of the front wheel) -->
+        <path d="M 218,238 L 226,238 L 230,295 L 220,298 Z" fill="#16181b" stroke="#fce700" stroke-width="1.2" />
+        <!-- Mainplane (lowest blade, widest) -->
+        <path d="M 80,283 C 130,278 175,278 222,280 L 222,290 C 178,292 130,292 80,290 Z" fill="url(#bodyGrad)" stroke="#fce700" stroke-width="1.2" />
+        <!-- Mid element -->
+        <path d="M 92,272 C 140,268 175,268 220,271 L 220,278 C 175,278 140,278 92,278 Z" fill="#1f2226" stroke="#fce700" stroke-width="1" />
+        <!-- Top element (flap) -->
+        <path d="M 110,261 C 150,258 180,258 218,260 L 218,268 C 180,268 150,268 110,268 Z" fill="#1f2226" stroke="#fce700" stroke-width="1" />
+        <!-- Nose-to-mainplane strut -->
+        <path d="M 200,255 L 218,260 L 218,272 L 200,268 Z" fill="#16181b" stroke="#fce700" stroke-width="0.8" />
+        <!-- Hit overlay -->
+        <rect class="hit" x="78" y="252" width="148" height="48" fill="transparent" />
+        <g class="label" transform="translate(150 232)">
+          <rect x="-58" y="-22" width="116" height="22" rx="3" />
+          <text x="0" y="-7" text-anchor="middle">Front wing</text>
+        </g>
+      </g>
+    </a>
+
+    <!-- ============== NOSE ============== -->
+    <a href="#part-nose" aria-label="Nose">
+      <g class="part part--nose">
+        <!-- Nose cone, monocoque-mounted -->
+        <path d="M 200,255 C 250,242 320,228 380,218 L 420,210 L 420,250 C 360,256 290,265 220,272 Z"
+              fill="url(#bodyGrad)" stroke="#fce700" stroke-width="1.6" />
+        <!-- T-camera bump on top -->
+        <rect x="350" y="216" width="14" height="6" fill="#0e0f10" stroke="#3a3f47" stroke-width="0.6" rx="1" />
+        <rect class="hit" x="200" y="208" width="220" height="60" fill="transparent" />
+        <g class="label" transform="translate(310 200)">
+          <rect x="-40" y="-22" width="80" height="22" rx="3" />
+          <text x="0" y="-7" text-anchor="middle">Nose</text>
+        </g>
+      </g>
+    </a>
+
+    <!-- ============== HALO ============== -->
+    <a href="#part-halo" aria-label="Halo">
+      <g class="part part--halo">
+        <!-- Halo curve -->
+        <path d="M 440,200 C 445,165 480,138 530,135 C 580,138 600,170 600,200"
+              fill="none" stroke="url(#halograd)" stroke-width="9" stroke-linecap="round" />
+        <!-- Outer thin highlight -->
+        <path d="M 440,200 C 445,165 480,138 530,135 C 580,138 600,170 600,200"
+              fill="none" stroke="#f5f5f3" stroke-width="1.2" stroke-linecap="round" opacity="0.4" />
+        <!-- Front pillar (the central halo strut) -->
+        <line x1="530" y1="135" x2="530" y2="195" stroke="url(#halograd)" stroke-width="6" stroke-linecap="round" />
+        <rect class="hit" x="430" y="125" width="180" height="78" fill="transparent" />
+        <g class="label" transform="translate(530 115)">
+          <rect x="-32" y="-22" width="64" height="22" rx="3" />
+          <text x="0" y="-7" text-anchor="middle">Halo</text>
+        </g>
+      </g>
+    </a>
+
+    <!-- ============== AIRBOX ============== -->
+    <a href="#part-airbox" aria-label="Airbox">
+      <g class="part part--airbox">
+        <!-- Periscope intake behind/above driver helmet -->
+        <path d="M 558,148 C 552,158 552,170 558,178 L 600,180 C 610,170 610,160 600,150 Z"
+              fill="#16181b" stroke="#fce700" stroke-width="1.4" />
+        <!-- Inner intake hole -->
+        <ellipse cx="580" cy="164" rx="12" ry="9" fill="#0e0f10" stroke="#3a3f47" stroke-width="0.8" />
+        <rect class="hit" x="548" y="142" width="68" height="44" fill="transparent" />
+        <g class="label" transform="translate(580 130)">
+          <rect x="-40" y="-22" width="80" height="22" rx="3" />
+          <text x="0" y="-7" text-anchor="middle">Airbox</text>
+        </g>
+      </g>
+    </a>
+
+    <!-- ============== MONOCOQUE / cockpit / driver helmet ============== -->
+    <a href="#part-monocoque" aria-label="Monocoque">
+      <g class="part part--monocoque">
+        <!-- Survival cell tub -->
+        <path d="M 420,200 L 420,260 L 620,260 L 620,200 Z" fill="url(#bodyGrad)" stroke="#fce700" stroke-width="1.6" />
+        <!-- Front bulkhead detail -->
+        <line x1="430" y1="205" x2="430" y2="255" stroke="#3a3f47" stroke-width="0.8" />
+        <!-- Driver helmet -->
+        <ellipse cx="510" cy="172" rx="20" ry="22" fill="#16181b" stroke="#fce700" stroke-width="1.2" />
+        <ellipse cx="510" cy="172" rx="20" ry="22" fill="none" stroke="#fce700" stroke-width="0.6" opacity="0.4" />
+        <!-- Visor -->
+        <path d="M 494,170 C 500,164 520,164 526,170 L 526,178 C 520,176 500,176 494,178 Z"
+              fill="#0e0f10" stroke="#3a3f47" stroke-width="0.6" />
+        <!-- HANS device -->
+        <path d="M 530,180 L 545,184 L 545,194 L 530,196 Z" fill="#1f2226" stroke="#3a3f47" stroke-width="0.6" />
+        <!-- Cockpit opening -->
+        <path d="M 478,200 C 490,196 530,196 542,200" fill="none" stroke="#3a3f47" stroke-width="0.8" />
+        <rect class="hit" x="420" y="155" width="200" height="105" fill="transparent" />
+        <g class="label" transform="translate(490 250)">
+          <rect x="-58" y="-2" width="116" height="22" rx="3" />
+          <text x="0" y="13" text-anchor="middle">Monocoque</text>
+        </g>
+      </g>
+    </a>
+
+    <!-- ============== SIDEPOD ============== -->
+    <a href="#part-sidepod" aria-label="Sidepod">
+      <g class="part part--sidepod">
+        <!-- Sidepod inlet (rectangular gaping intake behind cockpit) -->
+        <path d="M 538,210 L 562,206 L 562,250 L 538,254 Z" fill="#0e0f10" stroke="#fce700" stroke-width="1.4" />
+        <!-- Sidepod bodywork sweeping back and down -->
+        <path d="M 562,206 C 660,200 780,210 830,225 L 830,275 C 780,272 680,272 562,272 Z"
+              fill="url(#bodyGrad)" stroke="#fce700" stroke-width="1.4" />
+        <!-- Cooling slot detail -->
+        <path d="M 700,222 L 800,222" stroke="#3a3f47" stroke-width="0.8" />
+        <rect class="hit" x="538" y="198" width="296" height="80" fill="transparent" />
+        <g class="label" transform="translate(700 196)">
+          <rect x="-40" y="-22" width="80" height="22" rx="3" />
+          <text x="0" y="-7" text-anchor="middle">Sidepod</text>
+        </g>
+      </g>
+    </a>
+
+    <!-- ============== POWER UNIT (V6 turbo) ============== -->
+    <a href="#part-power-unit" aria-label="Power unit">
+      <g class="part part--power-unit">
+        <!-- Engine block (visible behind cockpit and inside sidepod silhouette) -->
+        <rect x="608" y="226" width="200" height="42" fill="#1f2226" stroke="#fce700" stroke-width="1.2" rx="2" />
+        <!-- Cylinder bank ribs (V6) -->
+        <line x1="624" y1="228" x2="624" y2="266" stroke="#3a3f47" stroke-width="1.2" />
+        <line x1="648" y1="228" x2="648" y2="266" stroke="#3a3f47" stroke-width="1.2" />
+        <line x1="672" y1="228" x2="672" y2="266" stroke="#3a3f47" stroke-width="1.2" />
+        <line x1="696" y1="228" x2="696" y2="266" stroke="#3a3f47" stroke-width="1.2" />
+        <line x1="720" y1="228" x2="720" y2="266" stroke="#3a3f47" stroke-width="1.2" />
+        <line x1="744" y1="228" x2="744" y2="266" stroke="#3a3f47" stroke-width="1.2" />
+        <!-- Turbo outlet (at the back of the engine) -->
+        <circle cx="800" cy="222" r="9" fill="#16181b" stroke="#fce700" stroke-width="1.2" />
+        <circle cx="800" cy="222" r="4" fill="#3a3f47" />
+        <!-- Exhaust pipe stub from turbo back -->
+        <path d="M 808,222 L 830,228 L 830,234 L 808,228 Z" fill="#1f2226" stroke="#3a3f47" stroke-width="0.8" />
+        <rect class="hit" x="608" y="218" width="220" height="55" fill="transparent" />
+        <g class="label" transform="translate(720 168)">
+          <rect x="-58" y="-2" width="116" height="22" rx="3" />
+          <text x="0" y="13" text-anchor="middle">Power unit</text>
+        </g>
+      </g>
+    </a>
+
+    <!-- ============== ERS / battery ============== -->
+    <a href="#part-ers" aria-label="ERS">
+      <g class="part part--ers">
+        <!-- Battery pack low in the chassis (under engine, above floor) -->
+        <rect x="588" y="270" width="180" height="14" fill="#16181b" stroke="#fce700" stroke-width="1" rx="1" />
+        <!-- Cell-stack lines -->
+        <line x1="608" y1="271" x2="608" y2="283" stroke="#3a3f47" stroke-width="0.8" />
+        <line x1="628" y1="271" x2="628" y2="283" stroke="#3a3f47" stroke-width="0.8" />
+        <line x1="648" y1="271" x2="648" y2="283" stroke="#3a3f47" stroke-width="0.8" />
+        <line x1="668" y1="271" x2="668" y2="283" stroke="#3a3f47" stroke-width="0.8" />
+        <line x1="688" y1="271" x2="688" y2="283" stroke="#3a3f47" stroke-width="0.8" />
+        <line x1="708" y1="271" x2="708" y2="283" stroke="#3a3f47" stroke-width="0.8" />
+        <line x1="728" y1="271" x2="728" y2="283" stroke="#3a3f47" stroke-width="0.8" />
+        <line x1="748" y1="271" x2="748" y2="283" stroke="#3a3f47" stroke-width="0.8" />
+        <!-- Lightning-bolt accent (semantic flair) -->
+        <path d="M 770,272 L 762,279 L 768,279 L 762,284" fill="none" stroke="#fce700" stroke-width="1.2" stroke-linecap="round" />
+        <rect class="hit" x="586" y="266" width="200" height="22" fill="transparent" />
+        <g class="label" transform="translate(680 304)">
+          <rect x="-30" y="-2" width="60" height="22" rx="3" />
+          <text x="0" y="13" text-anchor="middle">ERS</text>
+        </g>
+      </g>
+    </a>
+
+    <!-- ============== GEARBOX ============== -->
+    <a href="#part-gearbox" aria-label="Gearbox">
+      <g class="part part--gearbox">
+        <!-- Trapezoidal gearbox housing behind engine, ahead of rear axle -->
+        <path d="M 830,228 L 880,232 L 880,272 L 830,272 Z" fill="url(#bodyGrad)" stroke="#fce700" stroke-width="1.4" />
+        <!-- Visible gear-cluster ridges -->
+        <line x1="844" y1="230" x2="844" y2="270" stroke="#3a3f47" stroke-width="0.6" />
+        <line x1="858" y1="231" x2="858" y2="271" stroke="#3a3f47" stroke-width="0.6" />
+        <line x1="872" y1="232" x2="872" y2="271" stroke="#3a3f47" stroke-width="0.6" />
+        <rect class="hit" x="826" y="222" width="60" height="56" fill="transparent" />
+        <g class="label" transform="translate(855 218)">
+          <rect x="-36" y="-22" width="72" height="22" rx="3" />
+          <text x="0" y="-7" text-anchor="middle">Gearbox</text>
+        </g>
+      </g>
+    </a>
+
+    <!-- ============== FLOOR ============== -->
+    <a href="#part-floor" aria-label="Floor">
+      <g class="part part--floor">
+        <!-- The visible underside between the wheels - long flat slice with venturi peaks -->
+        <path d="M 230,290 L 350,288 L 380,283 L 480,283 L 540,288 L 600,288 L 700,288 L 820,290 L 880,288 L 880,300 L 230,300 Z"
+              fill="#0e0f10" stroke="#fce700" stroke-width="1.2" />
+        <!-- Edge floor strake -->
+        <path d="M 230,300 L 880,300 L 880,308 L 230,308 Z" fill="#1f2226" stroke="#3a3f47" stroke-width="0.6" />
+        <!-- Tunnel mouth indicator at the rear -->
+        <path d="M 880,290 L 920,278 L 920,306 L 880,308 Z" fill="#0e0f10" stroke="#fce700" stroke-width="0.8" />
+        <rect class="hit" x="230" y="282" width="700" height="30" fill="transparent" />
+        <g class="label" transform="translate(560 322)">
+          <rect x="-32" y="-2" width="64" height="22" rx="3" />
+          <text x="0" y="13" text-anchor="middle">Floor</text>
+        </g>
+      </g>
+    </a>
+
+    <!-- ============== DIFFUSER ============== -->
+    <a href="#part-diffuser" aria-label="Diffuser">
+      <g class="part part--diffuser">
+        <!-- Sweeping upsweep behind the rear wheel -->
+        <path d="M 920,278 C 980,265 1040,260 1080,260 L 1080,295 C 1040,295 1000,300 920,310 Z"
+              fill="url(#bodyGrad)" stroke="#fce700" stroke-width="1.4" />
+        <!-- Diffuser strakes -->
+        <line x1="950" y1="275" x2="950" y2="305" stroke="#3a3f47" stroke-width="0.8" />
+        <line x1="985" y1="270" x2="985" y2="298" stroke="#3a3f47" stroke-width="0.8" />
+        <line x1="1020" y1="265" x2="1020" y2="293" stroke="#3a3f47" stroke-width="0.8" />
+        <line x1="1055" y1="262" x2="1055" y2="290" stroke="#3a3f47" stroke-width="0.8" />
+        <rect class="hit" x="918" y="258" width="170" height="55" fill="transparent" />
+        <g class="label" transform="translate(1000 322)">
+          <rect x="-40" y="-2" width="80" height="22" rx="3" />
+          <text x="0" y="13" text-anchor="middle">Diffuser</text>
+        </g>
+      </g>
+    </a>
+
+    <!-- ============== REAR WING ============== -->
+    <a href="#part-rear-wing" aria-label="Rear wing">
+      <g class="part part--rear-wing">
+        <!-- Endplate (single visible side in side-view) -->
+        <path d="M 1040,140 L 1100,142 L 1100,250 L 1040,250 Z" fill="url(#bodyGrad)" stroke="#fce700" stroke-width="1.4" />
+        <!-- Upper main plane (with DRS slot) -->
+        <path d="M 980,148 L 1100,148 L 1100,164 L 980,164 Z" fill="#1f2226" stroke="#fce700" stroke-width="1.4" />
+        <!-- DRS slot gap (the activated horizontal opening) -->
+        <line x1="980" y1="156" x2="1100" y2="156" stroke="#0e0f10" stroke-width="3" />
+        <!-- Lower beam wing -->
+        <path d="M 990,224 L 1100,224 L 1100,240 L 990,240 Z" fill="#1f2226" stroke="#fce700" stroke-width="1.2" />
+        <!-- Vertical support pylon between main plane and beam -->
+        <line x1="1060" y1="164" x2="1060" y2="224" stroke="#3a3f47" stroke-width="2" />
+        <!-- Engine cover spine fading into rear wing -->
+        <path d="M 600,200 C 720,202 850,212 980,232 L 980,265 C 850,255 720,250 600,250 Z"
+              fill="url(#bodyGrad)" stroke="#fce700" stroke-width="1" opacity="0.85" pointer-events="none" />
+        <rect class="hit" x="978" y="138" width="125" height="115" fill="transparent" />
+        <g class="label" transform="translate(1040 130)">
+          <rect x="-58" y="-22" width="116" height="22" rx="3" />
+          <text x="0" y="-7" text-anchor="middle">Rear wing &amp; DRS</text>
+        </g>
+      </g>
+    </a>
+
+    <!-- Tiny wheel-arch shadows (decorative, behind clickable layers) -->
+    <ellipse cx="290" cy="318" rx="46" ry="4" fill="#000" opacity="0.55" />
+    <ellipse cx="910" cy="318" rx="46" ry="4" fill="#000" opacity="0.55" />
   </svg>
 
-  <figcaption class="cutaway-caption mono">{caption}</figcaption>
+  <p class="cutaway-hint mono">
+    Tap or hover any labeled part for the deep-dive ↓
+  </p>
 </figure>
 
 <style>
@@ -67,20 +354,78 @@ const { caption = 'Interactive cutaway coming soon' } = Astro.props;
     background: var(--asphalt-800);
     border: var(--border-thin);
     border-radius: var(--radius-md);
+    position: relative;
   }
 
   .cutaway-svg {
     width: 100%;
     height: auto;
     display: block;
+    overflow: visible;
   }
 
-  .cutaway-caption {
+  .cutaway-hint {
     color: var(--text-muted);
     font-size: var(--fs-200);
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    margin-top: var(--sp-3);
     text-align: center;
+    margin: var(--sp-4) 0 0;
+  }
+
+  /* All hotspot links lose their default underline and inherit cursor. */
+  .cutaway-svg a {
+    cursor: pointer;
+    outline: none;
+  }
+
+  /* Each part group: visual artwork + .hit overlay + .label tooltip. */
+  .cutaway-svg .part {
+    transition: filter var(--dur-base) var(--ease-snap);
+  }
+
+  /* The transparent .hit elements sit on top so the entire region is clickable. */
+  .cutaway-svg .hit {
+    cursor: pointer;
+  }
+
+  /* Default: tooltip hidden. */
+  .cutaway-svg .label {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-base) var(--ease-snap);
+  }
+  .cutaway-svg .label rect {
+    fill: var(--kerb-yellow);
+    stroke: var(--asphalt-900);
+    stroke-width: 0.5;
+  }
+  .cutaway-svg .label text {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    fill: var(--asphalt-900);
+    font-weight: 600;
+  }
+
+  /* Hover or focus the link → highlight the part + show its label. */
+  .cutaway-svg a:hover .part :is(path, rect:not(.hit), circle, line, ellipse, polyline),
+  .cutaway-svg a:focus-visible .part :is(path, rect:not(.hit), circle, line, ellipse, polyline) {
+    stroke: var(--kerb-yellow) !important;
+  }
+  .cutaway-svg a:hover .part,
+  .cutaway-svg a:focus-visible .part {
+    filter: drop-shadow(0 0 6px rgba(252, 231, 0, 0.45));
+  }
+  .cutaway-svg a:hover .label,
+  .cutaway-svg a:focus-visible .label {
+    opacity: 1;
+  }
+
+  /* Halo special: it has no fillable shapes, so highlight via stroke-width too. */
+  .cutaway-svg a:hover .part--halo path,
+  .cutaway-svg a:hover .part--halo line {
+    stroke: var(--kerb-yellow) !important;
   }
 </style>

@@ -2,36 +2,369 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/hero/Hero.astro';
 import KerbDivider from '../components/ui/KerbDivider.astro';
+import TyreChip from '../components/ui/TyreChip.astro';
+import AnalogyCallout from '../components/ui/AnalogyCallout.astro';
+
+interface Crew {
+  role: string;
+  count: number;
+  job: string;
+}
+
+const crew: Crew[] = [
+  { role: 'Front jack', count: 1, job: 'Lifts the front of the car the moment it stops.' },
+  { role: 'Rear jack', count: 1, job: 'Lifts the rear, in sync with the front jack.' },
+  { role: 'Wheel gunners', count: 4, job: 'One per corner. The pneumatic gun loosens, the tyre is changed, the gun re-tightens.' },
+  { role: 'Wheel-on / wheel-off', count: 8, job: 'Two per corner. One pulls the old tyre off, one slides the new one on. Choreographed to a tenth of a second.' },
+  { role: 'Front-wing tech', count: 2, job: 'Adjust front-wing flap angle if requested by the driver. On standby every stop in case of damage.' },
+  { role: 'Stabilizers', count: 2, job: 'Hold the side of the car steady so the jacks have a planted base.' },
+  { role: 'Lollipop / release', count: 1, job: 'Watches the pit lane for safe release. Triggers the green light when all four wheels are torqued.' },
+];
+
+const totalCrew = crew.reduce((sum, c) => sum + c.count, 0);
 ---
 
-<BaseLayout title="Strategy" description="Tyres, pit stops, undercut, DRS, ERS — the why behind every move.">
+<BaseLayout title="Race Strategy" description="The why behind every move — tyres, pit stops, undercuts, DRS, ERS, fuel saving.">
   <Hero
-    eyebrow="Section 07 · Coming in Milestone 4"
+    eyebrow="Section 07"
     title="Race Strategy"
-    subtitle="Tyre compounds, pit-stop windows, undercut/overcut, DRS, ERS deployment. This page is on the way."
+    subtitle="Every race is a chess match between two teams, two drivers, and four rubber compounds. Here's the playbook."
   />
 
   <KerbDivider variant="thin" />
 
-  <section class="container placeholder">
-    <p class="eyebrow">Status</p>
-    <p>This page will land in the single-topic deep-dive milestone. The short version: every race is a chess match between teams, drivers, and four rubber compounds.</p>
+  <section class="container intro">
+    <p class="lead">
+      The fastest single lap doesn't always win the race. The driver who manages tyre temperature best, pits at the right corner of the right lap, and times their ERS deploy windows — they win. Strategy is what bridges raw pace and a finish position.
+    </p>
+  </section>
+
+  <section class="container tyres-section">
+    <h2 id="tyres">Tyre compounds</h2>
+    <p class="section-sub">Pirelli is the sole supplier. Five compounds — three dry-weather, two wet.</p>
+    <div class="tyre-row">
+      <article class="tyre-card">
+        <TyreChip compound="soft" label="Soft" />
+        <p>Fastest grip. Lasts 12–20 laps before degrading. Used in qualifying, late-race sprints, and on cold tracks.</p>
+      </article>
+      <article class="tyre-card">
+        <TyreChip compound="medium" label="Medium" />
+        <p>Balance compound. The default race choice for most circuits. 20–35 laps depending on track abrasion.</p>
+      </article>
+      <article class="tyre-card">
+        <TyreChip compound="hard" label="Hard" />
+        <p>Slowest grip; longest life. Built for hot conditions and long stints. Can run 40+ laps comfortably.</p>
+      </article>
+      <article class="tyre-card">
+        <TyreChip compound="intermediate" label="Intermediate" />
+        <p>Light to moderate rain, or a drying track. Has tread grooves for water dispersion.</p>
+      </article>
+      <article class="tyre-card">
+        <TyreChip compound="wet" label="Full wet" />
+        <p>Heavy rain. Disperses ~85 L of water per second per tyre at 300 km/h. Almost never used by choice — drivers switch to inters as soon as they can.</p>
+      </article>
+    </div>
+    <AnalogyCallout>
+      Think of compounds like recipes: same ingredient (rubber + carbon black + silica + oils), different baking. Soft = chewier and grippier; hard = stiffer and longer-lasting.
+    </AnalogyCallout>
+    <h3>The two-compound rule</h3>
+    <p>
+      In dry conditions, every driver must use at least two different compounds during the race. That single rule guarantees at least one pit stop per car and is the seed from which all race strategy grows. In wet conditions, the rule is lifted — drivers can run inters or wets the whole race if they choose.
+    </p>
+  </section>
+
+  <KerbDivider variant="thin" />
+
+  <section class="container pit-section">
+    <h2 id="pit-stops">Pit-stop anatomy</h2>
+    <p class="section-sub">A standard tyre change in 2026: 2.0–2.5 seconds, stationary. Total pit-lane loss including entry and exit: 18–24 seconds, depending on the circuit.</p>
+
+    <div class="pit-callout">
+      <div class="pit-stat">
+        <span class="ps-num mono">~{totalCrew}</span>
+        <span class="ps-lbl mono">crew per stop</span>
+      </div>
+      <div class="pit-stat">
+        <span class="ps-num mono">2.0s</span>
+        <span class="ps-lbl mono">stationary record</span>
+      </div>
+      <div class="pit-stat">
+        <span class="ps-num mono">±5cm</span>
+        <span class="ps-lbl mono">box-line tolerance</span>
+      </div>
+    </div>
+
+    <div class="crew-grid">
+      {crew.map((c) => (
+        <article class="crew-card">
+          <div class="crew-head">
+            <h3>{c.role}</h3>
+            <span class="crew-count mono">×{c.count}</span>
+          </div>
+          <p>{c.job}</p>
+        </article>
+      ))}
+    </div>
+
+    <p class="pit-note">
+      Total: roughly {totalCrew} crew members, plus a fire marshal on standby and a rear-of-pit-box "lollipop release" official. The whole choreography is rehearsed hundreds of times in pre-season testing.
+    </p>
+  </section>
+
+  <KerbDivider variant="thin" />
+
+  <section class="container content-section">
+    <h2 id="undercut">The undercut</h2>
+    <p>
+      You're running second, three seconds behind the leader. You can't pass on track. So you pit one lap before they do. With fresh tyres, your next lap is two seconds faster than they're managing on their old set. You do it again the next lap. After they finally pit and rejoin, you're <strong>ahead</strong> — without ever overtaking on track.
+    </p>
+    <p>
+      That's the undercut. It works when:
+    </p>
+    <ul>
+      <li>Fresh-tyre warmup is fast enough to deliver the pace gain in 2–3 laps (some compounds take 4–5 laps to "switch on" — undercut fails).</li>
+      <li>Track position matters more than tyre life (most circuits — Monaco, Hungary, Singapore most extremely).</li>
+      <li>The car ahead can't respond by pitting the same lap (the team radio caller has to spot the move within seconds).</li>
+    </ul>
+
+    <h2 id="overcut">The overcut</h2>
+    <p>
+      The mirror image. You stay out longer than the car ahead, betting that on warmer tyres in clean air you'll lap faster than they do on cooler new tyres in dirty air. When you eventually pit, you've banked enough lap-time advantage to come out ahead.
+    </p>
+    <p>
+      Overcut works at high-speed, low-tyre-degradation circuits — Spa, Monza, Las Vegas. It also works when the car ahead pits into traffic and gets stuck behind a slow car for two or three laps.
+    </p>
+
+    <h2 id="drs">DRS — Drag Reduction System</h2>
+    <p>
+      A driver-controlled flap on the rear wing that opens to reduce drag and add ~10 km/h of top speed. Allowed only:
+    </p>
+    <ul>
+      <li>In marked <strong>DRS zones</strong> on the track (each circuit has 1–4).</li>
+      <li>When you're within <strong>1 second of the car ahead</strong> at the activation line.</li>
+      <li><strong>Not</strong> in the first two laps after a race start, restart, or safety car.</li>
+      <li><strong>Not</strong> in wet conditions (rules of thumb; race director confirms).</li>
+    </ul>
+    <p>
+      DRS turns most overtakes from "needs a brave move" into "needs a faster engine." It's the single most-criticized rule in the modern sport — it makes overtaking too easy, the argument goes, by removing the work. The 2026 regulations preserve DRS but pair it with a new "manual override" deploy mode (see ERS below).
+    </p>
+
+    <h2 id="ers">ERS deployment</h2>
+    <p>
+      Across one lap, a driver has roughly 4 MJ of stored electrical energy to spend. Where they spend it matters enormously:
+    </p>
+    <ul>
+      <li><strong>Onto a long straight</strong> — maximum top-speed gain, easy overtake setup, sometimes worth 0.4 s a lap.</li>
+      <li><strong>Out of a slow corner</strong> — accelerate harder than the car ahead can match. Defensive use.</li>
+      <li><strong>Saving for a one-shot lap</strong> — qualifying use, or a final-lap push for fastest lap.</li>
+    </ul>
+    <p>
+      Energy is recovered under braking (MGU-K). On heavy-braking circuits like Singapore or Baku, drivers can harvest more than they need; on flat-out tracks like Monza, they're often "energy-limited" — running at lower-than-max power for parts of the lap to conserve.
+    </p>
+
+    <h2 id="fuel">Fuel saving</h2>
+    <p>
+      Each car starts the race with a fixed amount of fuel — minimum 70 kg for a full distance — but no refueling is allowed during the race (banned since 2010 for safety). So if you start heavy, you're slow on the early laps; if you start light, you're saving fuel on the late laps.
+    </p>
+    <p>
+      "Fuel saving" — a phrase you'll hear constantly on team radio — means lifting the throttle slightly earlier on long straights, coasting briefly into braking zones, and short-shifting up a gear before redline. It costs about 0.3–0.5 seconds a lap. Drivers hate it, but the alternative is running out of fuel before the chequered flag — which has happened to more than one championship-winning car (most famously Hamilton at Brazil 2008, who saved fuel hard enough to win the title by the closest margin in F1 history).
+    </p>
+
+    <h2 id="weather">Weather and the rain call</h2>
+    <p>
+      The hardest call any race engineer makes. The track is dry; the radar shows rain in 8 minutes. Do you pit your driver for inters now (give up 20 seconds of track position) or wait? Pit too early and you slide off on a still-dry track. Pit too late and your driver is aquaplaning with full slicks while everyone else is on inters.
+    </p>
+    <p>
+      Most teams have a meteorologist on the pit wall at every European race. The decisions are made on a mix of forecast data, the car's own onboard humidity and temperature sensors, and live radar feeds. When a single team gets the call right and others don't, it's usually a season-defining win.
+    </p>
   </section>
 </BaseLayout>
 
 <style>
-  .placeholder {
-    padding-block: var(--sp-12);
+  .intro {
+    padding-block: var(--sp-10) var(--sp-6);
     max-width: 720px;
   }
 
-  .placeholder .eyebrow {
+  .lead {
+    color: var(--text-secondary);
+    font-size: var(--fs-500);
+    line-height: 1.7;
+  }
+
+  .tyres-section,
+  .pit-section,
+  .content-section {
+    padding-block: var(--sp-8) var(--sp-12);
+  }
+
+  .content-section {
+    max-width: 760px;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-700);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    margin-block: 0 var(--sp-4);
+    padding-bottom: var(--sp-3);
+    border-bottom: 2px solid var(--kerb-yellow);
+    scroll-margin-top: calc(var(--nav-height) + var(--sp-6));
+  }
+
+  .content-section h2 {
+    margin-top: var(--sp-12);
+  }
+
+  .content-section h2:first-child {
+    margin-top: 0;
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: var(--fs-500);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--kerb-yellow);
+    margin: var(--sp-8) 0 var(--sp-3);
+  }
+
+  .section-sub {
+    color: var(--text-muted);
+    font-size: var(--fs-300);
+    margin-block: 0 var(--sp-6);
+  }
+
+  /* Tyre cards ----------------------------------------------------- */
+  .tyre-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--sp-4);
+    margin-bottom: var(--sp-8);
+  }
+
+  .tyre-card {
+    background: var(--asphalt-800);
+    border: 1px solid var(--asphalt-600);
+    border-radius: var(--radius-md);
+    padding: var(--sp-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .tyre-card p {
+    color: var(--text-secondary);
+    font-size: var(--fs-300);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Pit-stop block ------------------------------------------------- */
+  .pit-callout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--sp-4);
+    margin-bottom: var(--sp-8);
+  }
+
+  .pit-stat {
+    background: var(--asphalt-800);
+    border: 1px solid var(--asphalt-600);
+    border-left: 3px solid var(--kerb-yellow);
+    border-radius: var(--radius-md);
+    padding: var(--sp-4) var(--sp-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+  }
+
+  .ps-num {
+    color: var(--kerb-yellow);
+    font-size: var(--fs-700);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ps-lbl {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .crew-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--sp-4);
+  }
+
+  .crew-card {
+    background: var(--asphalt-800);
+    border: 1px solid var(--asphalt-600);
+    border-radius: var(--radius-md);
+    padding: var(--sp-4);
+  }
+
+  .crew-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
     margin-bottom: var(--sp-2);
   }
 
-  .placeholder p {
+  .crew-card h3 {
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    font-size: var(--fs-400);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .crew-count {
+    color: var(--kerb-yellow);
+    font-size: var(--fs-300);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .crew-card p {
+    color: var(--text-secondary);
+    font-size: var(--fs-300);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .pit-note {
+    margin-top: var(--sp-6);
+    color: var(--text-muted);
+    font-size: var(--fs-300);
+    font-style: italic;
+  }
+
+  /* Long-form prose ------------------------------------------------ */
+  .content-section p {
     color: var(--text-secondary);
     font-size: var(--fs-500);
-    line-height: 1.6;
+    line-height: 1.7;
+    margin-bottom: var(--sp-4);
+  }
+
+  .content-section ul {
+    color: var(--text-secondary);
+    font-size: var(--fs-400);
+    line-height: 1.7;
+    padding-left: var(--sp-6);
+    margin-bottom: var(--sp-4);
+  }
+
+  .content-section li {
+    margin-bottom: var(--sp-2);
+  }
+
+  .content-section strong {
+    color: var(--text-primary);
   }
 </style>

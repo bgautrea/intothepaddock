@@ -2,36 +2,358 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/hero/Hero.astro';
 import KerbDivider from '../components/ui/KerbDivider.astro';
+import AnalogyCallout from '../components/ui/AnalogyCallout.astro';
+
+interface Session {
+  label: string;
+  duration: string;
+  fr: number;
+  to: number;
+  variant?: 'practice' | 'quali' | 'race' | 'sprint';
+}
+
+interface Day {
+  day: string;
+  sessions: Session[];
+}
+
+// Each fr/to is a position 0..100 within its day-row.
+const standard: Day[] = [
+  { day: 'Fri', sessions: [
+    { label: 'FP1', duration: '60 min', fr: 4, to: 30, variant: 'practice' },
+    { label: 'FP2', duration: '60 min', fr: 50, to: 76, variant: 'practice' },
+  ]},
+  { day: 'Sat', sessions: [
+    { label: 'FP3', duration: '60 min', fr: 4, to: 28, variant: 'practice' },
+    { label: 'Q1', duration: '18 min', fr: 60, to: 70, variant: 'quali' },
+    { label: 'Q2', duration: '15 min', fr: 71, to: 80, variant: 'quali' },
+    { label: 'Q3', duration: '12 min', fr: 81, to: 90, variant: 'quali' },
+  ]},
+  { day: 'Sun', sessions: [
+    { label: 'Race', duration: '~90 min, max 305 km', fr: 30, to: 92, variant: 'race' },
+  ]},
+];
+
+const sprint: Day[] = [
+  { day: 'Fri', sessions: [
+    { label: 'FP1', duration: '60 min', fr: 4, to: 30, variant: 'practice' },
+    { label: 'Sprint Quali', duration: '44 min · SQ1/2/3', fr: 50, to: 88, variant: 'sprint' },
+  ]},
+  { day: 'Sat', sessions: [
+    { label: 'Sprint', duration: '~30 min, 100 km', fr: 4, to: 32, variant: 'sprint' },
+    { label: 'Q1', duration: '18 min', fr: 60, to: 70, variant: 'quali' },
+    { label: 'Q2', duration: '15 min', fr: 71, to: 80, variant: 'quali' },
+    { label: 'Q3', duration: '12 min', fr: 81, to: 90, variant: 'quali' },
+  ]},
+  { day: 'Sun', sessions: [
+    { label: 'Race', duration: '~90 min, max 305 km', fr: 30, to: 92, variant: 'race' },
+  ]},
+];
 ---
 
-<BaseLayout title="Race Weekend" description="Practice, qualifying, sprint, race — what each session actually does.">
+<BaseLayout title="Race Weekend" description="What every session at a Grand Prix does, in order.">
   <Hero
-    eyebrow="Section 04 · Coming in Milestone 4"
-    title="The Race Weekend"
-    subtitle="The full FP1 → FP2 → FP3 → Quali → Race timeline, plus the sprint format. This page is on the way."
+    eyebrow="Section 04"
+    title="Anatomy of a Race Weekend"
+    subtitle="Three days. Five (or seven, on a sprint weekend) on-track sessions. Each one has a distinct purpose — here's what they actually do."
   />
 
   <KerbDivider variant="thin" />
 
-  <section class="container placeholder">
-    <p class="eyebrow">Status</p>
-    <p>This page will land in the single-topic deep-dive milestone. For now: practice on Friday, qualifying on Saturday, race on Sunday — with sprint weekends rearranging the order at six rounds per year.</p>
+  <section class="container intro">
+    <p class="lead">
+      Most of the weekend is preparation. On a standard weekend, the cars run for about <strong>3.5 hours</strong> total. The race itself is roughly half of that. Everything else is dialing the car in for the bit that counts.
+    </p>
+  </section>
+
+  <section class="container timeline-section">
+    <h2 class="th">Standard weekend</h2>
+    <div class="timeline">
+      {standard.map((d) => (
+        <div class="row">
+          <div class="day mono">{d.day}</div>
+          <div class="track">
+            {d.sessions.map((s) => (
+              <div
+                class={`block block--${s.variant ?? 'practice'}`}
+                style={`left: ${s.fr}%; width: ${s.to - s.fr}%`}
+              >
+                <span class="b-label">{s.label}</span>
+                <span class="b-dur mono">{s.duration}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="container content-section">
+    <h2 id="practice">Practice (FP1, FP2, FP3)</h2>
+    <p>
+      Three one-hour sessions across Friday and Saturday morning. Drivers can run as much or as little as they like; tyres are limited (each car gets 13 sets for the weekend). What teams are actually doing in practice:
+    </p>
+    <ul>
+      <li><strong>FP1</strong>: aero rake testing and baseline data collection. Sometimes a reserve driver runs in this session to clock their mandatory FIA practice mileage.</li>
+      <li><strong>FP2</strong>: long-run race simulations on race-spec tyres. The lap times you see on the timing screen here matter more than the headline pole-pace lap times — this is where teams measure tyre degradation.</li>
+      <li><strong>FP3</strong>: final qualifying setup. By the end of FP3, the car is in the configuration it will qualify in.</li>
+    </ul>
+    <AnalogyCallout>
+      Practice is the team's R&D budget for the weekend. Quali and the race are the test you can't retake.
+    </AnalogyCallout>
+
+    <h2 id="qualifying">Qualifying (Q1 → Q2 → Q3)</h2>
+    <p>
+      A 65-minute, three-stage knockout:
+    </p>
+    <ul>
+      <li><strong>Q1</strong> (18 min) — all 22 cars on track. The slowest 5 are eliminated and start the race in positions 18–22.</li>
+      <li><strong>Q2</strong> (15 min) — remaining 17 cars run again. Slowest 5 eliminated, locked into 11–15.</li>
+      <li><strong>Q3</strong> (12 min) — the top 10 fight for pole position. Each driver typically gets two flying-lap attempts.</li>
+    </ul>
+    <p>
+      Drivers will run around 1–3 fast laps per stage, with cooling laps in between. The fastest single lap from each driver across all their runs is the one that counts.
+    </p>
+    <p>
+      <strong>Track evolution</strong> — grip increases steadily through the session as rubber lays down on the racing line. Q3 lap times are almost always faster than Q1, even when nothing else has changed.
+    </p>
+
+    <h2 id="race">The race</h2>
+    <p>
+      Sunday afternoon. Maximum 305 km, with a 2-hour ceiling on race time (3 hours including any red-flag stoppages). Most races are 50–70 laps. The grid is set by qualifying; the race uses a standing start with a five-lights sequence and a partial-throw clutch off the line.
+    </p>
+    <p>
+      The single rule that shapes strategy: <strong>each driver must use at least two different tyre compounds during the race</strong> (in dry conditions). That forces at least one pit stop per car. Teams choose which compounds to start on and which to switch to, and a swing in race position usually traces back to that choice.
+    </p>
+    <p>
+      Points are scored by the top 10 finishers (see the <a href="/rules">rules page</a> for the full table) plus one extra for fastest lap if the driver who set it finished in the points.
+    </p>
+  </section>
+
+  <KerbDivider variant="thin" />
+
+  <section class="container timeline-section">
+    <h2 class="th">Sprint weekend (six per season)</h2>
+    <p class="sprint-intro">
+      On six designated weekends a year, the format changes. There is one practice session, a separate sprint qualifying session, a 100 km Sprint race on Saturday morning, and the standard qualifying + race remain in their normal slots. This format compresses the weekend and gives teams less time to set up the car.
+    </p>
+    <div class="timeline">
+      {sprint.map((d) => (
+        <div class="row">
+          <div class="day mono">{d.day}</div>
+          <div class="track">
+            {d.sessions.map((s) => (
+              <div
+                class={`block block--${s.variant ?? 'practice'}`}
+                style={`left: ${s.fr}%; width: ${s.to - s.fr}%`}
+              >
+                <span class="b-label">{s.label}</span>
+                <span class="b-dur mono">{s.duration}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+    <p class="sprint-notes">
+      The Sprint awards points to the top 8 finishers (8-7-6-5-4-3-2-1). It does <strong>not</strong> set the grid for Sunday's race — that's still done by Saturday afternoon's qualifying. The Sprint is a standalone race in the middle of the weekend.
+    </p>
   </section>
 </BaseLayout>
 
 <style>
-  .placeholder {
-    padding-block: var(--sp-12);
+  .intro {
+    padding-block: var(--sp-10) var(--sp-6);
     max-width: 720px;
   }
 
-  .placeholder .eyebrow {
+  .lead {
+    color: var(--text-secondary);
+    font-size: var(--fs-500);
+    line-height: 1.7;
+  }
+
+  .lead strong {
+    color: var(--kerb-yellow);
+  }
+
+  .timeline-section {
+    padding-block: var(--sp-8) var(--sp-12);
+  }
+
+  .th {
+    font-family: var(--font-display);
+    font-size: var(--fs-700);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    margin-block: 0 var(--sp-6);
+    padding-bottom: var(--sp-3);
+    border-bottom: 2px solid var(--kerb-yellow);
+  }
+
+  .sprint-intro {
+    color: var(--text-secondary);
+    font-size: var(--fs-400);
+    line-height: 1.7;
+    max-width: 720px;
+    margin-bottom: var(--sp-6);
+  }
+
+  .timeline {
+    background: var(--asphalt-800);
+    border: var(--border-thin);
+    border-radius: var(--radius-md);
+    padding: var(--sp-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: var(--sp-4);
+    align-items: stretch;
+  }
+
+  .day {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding-top: var(--sp-3);
+  }
+
+  .track {
+    position: relative;
+    background: var(--asphalt-900);
+    border: 1px solid var(--asphalt-600);
+    border-radius: var(--radius-sm);
+    height: 56px;
+    overflow: hidden;
+  }
+
+  .block {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    border-radius: var(--radius-sm);
+    padding: var(--sp-2) var(--sp-3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 1px solid;
+  }
+
+  .block--practice {
+    background: rgba(156, 160, 166, 0.12);
+    border-color: var(--concrete);
+    color: var(--text-secondary);
+  }
+
+  .block--quali {
+    background: rgba(181, 69, 255, 0.18);
+    border-color: var(--sector-purple);
+    color: #d3aaff;
+  }
+
+  .block--race {
+    background: rgba(252, 231, 0, 0.12);
+    border-color: var(--kerb-yellow);
+    color: var(--kerb-yellow);
+  }
+
+  .block--sprint {
+    background: rgba(46, 204, 113, 0.14);
+    border-color: var(--sector-green);
+    color: #7be59a;
+  }
+
+  .b-label {
+    font-family: var(--font-display);
+    font-size: var(--fs-400);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+
+  .b-dur {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .sprint-notes {
+    margin-top: var(--sp-5);
+    color: var(--text-secondary);
+    font-size: var(--fs-400);
+    line-height: 1.7;
+  }
+
+  .sprint-notes strong {
+    color: var(--text-primary);
+  }
+
+  .content-section {
+    padding-block: var(--sp-8) var(--sp-12);
+    max-width: 760px;
+  }
+
+  .content-section h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-700);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    margin-block: var(--sp-12) var(--sp-4);
+    padding-bottom: var(--sp-3);
+    border-bottom: 2px solid var(--kerb-yellow);
+    scroll-margin-top: calc(var(--nav-height) + var(--sp-6));
+  }
+
+  .content-section h2:first-child {
+    margin-top: 0;
+  }
+
+  .content-section p {
+    color: var(--text-secondary);
+    font-size: var(--fs-500);
+    line-height: 1.7;
+    margin-bottom: var(--sp-4);
+  }
+
+  .content-section ul {
+    color: var(--text-secondary);
+    font-size: var(--fs-400);
+    line-height: 1.7;
+    padding-left: var(--sp-6);
+    margin-bottom: var(--sp-5);
+  }
+
+  .content-section li {
     margin-bottom: var(--sp-2);
   }
 
-  .placeholder p {
-    color: var(--text-secondary);
-    font-size: var(--fs-500);
-    line-height: 1.6;
+  .content-section strong {
+    color: var(--text-primary);
+  }
+
+  .content-section a {
+    color: var(--kerb-yellow);
+  }
+
+  @media (max-width: 720px) {
+    .b-dur {
+      display: none;
+    }
+    .row {
+      grid-template-columns: 40px 1fr;
+    }
   }
 </style>

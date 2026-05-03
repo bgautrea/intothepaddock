@@ -2,36 +2,447 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/hero/Hero.astro';
 import KerbDivider from '../components/ui/KerbDivider.astro';
+
+interface FlagDef {
+  name: string;
+  swatch: 'yellow' | 'red' | 'blue' | 'green' | 'white' | 'black' | 'chequered' | 'black-orange' | 'half-black-half-white';
+  meaning: string;
+  who: string;
+}
+
+const points = [
+  { p: 1, pts: 25 },
+  { p: 2, pts: 18 },
+  { p: 3, pts: 15 },
+  { p: 4, pts: 12 },
+  { p: 5, pts: 10 },
+  { p: 6, pts: 8 },
+  { p: 7, pts: 6 },
+  { p: 8, pts: 4 },
+  { p: 9, pts: 2 },
+  { p: 10, pts: 1 },
+];
+
+const flags: FlagDef[] = [
+  { name: 'Yellow', swatch: 'yellow', meaning: 'Hazard ahead. Slow down. No overtaking until you pass the flag-clear point.', who: 'Marshals at incident sector' },
+  { name: 'Double yellow', swatch: 'yellow', meaning: 'Serious hazard — be prepared to stop. Marshals or vehicles likely on track.', who: 'Marshals' },
+  { name: 'Red', swatch: 'red', meaning: 'Session stopped. Return to pit lane immediately at reduced speed.', who: 'Race director' },
+  { name: 'Blue', swatch: 'blue', meaning: 'A faster car is about to lap you. Yield within three corners or earn a penalty.', who: 'Marshals' },
+  { name: 'Green', swatch: 'green', meaning: 'Track is clear of hazard. Racing resumes.', who: 'Marshals' },
+  { name: 'White', swatch: 'white', meaning: 'Slow vehicle ahead — usually a recovery truck or course car.', who: 'Marshals' },
+  { name: 'Chequered', swatch: 'chequered', meaning: 'End of session.', who: 'Race director' },
+  { name: 'Black', swatch: 'black', meaning: 'Disqualification. Return to pits immediately.', who: 'Race director' },
+  { name: 'Black + orange disc', swatch: 'black-orange', meaning: 'Mechanical problem on your car (visible to officials but maybe not you). Pit immediately for inspection.', who: 'Race director' },
+  { name: 'Half black, half white', swatch: 'half-black-half-white', meaning: 'Warning for unsporting behavior. Next infraction is a penalty.', who: 'Stewards' },
+];
+
+const penalties = [
+  { name: '5-second time penalty', when: 'Minor incidents — small track-limit infringements, slight contact.', effect: '5 seconds added to race time, or served at next pit stop before mechanics can touch the car.' },
+  { name: '10-second time penalty', when: 'Causing a collision, more serious track limits.', effect: 'Same as above but 10 s.' },
+  { name: 'Drive-through penalty', when: 'Mid-severity offense — unsafe release from the pit, jumping the start.', effect: 'Driver must enter the pit lane, drive its length below the speed limit, and exit without stopping. Costs ~20 s.' },
+  { name: '10-second stop-go', when: 'Severe offense — a dangerous unsafe release, ignoring blue flags repeatedly.', effect: 'Stop in the pit box for 10 seconds (no work allowed), then rejoin. Costs ~30 s.' },
+  { name: 'Grid penalty', when: 'Power-unit element changed beyond the season allocation, or causing-a-collision penalty applied to next race.', effect: '5, 10, 15 places, or "back of grid" for severe cases.' },
+  { name: 'Disqualification', when: 'Technical infringement (car illegal under regulations), major safety breach.', effect: 'Removed from race results entirely.' },
+];
 ---
 
-<BaseLayout title="Rules & Regulations" description="Points, flags, penalties, parc fermé — without the rulebook tedium.">
+<BaseLayout title="Rules & Regulations" description="Points, flags, penalties, parc fermé — what you actually need to know.">
   <Hero
-    eyebrow="Section 05 · Coming in Milestone 4"
+    eyebrow="Section 05"
     title="Rules & Regulations"
-    subtitle="Points, flags, penalties, parc fermé, technical regs. This page is on the way."
+    subtitle="The rulebook is over 200 pages. The bits you'll see on a broadcast — points, flags, penalties, parc fermé — fit on one screen."
   />
 
   <KerbDivider variant="thin" />
 
-  <section class="container placeholder">
-    <p class="eyebrow">Status</p>
-    <p>This page will land in the single-topic deep-dive milestone. The short version: 25 points for a win, 18 for second, scaling down to 10th. Yellow flag = caution. Red flag = race stopped.</p>
+  <section class="container intro">
+    <p class="lead">
+      Two rule books govern every race weekend: the <strong>Sporting Regulations</strong> (how a race is run — flags, penalties, qualifying format) and the <strong>Technical Regulations</strong> (what the car can be — dimensions, weight, materials, fuel flow). Below: the slices of both that you'll actually encounter watching a race.
+    </p>
+  </section>
+
+  <section class="container points-section">
+    <h2 id="points">Points table</h2>
+    <p class="section-sub">Awarded after the race. Top 10 finishers score; positions 11+ score zero.</p>
+    <div class="points-grid">
+      {points.map((row) => (
+        <div class={`point-cell ${row.p === 1 ? 'point-cell--win' : ''}`}>
+          <span class="pt-pos mono">P{row.p}</span>
+          <span class="pt-val">{row.pts}</span>
+          <span class="pt-lbl mono">pts</span>
+        </div>
+      ))}
+    </div>
+    <div class="points-extras">
+      <div class="pe">
+        <span class="pe-key mono">+1</span>
+        <p><strong>Fastest lap.</strong> A bonus point goes to whoever sets the race's fastest lap — but only if they finish in the top 10.</p>
+      </div>
+      <div class="pe">
+        <span class="pe-key mono">+8…+1</span>
+        <p><strong>Sprint points.</strong> On sprint weekends, the Saturday Sprint awards points to the top 8 finishers (8-7-6-5-4-3-2-1). Separate from the main race.</p>
+      </div>
+      <div class="pe">
+        <span class="pe-key mono">½</span>
+        <p><strong>Half points.</strong> If a race is red-flagged and resumed but ends with under 75% distance covered, points are awarded on a sliding scale (down to half points if the race ran 50–75%).</p>
+      </div>
+    </div>
+  </section>
+
+  <KerbDivider variant="thin" />
+
+  <section class="container flags-section">
+    <h2 id="flags">Flag grid</h2>
+    <p class="section-sub">Marshals signal these from trackside posts. Race directors signal red, black, and chequered electronically too.</p>
+    <div class="flag-grid">
+      {flags.map((f) => (
+        <div class="flag">
+          <span class={`flag-swatch flag-swatch--${f.swatch}`} aria-hidden="true"></span>
+          <div class="flag-text">
+            <span class="flag-name">{f.name}</span>
+            <p class="flag-mean">{f.meaning}</p>
+            <span class="flag-who mono">{f.who}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <KerbDivider variant="thin" />
+
+  <section class="container penalties-section">
+    <h2 id="penalties">Penalty primer</h2>
+    <p class="section-sub">Stewards review every incident. Penalties are typically announced 5–15 minutes after the incident itself.</p>
+    <div class="pen-grid">
+      {penalties.map((pen) => (
+        <article class="pen-card">
+          <h3 class="pen-name">{pen.name}</h3>
+          <p class="pen-when"><span class="pen-eyebrow mono">When</span> {pen.when}</p>
+          <p class="pen-effect"><span class="pen-eyebrow mono">Effect</span> {pen.effect}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <KerbDivider variant="thin" />
+
+  <section class="container content-section">
+    <h2 id="parc-ferme">Parc fermé</h2>
+    <p>
+      A French phrase that translates to "closed park." From the moment a car leaves the pit lane for qualifying on Saturday until the start of the race on Sunday, it is in <strong>parc fermé conditions</strong>: teams cannot make setup changes. Mechanical adjustments allowed are extremely limited (front wing flap angles, tyre pressures, brake balance).
+    </p>
+    <p>
+      If a team needs to change something significant — engine, gearbox, suspension geometry — they must declare it, and the driver starts the race from the pit lane behind the rest of the grid.
+    </p>
+    <p>
+      <strong>Why it exists:</strong> to stop teams from running aggressive low-fuel qualifying setups and then re-tuning for the race. Whatever wins pole has to also race.
+    </p>
+
+    <h2 id="technical">Technical regulations (briefly)</h2>
+    <p>
+      The technical regs are where most of the engineering competition happens. The headline numbers for 2026:
+    </p>
+    <ul>
+      <li><strong>Minimum weight</strong> — 768 kg with driver, dropping ~30 kg from the 2022–2025 era.</li>
+      <li><strong>Power unit</strong> — 1.6L V6 turbo + ~350 kW MGU-K, no MGU-H. Total combined output approximately 1,000 hp.</li>
+      <li><strong>Fuel</strong> — 100% sustainable (synthetic or biofuel), 70 kg max for a race.</li>
+      <li><strong>Aero</strong> — narrower car (1.9 m wide vs 2.0 m), active front and rear wing modes for straight-line drag reduction.</li>
+      <li><strong>Cost cap</strong> — $135 m per team (excluding driver salaries, top three engineers, marketing, and a few other carve-outs).</li>
+    </ul>
+
+    <h2 id="reviews">Stewards and reviews</h2>
+    <p>
+      Every Grand Prix has a panel of <strong>four stewards</strong>: three permanent FIA officials plus one rotating "driver steward" (typically a retired F1 driver). They review on-track incidents, hear team representatives if needed, and issue penalties.
+    </p>
+    <p>
+      Their decisions are appealable but rarely overturned. Race-defining decisions — like the safety-car procedure that decided the 2021 Abu Dhabi championship — are litigated for years afterward in the press but almost never officially.
+    </p>
   </section>
 </BaseLayout>
 
 <style>
-  .placeholder {
-    padding-block: var(--sp-12);
+  .intro {
+    padding-block: var(--sp-10) var(--sp-6);
     max-width: 720px;
   }
 
-  .placeholder .eyebrow {
+  .lead {
+    color: var(--text-secondary);
+    font-size: var(--fs-500);
+    line-height: 1.7;
+  }
+
+  .lead strong {
+    color: var(--kerb-yellow);
+  }
+
+  .points-section,
+  .flags-section,
+  .penalties-section {
+    padding-block: var(--sp-8) var(--sp-12);
+  }
+
+  .content-section {
+    padding-block: var(--sp-8) var(--sp-12);
+    max-width: 760px;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-700);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    margin-block: 0 var(--sp-4);
+    padding-bottom: var(--sp-3);
+    border-bottom: 2px solid var(--kerb-yellow);
+    scroll-margin-top: calc(var(--nav-height) + var(--sp-6));
+  }
+
+  .content-section h2 {
+    margin-top: var(--sp-12);
+  }
+
+  .content-section h2:first-child {
+    margin-top: 0;
+  }
+
+  .section-sub {
+    color: var(--text-muted);
+    font-size: var(--fs-300);
+    margin-block: 0 var(--sp-6);
+  }
+
+  /* Points grid ---------------------------------------------------- */
+  .points-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: var(--sp-3);
+    margin-bottom: var(--sp-8);
+  }
+
+  .point-cell {
+    background: var(--asphalt-800);
+    border: 1px solid var(--asphalt-600);
+    border-radius: var(--radius-md);
+    padding: var(--sp-4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-1);
+  }
+
+  .point-cell--win {
+    border-color: var(--kerb-yellow);
+    background: linear-gradient(135deg, var(--asphalt-700) 0%, var(--asphalt-800) 100%);
+    box-shadow: var(--glow-yellow);
+  }
+
+  .pt-pos {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+  }
+
+  .pt-val {
+    color: var(--kerb-yellow);
+    font-size: var(--fs-800);
+    font-family: var(--font-mono);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .point-cell--win .pt-val {
+    color: var(--kerb-yellow);
+    text-shadow: 0 0 12px rgba(252, 231, 0, 0.45);
+  }
+
+  .pt-lbl {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+  }
+
+  .points-extras {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--sp-5);
+  }
+
+  .pe {
+    background: var(--asphalt-800);
+    border-left: 3px solid var(--kerb-yellow);
+    padding: var(--sp-4) var(--sp-5);
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: var(--sp-4);
+    align-items: start;
+  }
+
+  .pe-key {
+    color: var(--kerb-yellow);
+    font-size: var(--fs-600);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+
+  .pe p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: var(--fs-300);
+    line-height: 1.6;
+  }
+
+  .pe strong {
+    color: var(--text-primary);
+  }
+
+  /* Flags ---------------------------------------------------------- */
+  .flag-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--sp-4);
+  }
+
+  .flag {
+    background: var(--asphalt-800);
+    border: 1px solid var(--asphalt-600);
+    border-radius: var(--radius-md);
+    padding: var(--sp-4);
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: var(--sp-4);
+    align-items: start;
+  }
+
+  .flag-swatch {
+    width: 56px;
+    height: 38px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--asphalt-600);
+    display: block;
+  }
+
+  .flag-swatch--yellow { background: #f4d03f; }
+  .flag-swatch--red { background: #ff2e2e; }
+  .flag-swatch--blue { background: #2e7bff; }
+  .flag-swatch--green { background: #2ecc71; }
+  .flag-swatch--white { background: #f5f5f3; }
+  .flag-swatch--black { background: #0e0f10; border-color: #3a3f47; }
+  .flag-swatch--chequered {
+    background-image: linear-gradient(45deg, #0e0f10 25%, #f5f5f3 25%, #f5f5f3 50%, #0e0f10 50%, #0e0f10 75%, #f5f5f3 75%, #f5f5f3);
+    background-size: 12px 12px;
+  }
+  .flag-swatch--black-orange {
+    background: linear-gradient(0deg, #0e0f10 0%, #0e0f10 100%);
+    position: relative;
+  }
+  .flag-swatch--black-orange::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ff8000;
+  }
+  .flag-swatch--half-black-half-white {
+    background: linear-gradient(135deg, #0e0f10 50%, #f5f5f3 50%);
+  }
+
+  .flag-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+  }
+
+  .flag-name {
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    font-size: var(--fs-500);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .flag-mean {
+    color: var(--text-secondary);
+    font-size: var(--fs-300);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .flag-who {
+    color: var(--text-muted);
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* Penalties ------------------------------------------------------ */
+  .pen-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--sp-5);
+  }
+
+  .pen-card {
+    background: var(--asphalt-800);
+    border: 1px solid var(--asphalt-600);
+    border-radius: var(--radius-md);
+    padding: var(--sp-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .pen-name {
+    color: var(--kerb-yellow);
+    font-family: var(--font-display);
+    font-size: var(--fs-500);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+  }
+
+  .pen-when,
+  .pen-effect {
+    color: var(--text-secondary);
+    font-size: var(--fs-300);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .pen-eyebrow {
+    color: var(--text-muted);
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-right: var(--sp-2);
+  }
+
+  /* Long-form prose ------------------------------------------------ */
+  .content-section p {
+    color: var(--text-secondary);
+    font-size: var(--fs-500);
+    line-height: 1.7;
+    margin-bottom: var(--sp-4);
+  }
+
+  .content-section ul {
+    color: var(--text-secondary);
+    font-size: var(--fs-400);
+    line-height: 1.7;
+    padding-left: var(--sp-6);
+    margin-bottom: var(--sp-4);
+  }
+
+  .content-section li {
     margin-bottom: var(--sp-2);
   }
 
-  .placeholder p {
-    color: var(--text-secondary);
-    font-size: var(--fs-500);
-    line-height: 1.6;
+  .content-section strong {
+    color: var(--text-primary);
   }
 </style>
