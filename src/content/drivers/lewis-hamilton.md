@@ -13,6 +13,8 @@ championships: 7
 status: 'active'
 bio: 'Seven-time World Champion. Most race wins, most pole positions, most podiums in F1 history. Joined Ferrari in 2025 — the only driver to ever leave Mercedes for Maranello.'
 funFact: 'His father worked four jobs at one point to fund Lewis''s karting career. The Hamilton-McLaren development deal he signed at age 13 was the youngest in the sport''s history.'
+portrait: '../../assets/photos/drivers/lewis-hamilton.jpg'
+portraitCredit: 'Photo: Liauzh (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

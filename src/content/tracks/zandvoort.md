@@ -18,6 +18,8 @@ calendarRound: 12
 nickname: 'The Dunes'
 difficulty: 'high'
 overtakingDifficulty: 'hard'
+photo: '../../assets/photos/tracks/zandvoort.jpg'
+photoCredit: 'Photo: Anthony Alessio Tralongo (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## A track in the dunes

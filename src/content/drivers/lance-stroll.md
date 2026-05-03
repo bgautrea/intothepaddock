@@ -13,6 +13,8 @@ championships: 0
 status: 'active'
 bio: 'Son of Aston Martin owner Lawrence Stroll. Took pole at the rain-hit Turkish GP in 2020 and has scored three career podiums. Steady midfield presence at the team his family controls.'
 funFact: 'Was racing in F4 at age 12. His father reportedly spent over $80 million on Lance''s karting and junior careers — the most expensive driver development program in racing history.'
+portrait: '../../assets/photos/drivers/lance-stroll.jpg'
+portraitCredit: 'Photo: Liauzh (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

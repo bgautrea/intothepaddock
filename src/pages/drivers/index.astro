@@ -54,6 +54,8 @@ const cards = await Promise.all(
       badge: pos ? `P${pos}` : `#${d.data.number}`,
       subtitle: team?.data.shortName ?? d.data.legendaryTeam ?? '—',
       accent,
+      image: d.data.portrait,
+      imageAlt: `Portrait of ${d.data.name}`,
       stats: [
         { label: 'Wins', value: d.data.careerWins },
         { label: 'Podiums', value: d.data.careerPodiums },

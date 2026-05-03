@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/hero/Hero.astro';
 import KerbDivider from '../../components/ui/KerbDivider.astro';
 import StatBlock from '../../components/ui/StatBlock.astro';
+import PhotoStrip from '../../components/ui/PhotoStrip.astro';
 import CircuitMap from '../../components/hero/CircuitMap.astro';
 
 export async function getStaticPaths() {
@@ -32,6 +33,17 @@ const t = entry.data;
         </div>
       </Fragment>
     </Hero>
+
+    {t.photo && (
+      <section class="container">
+        <PhotoStrip
+          image={t.photo}
+          alt={`${t.name}, ${t.city}`}
+          aspectRatio="21/9"
+          credit={t.photoCredit}
+        />
+      </section>
+    )}
 
     <KerbDivider variant="thin" />
 

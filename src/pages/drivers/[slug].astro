@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/hero/Hero.astro';
 import KerbDivider from '../../components/ui/KerbDivider.astro';
 import StatBlock from '../../components/ui/StatBlock.astro';
+import PhotoStrip from '../../components/ui/PhotoStrip.astro';
 import NextRaceCountdown from '../../components/live/NextRaceCountdown.astro';
 import { getNextRace, raceStartISO } from '../../lib/jolpica';
 
@@ -55,6 +56,17 @@ const next = entry.data.status === 'active' ? await getNextRace() : null;
         </div>
       </Fragment>
     </Hero>
+
+    {entry.data.portrait && (
+      <section class="container">
+        <PhotoStrip
+          image={entry.data.portrait}
+          alt={`Portrait of ${entry.data.name}`}
+          aspectRatio="3/2"
+          credit={entry.data.portraitCredit}
+        />
+      </section>
+    )}
 
     <KerbDivider variant="thin" />
 

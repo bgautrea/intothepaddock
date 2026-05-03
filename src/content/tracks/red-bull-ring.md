@@ -18,6 +18,8 @@ calendarRound: 8
 nickname: 'The Styrian Mountain Track'
 difficulty: 'medium'
 overtakingDifficulty: 'easy'
+photo: '../../assets/photos/tracks/red-bull-ring.jpg'
+photoCredit: 'Photo: Planet Labs, Inc. (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## The shortest lap on the calendar

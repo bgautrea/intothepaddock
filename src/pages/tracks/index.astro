@@ -14,6 +14,8 @@ const cards = tracks.map((t) => ({
   badge: t.data.calendarRound ? `ROUND ${t.data.calendarRound}` : t.data.country.toUpperCase(),
   subtitle: t.data.nickname ?? t.data.name,
   accent: '#fce700',
+  image: t.data.photo,
+  imageAlt: `${t.data.name}, ${t.data.city}`,
   stats: [
     { label: 'Length', value: `${t.data.lengthKm} km` },
     { label: 'Corners', value: t.data.corners },

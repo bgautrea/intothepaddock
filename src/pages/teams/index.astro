@@ -30,6 +30,8 @@ const cards = teams
     badge: positionBySlug.get(t.id) ? `P${positionBySlug.get(t.id)}` : `EST ${t.data.foundedSeason}`,
     subtitle: t.data.tagline,
     accent: t.data.primaryColor,
+    image: t.data.car,
+    imageAlt: `${t.data.shortName} F1 car`,
     stats: [
       { label: 'Titles', value: t.data.constructorTitles },
       { label: 'Pts', value: pointsBySlug.get(t.id) ?? '—' },

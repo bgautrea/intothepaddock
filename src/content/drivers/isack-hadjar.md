@@ -13,6 +13,8 @@ championships: 0
 status: 'active'
 bio: 'French-Algerian Red Bull junior who debuted at Racing Bulls in 2025 and was promoted to the senior Red Bull seat for 2026 alongside Verstappen.'
 funFact: 'Crashed on the formation lap of his very first F1 race in Australia 2025 — and was caught on camera crying in the cockpit. Bounced back to score points at the next round.'
+portrait: '../../assets/photos/drivers/isack-hadjar.jpg'
+portraitCredit: 'Photo: Yu Chu Chin (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

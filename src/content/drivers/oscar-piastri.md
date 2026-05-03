@@ -13,6 +13,8 @@ championships: 0
 status: 'active'
 bio: 'Won every junior championship he entered (Formula Renault, F3, F2 — back-to-back-to-back). Quickly became McLaren''s second weapon. The most poker-faced driver on the grid.'
 funFact: 'Sat out the entire 2022 F1 season as Alpine''s reserve driver, then made headlines when manager Mark Webber publicly forced a contract dispute that landed him at McLaren instead. The FIA Contract Recognition Board sided with Piastri.'
+portrait: '../../assets/photos/drivers/oscar-piastri.jpg'
+portraitCredit: 'Photo: Liauzh (CC BY 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

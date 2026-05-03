@@ -13,6 +13,8 @@ championships: 2
 status: 'legend'
 bio: 'Two-time World Champion (1963, 1965). Indianapolis 500 winner (1965). Killed in a Formula 2 race at Hockenheim in 1968. Generally regarded as the most natural driver of the 1960s.'
 funFact: 'A working sheep farmer in the Scottish Borders his entire racing career — he kept the farm running between Grands Prix and never moved away from his home village of Chirnside.'
+portrait: '../../assets/photos/drivers/jim-clark.jpg'
+portraitCredit: 'Photo: Joop van Bilsen / Anefo (CC0) via Wikimedia Commons'
 ---
 
 ## Why he matters

@@ -13,6 +13,8 @@ calendarRound: 14
 nickname: 'The Madring'
 difficulty: 'medium'
 overtakingDifficulty: 'medium'
+photo: '../../assets/photos/tracks/madrid.jpg'
+photoCredit: 'Photo: GabrielStella (CC BY-SA 3.0) via Wikimedia Commons'
 ---
 
 ## F1's newest circuit

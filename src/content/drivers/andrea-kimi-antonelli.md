@@ -13,6 +13,8 @@ championships: 0
 status: 'active'
 bio: 'The teenager Mercedes hand-picked to replace Lewis Hamilton. Won twice in his rookie year and arrived at the start of 2026 leading the championship.'
 funFact: 'His first name is the same as his racing hero Kimi Räikkönen — chosen by his father, ex-touring-car driver Marco Antonelli, before Andrea was born.'
+portrait: '../../assets/photos/drivers/andrea-kimi-antonelli.jpg'
+portraitCredit: 'Photo: Kuyper (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

@@ -18,6 +18,8 @@ calendarRound: 21
 nickname: 'The Endurance Race'
 difficulty: 'high'
 overtakingDifficulty: 'medium'
+photo: '../../assets/photos/tracks/losail.jpg'
+photoCredit: 'Photo: Box Repsol (CC BY 2.0) via Wikimedia Commons'
 ---
 
 ## A purpose-built MotoGP track running F1

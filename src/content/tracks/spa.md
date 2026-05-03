@@ -18,6 +18,8 @@ calendarRound: 10
 nickname: 'The Ardennes Roller-Coaster'
 difficulty: 'legendary'
 overtakingDifficulty: 'medium'
+photo: '../../assets/photos/tracks/spa.jpg'
+photoCredit: 'Photo: United Autosports (CC BY-SA 2.0) via Wikimedia Commons'
 ---
 
 ## The cathedral in the forest

@@ -13,6 +13,8 @@ championships: 4
 status: 'active'
 bio: 'The youngest race winner in F1 history. A four-time World Champion known for ruthless racecraft, late braking, and a complete inability to lift in the wet.'
 funFact: "He raced karts before he could legally ride a bicycle on the road — his father Jos, an ex-F1 driver himself, started him at age 4."
+portrait: '../../assets/photos/drivers/max-verstappen.jpg'
+portraitCredit: 'Photo: Steffen Prößdorf (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

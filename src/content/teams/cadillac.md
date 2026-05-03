@@ -10,6 +10,8 @@ constructorTitles: 0
 primaryColor: '#c9a96e'
 secondaryColor: '#000000'
 tagline: 'General Motors'' first works F1 entry. The eleventh team on the grid.'
+car: '../../assets/photos/teams/cadillac.jpg'
+carCredit: 'Photo: Liauzh (CC BY 4.0) via Wikimedia Commons'
 ---
 
 Cadillac is the eleventh team — the first new entry since Haas joined in 2016. Behind the brand is General Motors, with operating partner TWG Motorsports (Andretti Global). Facilities span Charlotte and Indianapolis in the US plus a UK base at Silverstone for European race operations.

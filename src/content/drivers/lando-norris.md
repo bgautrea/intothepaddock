@@ -13,6 +13,8 @@ championships: 1
 status: 'active'
 bio: '2025 World Champion. Took McLaren back to the top after a decade and a half in the wilderness, then beat Verstappen and Piastri to the title at the final round.'
 funFact: 'Before F1, his hobby was professional sim racing — he competed under the gamertag "LandoNorris88" and still streams on Twitch with hundreds of thousands of viewers.'
+portrait: '../../assets/photos/drivers/lando-norris.jpg'
+portraitCredit: 'Photo: Original: Steffen Prößdorf; Derivative work: Mb2437 (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

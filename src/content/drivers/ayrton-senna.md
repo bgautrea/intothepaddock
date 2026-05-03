@@ -13,6 +13,8 @@ championships: 3
 status: 'legend'
 bio: 'Three-time World Champion (1988, 1990, 1991). Killed at Imola in 1994. Considered by many the greatest driver in F1 history; certainly the most spiritual.'
 funFact: 'His pole-position record (65) stood for 20 years until Michael Schumacher broke it. His ratio of poles to starts has never been beaten.'
+portrait: '../../assets/photos/drivers/ayrton-senna.jpg'
+portraitCredit: 'Photo: Instituto Ayrton Senna (CC BY 2.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

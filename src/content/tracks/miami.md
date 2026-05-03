@@ -18,6 +18,8 @@ calendarRound: 4
 nickname: 'The Hard Rock Circuit'
 difficulty: 'medium'
 overtakingDifficulty: 'medium'
+photo: '../../assets/photos/tracks/miami.jpg'
+photoCredit: 'Photo: USACJack (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## The new American race

@@ -18,6 +18,8 @@ calendarRound: 7
 nickname: 'The Engineers'' Test'
 difficulty: 'medium'
 overtakingDifficulty: 'hard'
+photo: '../../assets/photos/tracks/catalunya.jpg'
+photoCredit: 'Photo: Wilnel José Verdú Guerrero (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## The benchmark track

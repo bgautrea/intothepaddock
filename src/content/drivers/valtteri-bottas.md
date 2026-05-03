@@ -13,6 +13,8 @@ championships: 0
 status: 'active'
 bio: 'Five seasons as Lewis Hamilton''s teammate at Mercedes (2017–2021), ten career wins, two-time runner-up. Joined the new Cadillac team for its inaugural season.'
 funFact: 'During his Mercedes years his "to whom it may concern" radio after winning the 2019 Australian Grand Prix went viral — a callback to critics who said he wasn''t fast enough to win as Hamilton''s teammate.'
+portrait: '../../assets/photos/drivers/valtteri-bottas.jpg'
+portraitCredit: 'Photo: Yu Chu Chin (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

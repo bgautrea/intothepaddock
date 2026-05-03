@@ -13,6 +13,8 @@ championships: 0
 status: 'active'
 bio: 'Won the 2021 Hungarian Grand Prix from P3 on the grid in a wild, weather-hit race for Alpine. Joined Haas for 2025 after seven seasons at Enstone.'
 funFact: 'His F1 career was funded in part by Mercedes-Benz — Toto Wolff personally paid for Ocon''s karting and junior programs after meeting him as a teenager.'
+portrait: '../../assets/photos/drivers/esteban-ocon.jpg'
+portraitCredit: 'Photo: Rrtb505050 (CC0) via Wikimedia Commons'
 ---
 
 ## Why he matters

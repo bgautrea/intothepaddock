@@ -13,6 +13,8 @@ championships: 0
 status: 'active'
 bio: 'Mercedes'' team leader since Hamilton left for Ferrari. A junior-formula champion who served his apprenticeship at Williams in the team''s worst years.'
 funFact: 'In 2020 he replaced Hamilton at Mercedes for one race in Bahrain (Hamilton had COVID), almost won, then went back to a backmarker Williams the following weekend.'
+portrait: '../../assets/photos/drivers/george-russell.jpg'
+portraitCredit: 'Photo: Raph_PH (CC BY 2.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

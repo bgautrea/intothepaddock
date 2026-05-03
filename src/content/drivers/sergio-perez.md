@@ -13,6 +13,8 @@ championships: 0
 status: 'active'
 bio: 'Six-time race winner. Helped Verstappen win three constructors'' championships at Red Bull (2022–2024), then was dropped at the end of 2024. The most successful Mexican F1 driver ever.'
 funFact: 'Won the 2020 Sakhir Grand Prix from last on the grid — pitted three times, made up nineteen positions, won by 10 seconds. The single best win of his career.'
+portrait: '../../assets/photos/drivers/sergio-perez.jpg'
+portraitCredit: 'Photo: Grahampurse (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

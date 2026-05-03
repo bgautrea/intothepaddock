@@ -10,6 +10,8 @@ constructorTitles: 9
 primaryColor: '#ff8000'
 secondaryColor: '#47c7fc'
 tagline: 'Founded by a driver. Built by engineers. Back at the front.'
+car: '../../assets/photos/teams/mclaren.jpg'
+carCredit: 'Photo: McLaren Mastercard F1 Team (CC0) via Wikimedia Commons'
 ---
 
 McLaren was founded by New Zealand driver Bruce McLaren, who died testing one of his own cars in 1970. The team became one of the sport's giants in the 80s and 90s with Niki Lauda, Alain Prost, Ayrton Senna, and Mika Häkkinen in cars built by Ron Dennis, John Barnard, and Adrian Newey.

@@ -10,6 +10,8 @@ constructorTitles: 0
 primaryColor: '#00d639'
 secondaryColor: '#000000'
 tagline: 'Sauber''s Hinwil factory wearing Audi green — and Audi''s own engine, finally.'
+car: '../../assets/photos/teams/audi.jpg'
+carCredit: 'Photo: Audi Revolut F1 Team / Sauber Motorsports AG (Public domain) via Wikimedia Commons'
 ---
 
 The team's chassis side has lived in the same building in Hinwil, Switzerland since Peter Sauber founded the team in 1993. It has raced as Sauber, BMW Sauber, Sauber again, Alfa Romeo, Stake — and from 2026, as Audi.

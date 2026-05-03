@@ -10,6 +10,8 @@ constructorTitles: 16
 primaryColor: '#dc0000'
 secondaryColor: '#fff200'
 tagline: 'The only team to have raced every season since 1950. Italy in red.'
+car: '../../assets/photos/teams/ferrari.jpg'
+carCredit: 'Photo: Liauzh (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 Ferrari is F1's founding team and its emotional center. Every Ferrari victory is a national event in Italy. Every Ferrari mistake is a national tragedy. There is no equivalent franchise in any other sport.

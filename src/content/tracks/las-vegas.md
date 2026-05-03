@@ -18,6 +18,8 @@ calendarRound: 20
 nickname: 'The Strip Race'
 difficulty: 'medium'
 overtakingDifficulty: 'easy'
+photo: '../../assets/photos/tracks/las-vegas.jpg'
+photoCredit: 'Photo: Valentin JJ. (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## The Saturday night spectacle

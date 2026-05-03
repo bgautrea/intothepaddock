@@ -13,6 +13,8 @@ championships: 0
 status: 'active'
 bio: 'First Brazilian on the F1 grid since Felipe Massa retired in 2017. Won F3 in 2023 and F2 in 2024 back-to-back. Managed by Fernando Alonso.'
 funFact: 'Trained for his rookie F1 season alongside his manager Alonso at Alonso''s personal karting facility in Asturias, Spain — they reportedly raced each other for fun, neither admits who won.'
+portrait: '../../assets/photos/drivers/gabriel-bortoleto.jpg'
+portraitCredit: 'Photo: GingerTom14 (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

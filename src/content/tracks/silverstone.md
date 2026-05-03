@@ -18,6 +18,8 @@ calendarRound: 9
 nickname: 'The Home of British Motorsport'
 difficulty: 'high'
 overtakingDifficulty: 'medium'
+photo: '../../assets/photos/tracks/silverstone.jpg'
+photoCredit: 'Photo: Ian S (CC BY-SA 2.0) via Wikimedia Commons'
 ---
 
 ## The original

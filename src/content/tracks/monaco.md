@@ -18,6 +18,8 @@ calendarRound: 6
 nickname: 'The Jewel of F1'
 difficulty: 'legendary'
 overtakingDifficulty: 'brutal'
+photo: '../../assets/photos/tracks/monaco.jpg'
+photoCredit: 'Photo: otterboris (CC BY 3.0) via Wikimedia Commons'
 ---
 
 ## The cathedral of motorsport

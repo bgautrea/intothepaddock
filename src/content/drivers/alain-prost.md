@@ -13,6 +13,8 @@ championships: 4
 status: 'legend'
 bio: 'Four-time World Champion (1985, 1986, 1989, 1993). Known as "The Professor" for his methodical, calculating racing style — a deliberate counterpoint to teammate Senna.'
 funFact: 'His F1 record-keeping was so meticulous he kept handwritten notebooks of every lap of every test session of his career. His son Sacha is a current FIA Formula 3 racer.'
+portrait: '../../assets/photos/drivers/alain-prost.jpg'
+portraitCredit: 'Photo: Thesupermat (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

@@ -13,6 +13,8 @@ championships: 0
 status: 'active'
 bio: 'British-born, races under Thai license. Promoted to Red Bull mid-2019, dropped after 2020, rebuilt his career at Williams from 2022. The team''s lead driver in the Vowles rebuild years.'
 funFact: 'In 2018 he had a contract to race in Formula E and was about to drop F1 entirely; Toro Rosso called the day before he was due to test in the electric series.'
+portrait: '../../assets/photos/drivers/alexander-albon.jpg'
+portraitCredit: 'Photo: JazzyJoeyD (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

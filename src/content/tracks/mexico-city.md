@@ -18,6 +18,8 @@ calendarRound: 18
 nickname: 'The Stadium Race'
 difficulty: 'medium'
 overtakingDifficulty: 'medium'
+photo: '../../assets/photos/tracks/mexico-city.jpg'
+photoCredit: 'Photo: Wiper México (CC BY-SA 3.0) via Wikimedia Commons'
 ---
 
 ## The highest race on the calendar

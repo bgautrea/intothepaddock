@@ -13,6 +13,8 @@ championships: 0
 status: 'active'
 bio: 'First Argentine F1 driver since 2001. Substituted for Logan Sargeant at Williams late in 2024, scored points in his second race, was signed by Alpine reserve, then promoted full-time for 2026.'
 funFact: 'Argentina hasn''t had a regular F1 driver since Gastón Mazzacane in 2001. Maradona''s grandson reportedly cried watching Colapinto''s F1 debut.'
+portrait: '../../assets/photos/drivers/franco-colapinto.jpg'
+portraitCredit: 'Photo: Yu Chu Chin (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

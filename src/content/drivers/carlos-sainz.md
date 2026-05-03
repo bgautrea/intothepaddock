@@ -13,6 +13,8 @@ championships: 0
 status: 'active'
 bio: 'Son of two-time WRC champion Carlos Sainz Sr. Drove for Toro Rosso, Renault, McLaren, Ferrari (2021–2024), and is now Williams''s lead driver in the team''s long rebuild.'
 funFact: 'Won in Singapore 2023 — the only race that season not won by Verstappen, ending Red Bull''s 15-race winning streak. He led from pole to flag without ever using the medium tyre.'
+portrait: '../../assets/photos/drivers/carlos-sainz.jpg'
+portraitCredit: 'Photo: Dorian Schuster (XaviYuahanda) (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

@@ -45,36 +45,40 @@ const teams = defineCollection({
         .regex(/^#[0-9a-f]{6}$/i)
         .optional(),
       car: image().optional(),
+      carCredit: z.string().optional(),
       tagline: z.string(),
     }),
 });
 
 const tracks = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/tracks' }),
-  schema: z.object({
-    name: z.string(),
-    grandPrix: z.string(),
-    country: z.string(),
-    city: z.string(),
-    lengthKm: z.number(),
-    laps: z.number().int(),
-    raceDistanceKm: z.number(),
-    corners: z.number().int(),
-    drsZones: z.number().int(),
-    lapRecord: z
-      .object({
-        time: z.string(),
-        driver: z.string(),
-        year: z.number().int(),
-      })
-      .optional(),
-    firstGp: z.number().int(),
-    geojsonFile: z.string().optional(),
-    calendarRound: z.number().int().optional(),
-    nickname: z.string().optional(),
-    difficulty: z.enum(['low', 'medium', 'high', 'legendary']).optional(),
-    overtakingDifficulty: z.enum(['easy', 'medium', 'hard', 'brutal']).optional(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      grandPrix: z.string(),
+      country: z.string(),
+      city: z.string(),
+      lengthKm: z.number(),
+      laps: z.number().int(),
+      raceDistanceKm: z.number(),
+      corners: z.number().int(),
+      drsZones: z.number().int(),
+      lapRecord: z
+        .object({
+          time: z.string(),
+          driver: z.string(),
+          year: z.number().int(),
+        })
+        .optional(),
+      firstGp: z.number().int(),
+      geojsonFile: z.string().optional(),
+      calendarRound: z.number().int().optional(),
+      nickname: z.string().optional(),
+      difficulty: z.enum(['low', 'medium', 'high', 'legendary']).optional(),
+      overtakingDifficulty: z.enum(['easy', 'medium', 'hard', 'brutal']).optional(),
+      photo: image().optional(),
+      photoCredit: z.string().optional(),
+    }),
 });
 
 const topics = defineCollection({

@@ -13,6 +13,8 @@ championships: 0
 status: 'active'
 bio: 'Won Monza 2020 from P10 in a midfield AlphaTauri after a chaotic race. The most experienced French driver on the grid, now leading Alpine.'
 funFact: 'His Monza 2020 win is the only time a French driver has won a Grand Prix since Olivier Panis at Monaco in 1996.'
+portrait: '../../assets/photos/drivers/pierre-gasly.jpg'
+portraitCredit: 'Photo: nabtifal (CC BY 2.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

@@ -18,6 +18,8 @@ calendarRound: 19
 nickname: 'Interlagos'
 difficulty: 'high'
 overtakingDifficulty: 'easy'
+photo: '../../assets/photos/tracks/interlagos.jpg'
+photoCredit: 'Photo: Boaventuravinicius (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## The chaos circuit

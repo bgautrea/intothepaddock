@@ -18,6 +18,8 @@ calendarRound: 16
 nickname: 'The Night Race'
 difficulty: 'legendary'
 overtakingDifficulty: 'hard'
+photo: '../../assets/photos/tracks/marina-bay.jpg'
+photoCredit: 'Photo: Daniel Case (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## The first night race

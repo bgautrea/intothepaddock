@@ -18,6 +18,8 @@ calendarRound: 11
 nickname: 'Monaco Without the Walls'
 difficulty: 'high'
 overtakingDifficulty: 'hard'
+photo: '../../assets/photos/tracks/hungaroring.jpg'
+photoCredit: 'Photo: Bjoertvedt (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## A street circuit in a field

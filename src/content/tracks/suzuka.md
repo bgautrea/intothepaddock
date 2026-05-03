@@ -18,6 +18,8 @@ calendarRound: 3
 nickname: 'The Figure 8'
 difficulty: 'legendary'
 overtakingDifficulty: 'hard'
+photo: '../../assets/photos/tracks/suzuka.jpg'
+photoCredit: 'Photo: BWard 1997 (CC BY 4.0) via Wikimedia Commons'
 ---
 
 ## The drivers' favorite

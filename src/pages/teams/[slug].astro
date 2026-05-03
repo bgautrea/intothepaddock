@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/hero/Hero.astro';
 import KerbDivider from '../../components/ui/KerbDivider.astro';
 import StatBlock from '../../components/ui/StatBlock.astro';
+import PhotoStrip from '../../components/ui/PhotoStrip.astro';
 import EntityCard from '../../components/cards/EntityCard.astro';
 import { getDriverStandings, getConstructorStandings } from '../../lib/jolpica';
 import { constructorIdToSlug } from '../../lib/teamColors';
@@ -54,6 +55,8 @@ const lineup = allDrivers
       badge: pos ? `P${pos}` : `#${d.data.number}`,
       subtitle: t.shortName,
       accent: t.primaryColor,
+      image: d.data.portrait,
+      imageAlt: `Portrait of ${d.data.name}`,
       stats: [
         { label: 'Wins', value: d.data.careerWins },
         { label: 'Podiums', value: d.data.careerPodiums },
@@ -81,6 +84,17 @@ const ctorPts = ctorRow?.points;
         </div>
       </Fragment>
     </Hero>
+
+    {t.car && (
+      <section class="container">
+        <PhotoStrip
+          image={t.car}
+          alt={`${t.shortName} F1 car`}
+          aspectRatio="21/9"
+          credit={t.carCredit}
+        />
+      </section>
+    )}
 
     <KerbDivider variant="thin" />
 

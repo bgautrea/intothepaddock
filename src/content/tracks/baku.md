@@ -18,6 +18,8 @@ calendarRound: 15
 nickname: 'The Wall-Banger'
 difficulty: 'high'
 overtakingDifficulty: 'easy'
+photo: '../../assets/photos/tracks/baku.jpg'
+photoCredit: 'Photo: HumanBodyPiloter5 (CC0) via Wikimedia Commons'
 ---
 
 ## A street race with one of the longest straights in F1

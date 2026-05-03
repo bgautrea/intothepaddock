@@ -13,6 +13,8 @@ championships: 0
 status: 'active'
 bio: 'The most-experienced driver on the grid never to have stood on the podium until 2025. Holds the record for most F1 starts without a win. Le Mans 24 Hours winner with Porsche in 2015.'
 funFact: 'Took the only pole position of his career at Brazil 2010 in a Williams — in the wet, beating both Red Bulls. He has not been on pole since.'
+portrait: '../../assets/photos/drivers/nico-hulkenberg.jpg'
+portraitCredit: 'Photo: Marc Alvarado (CC BY-SA 2.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

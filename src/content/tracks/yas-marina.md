@@ -18,6 +18,8 @@ calendarRound: 22
 nickname: 'The Season Finale'
 difficulty: 'medium'
 overtakingDifficulty: 'medium'
+photo: '../../assets/photos/tracks/yas-marina.jpg'
+photoCredit: 'Photo: Anthony Alessio Tralongo (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## The closer

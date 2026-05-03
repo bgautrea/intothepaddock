@@ -13,6 +13,8 @@ championships: 0
 status: 'active'
 bio: 'British-Indian-Swedish rookie. Red Bull junior since 2022, dominant F2 campaign in 2025, promoted straight to Racing Bulls for 2026.'
 funFact: 'At 18 he is the youngest driver on the 2026 grid by ten months. Holds British, Indian, and Swedish passports — has chosen to race under the British flag.'
+portrait: '../../assets/photos/drivers/arvid-lindblad.jpg'
+portraitCredit: 'Photo: Yu Chu Chin (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

@@ -10,6 +10,8 @@ constructorTitles: 9
 primaryColor: '#64c4ff'
 secondaryColor: '#0a3061'
 tagline: 'Nine constructors'' titles, fifteen lean years, a serious rebuild underway.'
+car: '../../assets/photos/teams/williams.jpg'
+carCredit: 'Photo: Atlassian Williams F1 Team (Public domain) via Wikimedia Commons'
 ---
 
 Williams is one of the great names in F1: nine constructors' championships, the home of Nigel Mansell, Alain Prost, Damon Hill, and Jacques Villeneuve through the 90s. Founder Frank Williams ran the team from a wheelchair after a 1986 road accident, with technical director Patrick Head as his engineering counterpart.

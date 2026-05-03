@@ -13,6 +13,8 @@ championships: 2
 status: 'active'
 bio: 'Two-time World Champion (2005, 2006 — both at Renault), Le Mans 24 Hours winner, Indianapolis 500 podium. The longest-serving driver on the grid; still extracting more from a car than most younger drivers can.'
 funFact: 'Came out of F1 retirement at age 39 in 2021. Has won races in F1, sportscars (Le Mans), and Daytona 24 Hours; only Indianapolis 500 is missing from the Triple Crown.'
+portrait: '../../assets/photos/drivers/fernando-alonso.jpg'
+portraitCredit: 'Photo: United Autosports (CC BY-SA 2.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

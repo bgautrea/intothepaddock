@@ -18,6 +18,8 @@ calendarRound: 2
 nickname: 'The 上 Circuit'
 difficulty: 'high'
 overtakingDifficulty: 'medium'
+photo: '../../assets/photos/tracks/shanghai.jpg'
+photoCredit: 'Photo: Planet Labs, Inc. (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## The Shanghai layout

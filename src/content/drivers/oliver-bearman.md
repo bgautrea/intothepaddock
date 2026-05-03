@@ -13,6 +13,8 @@ championships: 0
 status: 'active'
 bio: 'Ferrari Academy graduate who scored a debut points-finish substituting for an appendicitis-stricken Carlos Sainz in 2024. Now Haas''s team leader at age 20.'
 funFact: 'Got the call to debut in F1 the morning of Friday practice in Saudi Arabia 2024 — never sat in a Ferrari at race pace before. Finished seventh in the race.'
+portrait: '../../assets/photos/drivers/oliver-bearman.jpg'
+portraitCredit: 'Photo: Liauzh (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

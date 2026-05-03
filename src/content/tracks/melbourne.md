@@ -18,6 +18,8 @@ calendarRound: 1
 nickname: 'The Season Opener'
 difficulty: 'medium'
 overtakingDifficulty: 'medium'
+photo: '../../assets/photos/tracks/melbourne.jpg'
+photoCredit: 'Photo: Ozzmosis (CC BY-SA 2.5) via Wikimedia Commons'
 ---
 
 ## The opener

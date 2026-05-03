@@ -10,6 +10,8 @@ constructorTitles: 6
 primaryColor: '#1e41ff'
 secondaryColor: '#fcd700'
 tagline: 'The team that turned an energy-drink brand into an F1 dynasty.'
+car: '../../assets/photos/teams/red-bull.jpg'
+carCredit: 'Photo: Liauzh (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 Red Bull Racing was born when the Austrian energy-drink company bought struggling team Jaguar at the end of 2004. Within a decade they were unbeatable.

@@ -13,6 +13,8 @@ championships: 5
 status: 'legend'
 bio: 'Five-time World Champion (1951, 1954, 1955, 1956, 1957) — at four different constructors. The original GOAT; the standard against which the 1950s and 60s drivers measured themselves.'
 funFact: 'Was kidnapped before the 1958 Cuban Grand Prix by Fidel Castro''s rebels for political publicity. They released him a day later, unharmed. He stayed friendly with several of the rebels for the rest of his life.'
+portrait: '../../assets/photos/drivers/juan-manuel-fangio.jpg'
+portraitCredit: 'Photo: Bjørn Fjørtoft (CC BY 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

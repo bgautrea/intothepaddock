@@ -10,6 +10,8 @@ constructorTitles: 0
 primaryColor: '#b6babd'
 secondaryColor: '#ed1c24'
 tagline: 'The only American team on the grid. NASCAR money, Ferrari engine, Italian build, lean operation.'
+car: '../../assets/photos/teams/haas.jpg'
+carCredit: 'Photo: Haas F1 Team (Public domain) via Wikimedia Commons'
 ---
 
 Haas is owned by Gene Haas, who made his fortune in CNC machine tools and runs a NASCAR team out of North Carolina. The F1 operation is unusual — design and engineering are split between Banbury (UK) and Maranello (Italy, working closely with Ferrari), and the chassis is built by Dallara. The whole structure exists to keep headcount minimal.

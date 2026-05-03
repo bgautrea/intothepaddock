@@ -13,6 +13,8 @@ championships: 0
 status: 'active'
 bio: 'Ferrari''s lead driver since 2019. The most natural one-lap qualifier on the current grid — pole positions in the high twenties, mostly extracted from cars that didn''t deserve them.'
 funFact: 'He grew up in an apartment overlooking the Monaco GP track. His best friend as a kid was Jules Bianchi, who would later die from injuries sustained in the 2014 Japanese Grand Prix.'
+portrait: '../../assets/photos/drivers/charles-leclerc.jpg'
+portraitCredit: 'Photo: Steffen Prößdorf (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

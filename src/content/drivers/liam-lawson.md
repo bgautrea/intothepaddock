@@ -13,6 +13,8 @@ championships: 0
 status: 'active'
 bio: 'Red Bull junior who substituted for Daniel Ricciardo in 2023, replaced Ricciardo full-time at Racing Bulls in late 2024, was briefly promoted to Red Bull in early 2025, then returned to Racing Bulls.'
 funFact: 'In his five-race substitution stint in 2023 he qualified 10th at Singapore, his second-ever F1 weekend, and out-qualified Ricciardo every time the two raced together.'
+portrait: '../../assets/photos/drivers/liam-lawson.jpg'
+portraitCredit: 'Photo: Yu Chu Chin (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## Why he matters

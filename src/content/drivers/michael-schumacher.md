@@ -13,6 +13,8 @@ championships: 7
 status: 'legend'
 bio: 'Seven-time World Champion. Defined the Ferrari era of the early 2000s — five straight titles 2000–2004. The benchmark every modern champion is measured against.'
 funFact: 'He was hired by Jordan for one race in 1991 because their original driver was in jail. Schumacher qualified seventh, was poached by Benetton the next weekend, and never raced for Jordan again.'
+portrait: '../../assets/photos/drivers/michael-schumacher.jpg'
+portraitCredit: 'Photo: Original: Aécio Neves – Wellington Pedro/Imprensa MG / Derivative work: F1fans, FMSky (CC BY 2.0) via Wikimedia Commons'
 ---
 
 ## Why he matters
