@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Charles Leclerc'
   year: 2024
 firstGp: 1996
+geojsonFile: 'melbourne.geojson'
 calendarRound: 1
 nickname: 'The Season Opener'
 difficulty: 'medium'

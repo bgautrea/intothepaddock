@@ -4,6 +4,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/hero/Hero.astro';
 import KerbDivider from '../../components/ui/KerbDivider.astro';
 import StatBlock from '../../components/ui/StatBlock.astro';
+import EntityCard from '../../components/cards/EntityCard.astro';
+import { getDriverStandings, getConstructorStandings } from '../../lib/jolpica';
+import { constructorIdToSlug } from '../../lib/teamColors';
 
 export async function getStaticPaths() {
   const teams = await getCollection('teams');
@@ -13,6 +16,57 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const t = entry.data;
+
+const stripDiacritics = (s: string): string =>
+  s.normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+const standings = await getDriverStandings();
+const driverPos = new Map<string, number>();
+for (const s of standings) {
+  const pos = parseInt(s.position, 10);
+  const fam = stripDiacritics(s.Driver.familyName.toLowerCase());
+  const giv = stripDiacritics(s.Driver.givenName.toLowerCase()).replace(/\s+/g, '-');
+  const candidates = [
+    s.Driver.driverId.replace(/_/g, '-'),
+    fam,
+    `${giv}-${fam}`,
+    `${giv.split('-')[0]}-${fam}`,
+  ];
+  for (const c of candidates) driverPos.set(c, pos);
+}
+
+const allDrivers = await getCollection('drivers');
+const lineup = allDrivers
+  .filter((d) => d.data.status === 'active')
+  .filter((d) => {
+    const ref = d.data.team;
+    if (!ref) return false;
+    return typeof ref === 'string' ? ref === entry.id : ref.id === entry.id;
+  })
+  .map((d) => {
+    const fam = stripDiacritics(d.data.name.toLowerCase()).split(' ').slice(-1)[0];
+    const pos = driverPos.get(d.id) ?? driverPos.get(fam);
+    return {
+      slug: d.id,
+      pos,
+      href: `/drivers/${d.id}`,
+      title: d.data.name,
+      badge: pos ? `P${pos}` : `#${d.data.number}`,
+      subtitle: t.shortName,
+      accent: t.primaryColor,
+      stats: [
+        { label: 'Wins', value: d.data.careerWins },
+        { label: 'Podiums', value: d.data.careerPodiums },
+        { label: 'Titles', value: d.data.championships },
+      ],
+    };
+  })
+  .sort((a, b) => (a.pos ?? 99) - (b.pos ?? 99));
+
+const constructors = await getConstructorStandings();
+const ctorRow = constructors.find((c) => constructorIdToSlug(c.Constructor.constructorId) === entry.id);
+const ctorPos = ctorRow ? parseInt(ctorRow.position, 10) : undefined;
+const ctorPts = ctorRow?.points;
 ---
 
 <BaseLayout title={t.name} description={t.tagline}>
@@ -22,6 +76,8 @@ const t = entry.data;
         <div class="team-stats-grid">
           <StatBlock value={t.constructorTitles} label="Constructor titles" />
           <StatBlock value={t.foundedSeason} label="First season" />
+          {ctorPos !== undefined && <StatBlock value={`P${ctorPos}`} label="2026 standing" />}
+          {ctorPts && <StatBlock value={ctorPts} label="Points" />}
         </div>
       </Fragment>
     </Hero>
@@ -42,6 +98,21 @@ const t = entry.data;
     <section class="container long-form">
       <Content />
     </section>
+
+    {lineup.length > 0 && (
+      <>
+        <KerbDivider variant="thin" />
+        <section class="container lineup-section">
+          <header class="lineup-head">
+            <h2>Current lineup</h2>
+            <p class="lineup-sub mono">2026 driver pairing</p>
+          </header>
+          <div class="lineup-grid">
+            {lineup.map((d) => <EntityCard {...d} />)}
+          </div>
+        </section>
+      </>
+    )}
   </article>
 </BaseLayout>
 
@@ -102,5 +173,40 @@ const t = entry.data;
     margin-block: var(--sp-8) var(--sp-3);
     border-left: 4px solid var(--team-primary);
     padding-left: var(--sp-3);
+  }
+
+  .lineup-section {
+    padding-block: var(--sp-12);
+  }
+
+  .lineup-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: var(--sp-6);
+    padding-bottom: var(--sp-3);
+    border-bottom: 1px solid var(--team-primary);
+  }
+
+  .lineup-head h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-700);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .lineup-sub {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .lineup-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--sp-5);
   }
 </style>

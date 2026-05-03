@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Max Verstappen'
   year: 2020
 firstGp: 1950
+geojsonFile: 'silverstone.geojson'
 calendarRound: 9
 nickname: 'The Home of British Motorsport'
 difficulty: 'high'

@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Valtteri Bottas'
   year: 2018
 firstGp: 1973
+geojsonFile: 'interlagos.geojson'
 calendarRound: 19
 nickname: 'Interlagos'
 difficulty: 'high'

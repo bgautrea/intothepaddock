@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Sergio Pérez'
   year: 2024
 firstGp: 1950
+geojsonFile: 'spa.geojson'
 calendarRound: 10
 nickname: 'The Ardennes Roller-Coaster'
 difficulty: 'legendary'

@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Valtteri Bottas'
   year: 2021
 firstGp: 1963
+geojsonFile: 'mexico-city.geojson'
 calendarRound: 18
 nickname: 'The Stadium Race'
 difficulty: 'medium'

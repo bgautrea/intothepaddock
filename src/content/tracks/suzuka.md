@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Lewis Hamilton'
   year: 2019
 firstGp: 1987
+geojsonFile: 'suzuka.geojson'
 calendarRound: 3
 nickname: 'The Figure 8'
 difficulty: 'legendary'

@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Michael Schumacher'
   year: 2004
 firstGp: 2004
+geojsonFile: 'shanghai.geojson'
 calendarRound: 2
 nickname: 'The 上 Circuit'
 difficulty: 'high'

@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Oscar Piastri'
   year: 2024
 firstGp: 2023
+geojsonFile: 'las-vegas.geojson'
 calendarRound: 20
 nickname: 'The Strip Race'
 difficulty: 'medium'

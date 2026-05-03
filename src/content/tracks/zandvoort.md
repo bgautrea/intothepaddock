@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Lewis Hamilton'
   year: 2021
 firstGp: 1952
+geojsonFile: 'zandvoort.geojson'
 calendarRound: 12
 nickname: 'The Dunes'
 difficulty: 'high'

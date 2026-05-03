@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Lando Norris'
   year: 2024
 firstGp: 2008
+geojsonFile: 'marina-bay.geojson'
 calendarRound: 16
 nickname: 'The Night Race'
 difficulty: 'legendary'

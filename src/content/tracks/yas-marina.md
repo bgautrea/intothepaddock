@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Kevin Magnussen'
   year: 2024
 firstGp: 2009
+geojsonFile: 'yas-marina.geojson'
 calendarRound: 22
 nickname: 'The Season Finale'
 difficulty: 'medium'

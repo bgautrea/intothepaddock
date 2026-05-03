@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Carlos Sainz'
   year: 2020
 firstGp: 1970
+geojsonFile: 'red-bull-ring.geojson'
 calendarRound: 8
 nickname: 'The Styrian Mountain Track'
 difficulty: 'medium'

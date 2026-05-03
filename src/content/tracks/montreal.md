@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Valtteri Bottas'
   year: 2019
 firstGp: 1978
+geojsonFile: 'montreal.geojson'
 calendarRound: 5
 nickname: 'The Wall of Champions'
 difficulty: 'high'

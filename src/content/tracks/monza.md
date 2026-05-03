@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Rubens Barrichello'
   year: 2004
 firstGp: 1950
+geojsonFile: 'monza.geojson'
 calendarRound: 13
 nickname: 'The Temple of Speed'
 difficulty: 'medium'

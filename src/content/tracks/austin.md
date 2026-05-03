@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Charles Leclerc'
   year: 2019
 firstGp: 2012
+geojsonFile: 'austin.geojson'
 calendarRound: 17
 nickname: 'COTA'
 difficulty: 'high'

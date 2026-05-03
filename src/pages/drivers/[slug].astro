@@ -4,6 +4,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/hero/Hero.astro';
 import KerbDivider from '../../components/ui/KerbDivider.astro';
 import StatBlock from '../../components/ui/StatBlock.astro';
+import NextRaceCountdown from '../../components/live/NextRaceCountdown.astro';
+import { getNextRace, raceStartISO } from '../../lib/jolpica';
 
 export async function getStaticPaths() {
   const drivers = await getCollection('drivers');
@@ -18,6 +20,27 @@ const teamLabel = team?.data.shortName ?? entry.data.legendaryTeam ?? 'Driver';
 const teamColor = team?.data.primaryColor ?? '#fce700';
 const dobYear = entry.data.dob.getFullYear();
 const age = new Date().getFullYear() - dobYear;
+
+let teammate: { name: string; href: string; number: number } | null = null;
+if (team) {
+  const allDrivers = await getCollection('drivers');
+  const found = allDrivers.find((d) => {
+    if (d.id === entry.id) return false;
+    if (d.data.status !== 'active') return false;
+    const ref = d.data.team;
+    if (!ref) return false;
+    return typeof ref === 'string' ? ref === team.id : ref.id === team.id;
+  });
+  if (found) {
+    teammate = {
+      name: found.data.name,
+      href: `/drivers/${found.id}`,
+      number: found.data.number,
+    };
+  }
+}
+
+const next = entry.data.status === 'active' ? await getNextRace() : null;
 ---
 
 <BaseLayout title={entry.data.name} description={entry.data.bio}>
@@ -41,6 +64,12 @@ const age = new Date().getFullYear() - dobYear;
         <div><dt>Born</dt><dd>{entry.data.dob.toISOString().slice(0, 10)} · {entry.data.birthplace} · age {age}</dd></div>
         <div><dt>Debut</dt><dd>{entry.data.debutSeason}</dd></div>
         <div><dt>Status</dt><dd class="status">{entry.data.status}</dd></div>
+        {teammate && (
+          <div>
+            <dt>Teammate</dt>
+            <dd><a class="teammate-link" href={teammate.href}>{teammate.name} <span class="mono">#{teammate.number}</span></a></dd>
+          </div>
+        )}
       </dl>
     </section>
 
@@ -56,6 +85,24 @@ const age = new Date().getFullYear() - dobYear;
         </aside>
       )}
     </section>
+
+    {next && (
+      <>
+        <KerbDivider variant="thin" />
+        <section class="container next-race-section">
+          <header class="nrs-head">
+            <h2>Next on track</h2>
+            <p class="nrs-sub mono">Where you'll see {entry.data.name.split(' ').slice(-1)[0]} next</p>
+          </header>
+          <NextRaceCountdown
+            raceName={next.raceName}
+            circuit={`${next.Circuit.circuitName} · ${next.Circuit.Location.locality}`}
+            raceDate={raceStartISO(next)}
+            round={Number(next.round)}
+          />
+        </section>
+      </>
+    )}
   </article>
 </BaseLayout>
 
@@ -108,6 +155,17 @@ const age = new Date().getFullYear() - dobYear;
     font-size: var(--fs-300);
   }
 
+  .teammate-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--team-primary);
+    transition: color var(--dur-base) var(--ease-snap);
+  }
+
+  .teammate-link:hover {
+    color: var(--team-primary);
+  }
+
   .long-form {
     padding-block: var(--sp-12);
     max-width: 720px;
@@ -158,5 +216,34 @@ const age = new Date().getFullYear() - dobYear;
     margin: 0;
     color: var(--text-primary);
     font-style: italic;
+  }
+
+  .next-race-section {
+    padding-block: var(--sp-12);
+  }
+
+  .nrs-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: var(--sp-6);
+    padding-bottom: var(--sp-3);
+    border-bottom: 1px solid var(--team-primary);
+  }
+
+  .nrs-head h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-700);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .nrs-sub {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
   }
 </style>

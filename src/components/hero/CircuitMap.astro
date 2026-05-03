@@ -1,18 +1,74 @@
 ---
 /**
- * CircuitMap — shell for Milestone 2.
- * In Milestone 3 this will render an actual SVG path from GeoJSON.
+ * CircuitMap — renders an F1 circuit outline from vendored GeoJSON.
  *
- * For now: stylized abstract closed-loop placeholder with the GP label.
+ * If `geojsonFile` is provided and the file exists in /data/circuits/,
+ * we project its LineString coordinates with d3-geo at build time and
+ * render an SVG path. Otherwise we fall back to a stylized placeholder.
  */
+
+import { readFileSync, existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'node:path';
+import { geoMercator, geoPath } from 'd3-geo';
 
 interface Props {
   grandPrix: string;
   country: string;
   round?: number;
+  geojsonFile?: string;
 }
 
-const { grandPrix, country, round } = Astro.props;
+const { grandPrix, country, round, geojsonFile } = Astro.props;
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const CIRCUITS_DIR = resolve(__dirname, '../../../data/circuits');
+
+interface CircuitPath {
+  d: string;
+  startMarker: { x: number; y: number };
+}
+
+function loadCircuitPath(file: string): CircuitPath | null {
+  const path = resolve(CIRCUITS_DIR, file);
+  if (!existsSync(path)) return null;
+
+  let geo: GeoJSON.FeatureCollection;
+  try {
+    geo = JSON.parse(readFileSync(path, 'utf8')) as GeoJSON.FeatureCollection;
+  } catch {
+    return null;
+  }
+
+  // Box: 480 wide x 280 tall, with 16px padding for stroke + start marker.
+  const width = 480;
+  const height = 280;
+  const padding = 24;
+
+  const projection = geoMercator().fitExtent(
+    [
+      [padding, padding],
+      [width - padding, height - padding],
+    ],
+    geo,
+  );
+  const pathFn = geoPath(projection);
+  const d = pathFn(geo) ?? '';
+  if (!d) return null;
+
+  // Find first coordinate to mark start/finish.
+  const firstFeature = geo.features[0];
+  let startMarker = { x: padding, y: height / 2 };
+  if (firstFeature && firstFeature.geometry.type === 'LineString') {
+    const [lon, lat] = firstFeature.geometry.coordinates[0];
+    const projected = projection([lon, lat]);
+    if (projected) startMarker = { x: projected[0], y: projected[1] };
+  }
+
+  return { d, startMarker };
+}
+
+const circuit = geojsonFile ? loadCircuitPath(geojsonFile) : null;
 ---
 
 <figure class="cmap">
@@ -20,25 +76,58 @@ const { grandPrix, country, round } = Astro.props;
     class="cmap-svg"
     viewBox="0 0 480 280"
     role="img"
-    aria-label={`${grandPrix} circuit placeholder`}
+    aria-label={`${grandPrix} circuit map`}
     xmlns="http://www.w3.org/2000/svg"
   >
-    <!-- Stylized track loop -->
-    <path
-      d="M 60 140 C 80 60, 200 40, 260 80 S 420 140, 400 200 S 240 250, 160 220 S 40 220, 60 140 Z"
-      fill="none"
-      stroke="#fce700"
-      stroke-width="3"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <!-- Start-finish marker -->
-    <line x1="55" y1="135" x2="65" y2="145" stroke="#f5f5f3" stroke-width="3" />
-    <line x1="65" y1="135" x2="75" y2="145" stroke="#f5f5f3" stroke-width="3" />
-    <!-- Sector dots (representative) -->
-    <circle cx="260" cy="80" r="4" fill="#b545ff" />
-    <circle cx="400" cy="200" r="4" fill="#2ecc71" />
-    <circle cx="160" cy="220" r="4" fill="#f4d03f" />
+    {circuit ? (
+      <>
+        <path
+          d={circuit.d}
+          fill="none"
+          stroke="#fce700"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <circle
+          cx={circuit.startMarker.x}
+          cy={circuit.startMarker.y}
+          r="6"
+          fill="#0e0f10"
+          stroke="#f5f5f3"
+          stroke-width="2"
+        />
+        <circle
+          cx={circuit.startMarker.x}
+          cy={circuit.startMarker.y}
+          r="2"
+          fill="#fce700"
+        />
+      </>
+    ) : (
+      <>
+        <path
+          d="M 60 140 C 80 60, 200 40, 260 80 S 420 140, 400 200 S 240 250, 160 220 S 40 220, 60 140 Z"
+          fill="none"
+          stroke="#fce700"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          opacity="0.6"
+        />
+        <text
+          x="240"
+          y="148"
+          text-anchor="middle"
+          fill="#6c7079"
+          font-family="JetBrains Mono Variable, JetBrains Mono, monospace"
+          font-size="11"
+          letter-spacing="2"
+        >
+          MAP UNAVAILABLE
+        </text>
+      </>
+    )}
   </svg>
 
   <figcaption class="cmap-caption">
@@ -57,7 +146,7 @@ const { grandPrix, country, round } = Astro.props;
     border-radius: var(--radius-md);
     display: flex;
     flex-direction: column;
-    gap: var(--sp-3);
+    gap: var(--sp-4);
   }
 
   .cmap-svg {

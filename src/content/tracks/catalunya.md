@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Max Verstappen'
   year: 2023
 firstGp: 1991
+geojsonFile: 'catalunya.geojson'
 calendarRound: 7
 nickname: 'The Engineers'' Test'
 difficulty: 'medium'

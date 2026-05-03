@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Lando Norris'
   year: 2023
 firstGp: 2021
+geojsonFile: 'losail.geojson'
 calendarRound: 21
 nickname: 'The Endurance Race'
 difficulty: 'high'

@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Charles Leclerc'
   year: 2019
 firstGp: 2016
+geojsonFile: 'baku.geojson'
 calendarRound: 15
 nickname: 'The Wall-Banger'
 difficulty: 'high'

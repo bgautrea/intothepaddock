@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Lewis Hamilton'
   year: 2020
 firstGp: 1986
+geojsonFile: 'hungaroring.geojson'
 calendarRound: 11
 nickname: 'Monaco Without the Walls'
 difficulty: 'high'

@@ -13,6 +13,7 @@ lapRecord:
   driver: 'Max Verstappen'
   year: 2023
 firstGp: 2022
+geojsonFile: 'miami.geojson'
 calendarRound: 4
 nickname: 'The Hard Rock Circuit'
 difficulty: 'medium'
