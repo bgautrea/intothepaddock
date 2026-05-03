@@ -21,6 +21,8 @@ spec:
       labels:
         app: intothepaddock
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: site
           # CI overwrites this image tag with the SHA of each main commit.
