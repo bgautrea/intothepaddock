@@ -1,0 +1,863 @@
+{
+  "slug": "2026-miami",
+  "meta": {
+    "season": 2026,
+    "round": 4,
+    "raceName": "Miami Grand Prix",
+    "circuitRef": "miami",
+    "raceDate": "2026-05-03",
+    "raceTime": "20:00:00Z"
+  },
+  "results": [
+    {
+      "position": 1,
+      "driverId": "antonelli",
+      "driverName": "Andrea Kimi Antonelli",
+      "teamSlug": "mercedes",
+      "gapToLeader": "1:33:19.273",
+      "status": "Finished"
+    },
+    {
+      "position": 2,
+      "driverId": "norris",
+      "driverName": "Lando Norris",
+      "teamSlug": "mclaren",
+      "gapToLeader": "+3.264",
+      "status": "Finished"
+    },
+    {
+      "position": 3,
+      "driverId": "piastri",
+      "driverName": "Oscar Piastri",
+      "teamSlug": "mclaren",
+      "gapToLeader": "+27.092",
+      "status": "Finished"
+    },
+    {
+      "position": 4,
+      "driverId": "russell",
+      "driverName": "George Russell",
+      "teamSlug": "mercedes",
+      "gapToLeader": "+43.051",
+      "status": "Finished"
+    },
+    {
+      "position": 5,
+      "driverId": "max_verstappen",
+      "driverName": "Max Verstappen",
+      "teamSlug": "red-bull",
+      "gapToLeader": "+48.949",
+      "status": "Finished"
+    },
+    {
+      "position": 6,
+      "driverId": "hamilton",
+      "driverName": "Lewis Hamilton",
+      "teamSlug": "ferrari",
+      "gapToLeader": "+53.753",
+      "status": "Finished"
+    },
+    {
+      "position": 7,
+      "driverId": "colapinto",
+      "driverName": "Franco Colapinto",
+      "teamSlug": "alpine",
+      "gapToLeader": "+1:01.871",
+      "status": "Finished"
+    },
+    {
+      "position": 8,
+      "driverId": "leclerc",
+      "driverName": "Charles Leclerc",
+      "teamSlug": "ferrari",
+      "gapToLeader": "+1:04.245",
+      "status": "Finished"
+    },
+    {
+      "position": 9,
+      "driverId": "sainz",
+      "driverName": "Carlos Sainz",
+      "teamSlug": "williams",
+      "gapToLeader": "+1:22.072",
+      "status": "Finished"
+    },
+    {
+      "position": 10,
+      "driverId": "albon",
+      "driverName": "Alexander Albon",
+      "teamSlug": "williams",
+      "gapToLeader": "+1:30.972",
+      "status": "Finished"
+    },
+    {
+      "position": 11,
+      "driverId": "bearman",
+      "driverName": "Oliver Bearman",
+      "teamSlug": "haas",
+      "gapToLeader": "+6.400",
+      "status": "Lapped"
+    },
+    {
+      "position": 12,
+      "driverId": "bortoleto",
+      "driverName": "Gabriel Bortoleto",
+      "teamSlug": "audi",
+      "gapToLeader": "+9.353",
+      "status": "Lapped"
+    },
+    {
+      "position": 13,
+      "driverId": "ocon",
+      "driverName": "Esteban Ocon",
+      "teamSlug": "haas",
+      "gapToLeader": "+13.873",
+      "status": "Lapped"
+    },
+    {
+      "position": 14,
+      "driverId": "arvid_lindblad",
+      "driverName": "Arvid Lindblad",
+      "teamSlug": "racing-bulls",
+      "gapToLeader": "+44.781",
+      "status": "Lapped"
+    },
+    {
+      "position": 15,
+      "driverId": "alonso",
+      "driverName": "Fernando Alonso",
+      "teamSlug": "aston-martin",
+      "gapToLeader": "+1:14.964",
+      "status": "Lapped"
+    },
+    {
+      "position": 16,
+      "driverId": "perez",
+      "driverName": "Sergio Pérez",
+      "teamSlug": "cadillac",
+      "gapToLeader": "+1:17.513",
+      "status": "Lapped"
+    },
+    {
+      "position": 17,
+      "driverId": "stroll",
+      "driverName": "Lance Stroll",
+      "teamSlug": "aston-martin",
+      "gapToLeader": "+1:22.631",
+      "status": "Lapped"
+    },
+    {
+      "position": 18,
+      "driverId": "bottas",
+      "driverName": "Valtteri Bottas",
+      "teamSlug": "cadillac",
+      "gapToLeader": "+1:08.255",
+      "status": "Lapped"
+    },
+    {
+      "position": 19,
+      "driverId": "hulkenberg",
+      "driverName": "Nico Hülkenberg",
+      "teamSlug": "audi",
+      "status": "Retired"
+    },
+    {
+      "position": 20,
+      "driverId": "lawson",
+      "driverName": "Liam Lawson",
+      "teamSlug": "racing-bulls",
+      "status": "Retired"
+    },
+    {
+      "position": 21,
+      "driverId": "gasly",
+      "driverName": "Pierre Gasly",
+      "teamSlug": "alpine",
+      "status": "Retired"
+    },
+    {
+      "position": 22,
+      "driverId": "hadjar",
+      "driverName": "Isack Hadjar",
+      "teamSlug": "red-bull",
+      "status": "Retired"
+    }
+  ],
+  "fastestLap": {
+    "driverId": "norris",
+    "driverName": "Lando Norris",
+    "lap": 35,
+    "time": "1:31.869"
+  },
+  "biggestMovers": {
+    "gainers": [
+      {
+        "driverId": "bortoleto",
+        "driverName": "Gabriel Bortoleto",
+        "startPos": 21,
+        "endPos": 12,
+        "change": 9
+      },
+      {
+        "driverId": "albon",
+        "driverName": "Alexander Albon",
+        "startPos": 15,
+        "endPos": 10,
+        "change": 5
+      },
+      {
+        "driverId": "piastri",
+        "driverName": "Oscar Piastri",
+        "startPos": 7,
+        "endPos": 3,
+        "change": 4
+      }
+    ],
+    "losers": [
+      {
+        "driverId": "gasly",
+        "driverName": "Pierre Gasly",
+        "startPos": 9,
+        "endPos": 21,
+        "change": -12
+      },
+      {
+        "driverId": "hulkenberg",
+        "driverName": "Nico Hülkenberg",
+        "startPos": 10,
+        "endPos": 19,
+        "change": -9
+      },
+      {
+        "driverId": "lawson",
+        "driverName": "Liam Lawson",
+        "startPos": 11,
+        "endPos": 20,
+        "change": -9
+      }
+    ]
+  },
+  "pitStops": [
+    {
+      "driverId": "albon",
+      "driverName": "Alexander Albon",
+      "stops": [
+        {
+          "lap": 27,
+          "durationSec": 23.016
+        }
+      ]
+    },
+    {
+      "driverId": "antonelli",
+      "driverName": "Andrea Kimi Antonelli",
+      "stops": [
+        {
+          "lap": 26,
+          "durationSec": 22.128
+        }
+      ]
+    },
+    {
+      "driverId": "arvid_lindblad",
+      "driverName": "Arvid Lindblad",
+      "stops": [
+        {
+          "lap": 28,
+          "durationSec": 22.731
+        }
+      ]
+    },
+    {
+      "driverId": "sainz",
+      "driverName": "Carlos Sainz",
+      "stops": [
+        {
+          "lap": 28,
+          "durationSec": 23.595
+        }
+      ]
+    },
+    {
+      "driverId": "leclerc",
+      "driverName": "Charles Leclerc",
+      "stops": [
+        {
+          "lap": 21,
+          "durationSec": 23.386
+        }
+      ]
+    },
+    {
+      "driverId": "ocon",
+      "driverName": "Esteban Ocon",
+      "stops": [
+        {
+          "lap": 31,
+          "durationSec": 24.027
+        }
+      ]
+    },
+    {
+      "driverId": "alonso",
+      "driverName": "Fernando Alonso",
+      "stops": [
+        {
+          "lap": 41,
+          "durationSec": 23.16
+        }
+      ]
+    },
+    {
+      "driverId": "colapinto",
+      "driverName": "Franco Colapinto",
+      "stops": [
+        {
+          "lap": 31,
+          "durationSec": 23.093
+        }
+      ]
+    },
+    {
+      "driverId": "bortoleto",
+      "driverName": "Gabriel Bortoleto",
+      "stops": [
+        {
+          "lap": 32,
+          "durationSec": 23.986
+        }
+      ]
+    },
+    {
+      "driverId": "russell",
+      "driverName": "George Russell",
+      "stops": [
+        {
+          "lap": 20,
+          "durationSec": 22.042
+        }
+      ]
+    },
+    {
+      "driverId": "stroll",
+      "driverName": "Lance Stroll",
+      "stops": [
+        {
+          "lap": 21,
+          "durationSec": 22.63
+        },
+        {
+          "lap": 37,
+          "durationSec": 22.09
+        }
+      ]
+    },
+    {
+      "driverId": "norris",
+      "driverName": "Lando Norris",
+      "stops": [
+        {
+          "lap": 27,
+          "durationSec": 22.565
+        }
+      ]
+    },
+    {
+      "driverId": "hamilton",
+      "driverName": "Lewis Hamilton",
+      "stops": [
+        {
+          "lap": 27,
+          "durationSec": 23.779
+        }
+      ]
+    },
+    {
+      "driverId": "max_verstappen",
+      "driverName": "Max Verstappen",
+      "stops": [
+        {
+          "lap": 6,
+          "durationSec": 22.547
+        }
+      ]
+    },
+    {
+      "driverId": "hulkenberg",
+      "driverName": "Nico Hülkenberg",
+      "stops": [
+        {
+          "lap": 1,
+          "durationSec": 33.71
+        }
+      ]
+    },
+    {
+      "driverId": "bearman",
+      "driverName": "Oliver Bearman",
+      "stops": [
+        {
+          "lap": 26,
+          "durationSec": 23.474
+        }
+      ]
+    },
+    {
+      "driverId": "piastri",
+      "driverName": "Oscar Piastri",
+      "stops": [
+        {
+          "lap": 28,
+          "durationSec": 23.024
+        }
+      ]
+    },
+    {
+      "driverId": "perez",
+      "driverName": "Sergio Pérez",
+      "stops": [
+        {
+          "lap": 29,
+          "durationSec": 23.228
+        }
+      ]
+    },
+    {
+      "driverId": "bottas",
+      "driverName": "Valtteri Bottas",
+      "stops": [
+        {
+          "lap": 6,
+          "durationSec": 23.529
+        },
+        {
+          "lap": 21,
+          "durationSec": 23.827
+        },
+        {
+          "lap": 30,
+          "durationSec": 17.173
+        }
+      ]
+    }
+  ],
+  "stintAnalysis": [
+    {
+      "driverId": "antonelli",
+      "driverName": "Andrea Kimi Antonelli",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 25,
+          "fastestLapTime": "1:32.779",
+          "avgPaceSec": 104.963
+        },
+        {
+          "startLap": 27,
+          "endLap": 57,
+          "fastestLapTime": "1:31.968",
+          "avgPaceSec": 92.816
+        }
+      ],
+      "consistencySec": 15.092
+    },
+    {
+      "driverId": "norris",
+      "driverName": "Lando Norris",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 26,
+          "fastestLapTime": "1:32.556",
+          "avgPaceSec": 104.423
+        },
+        {
+          "startLap": 28,
+          "endLap": 57,
+          "fastestLapTime": "1:31.869",
+          "avgPaceSec": 92.968
+        }
+      ],
+      "consistencySec": 15.09
+    },
+    {
+      "driverId": "piastri",
+      "driverName": "Oscar Piastri",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 27,
+          "fastestLapTime": "1:33.220",
+          "avgPaceSec": 104.52
+        },
+        {
+          "startLap": 29,
+          "endLap": 57,
+          "fastestLapTime": "1:31.949",
+          "avgPaceSec": 93.288
+        }
+      ],
+      "consistencySec": 14.861
+    },
+    {
+      "driverId": "russell",
+      "driverName": "George Russell",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 19,
+          "fastestLapTime": "1:33.194",
+          "avgPaceSec": 109.065
+        },
+        {
+          "startLap": 21,
+          "endLap": 57,
+          "fastestLapTime": "1:32.446",
+          "avgPaceSec": 93.81
+        }
+      ],
+      "consistencySec": 14.761
+    },
+    {
+      "driverId": "max_verstappen",
+      "driverName": "Max Verstappen",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 5,
+          "fastestLapTime": "1:33.239",
+          "avgPaceSec": 95.848
+        },
+        {
+          "startLap": 7,
+          "endLap": 57,
+          "fastestLapTime": "1:33.110",
+          "avgPaceSec": 98.491
+        }
+      ],
+      "consistencySec": 14.594
+    },
+    {
+      "driverId": "hamilton",
+      "driverName": "Lewis Hamilton",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 26,
+          "fastestLapTime": "1:33.545",
+          "avgPaceSec": 105.123
+        },
+        {
+          "startLap": 28,
+          "endLap": 57,
+          "fastestLapTime": "1:32.676",
+          "avgPaceSec": 94.014
+        }
+      ],
+      "consistencySec": 14.602
+    },
+    {
+      "driverId": "colapinto",
+      "driverName": "Franco Colapinto",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 30,
+          "fastestLapTime": "1:33.941",
+          "avgPaceSec": 103.829
+        },
+        {
+          "startLap": 32,
+          "endLap": 57,
+          "fastestLapTime": "1:33.035",
+          "avgPaceSec": 94.109
+        }
+      ],
+      "consistencySec": 14.43
+    },
+    {
+      "driverId": "leclerc",
+      "driverName": "Charles Leclerc",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 20,
+          "fastestLapTime": "1:32.878",
+          "avgPaceSec": 108.191
+        },
+        {
+          "startLap": 22,
+          "endLap": 57,
+          "fastestLapTime": "1:32.515",
+          "avgPaceSec": 93.922
+        }
+      ],
+      "consistencySec": 15.048
+    },
+    {
+      "driverId": "sainz",
+      "driverName": "Carlos Sainz",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 27,
+          "fastestLapTime": "1:33.978",
+          "avgPaceSec": 105.23
+        },
+        {
+          "startLap": 29,
+          "endLap": 57,
+          "fastestLapTime": "1:33.026",
+          "avgPaceSec": 94.492
+        }
+      ],
+      "consistencySec": 13.923
+    },
+    {
+      "driverId": "albon",
+      "driverName": "Alexander Albon",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 26,
+          "fastestLapTime": "1:34.161",
+          "avgPaceSec": 105.744
+        },
+        {
+          "startLap": 28,
+          "endLap": 57,
+          "fastestLapTime": "1:33.784",
+          "avgPaceSec": 94.704
+        }
+      ],
+      "consistencySec": 13.933
+    },
+    {
+      "driverId": "bearman",
+      "driverName": "Oliver Bearman",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 25,
+          "fastestLapTime": "1:34.617",
+          "avgPaceSec": 106.247
+        },
+        {
+          "startLap": 27,
+          "endLap": 56,
+          "fastestLapTime": "1:33.744",
+          "avgPaceSec": 94.993
+        }
+      ],
+      "consistencySec": 13.893
+    },
+    {
+      "driverId": "bortoleto",
+      "driverName": "Gabriel Bortoleto",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 31,
+          "fastestLapTime": "1:34.653",
+          "avgPaceSec": 104.324
+        },
+        {
+          "startLap": 33,
+          "endLap": 56,
+          "fastestLapTime": "1:33.500",
+          "avgPaceSec": 94.755
+        }
+      ],
+      "consistencySec": 13.615
+    },
+    {
+      "driverId": "ocon",
+      "driverName": "Esteban Ocon",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 30,
+          "fastestLapTime": "1:34.862",
+          "avgPaceSec": 104.488
+        },
+        {
+          "startLap": 32,
+          "endLap": 56,
+          "fastestLapTime": "1:33.712",
+          "avgPaceSec": 95.126
+        }
+      ],
+      "consistencySec": 13.862
+    },
+    {
+      "driverId": "arvid_lindblad",
+      "driverName": "Arvid Lindblad",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 27,
+          "fastestLapTime": "1:35.233",
+          "avgPaceSec": 105.977
+        },
+        {
+          "startLap": 29,
+          "endLap": 56,
+          "fastestLapTime": "1:34.058",
+          "avgPaceSec": 95.777
+        }
+      ],
+      "consistencySec": 13.578
+    },
+    {
+      "driverId": "alonso",
+      "driverName": "Fernando Alonso",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 40,
+          "fastestLapTime": "1:35.644",
+          "avgPaceSec": 103.147
+        },
+        {
+          "startLap": 42,
+          "endLap": 56,
+          "fastestLapTime": "1:33.512",
+          "avgPaceSec": 96.438
+        }
+      ],
+      "consistencySec": 13.055
+    },
+    {
+      "driverId": "perez",
+      "driverName": "Sergio Pérez",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 28,
+          "fastestLapTime": "1:36.214",
+          "avgPaceSec": 105.938
+        },
+        {
+          "startLap": 30,
+          "endLap": 56,
+          "fastestLapTime": "1:34.895",
+          "avgPaceSec": 96.601
+        }
+      ],
+      "consistencySec": 13.196
+    },
+    {
+      "driverId": "stroll",
+      "driverName": "Lance Stroll",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 20,
+          "fastestLapTime": "1:36.085",
+          "avgPaceSec": 110.066
+        },
+        {
+          "startLap": 22,
+          "endLap": 36,
+          "fastestLapTime": "1:35.203",
+          "avgPaceSec": 96.977
+        },
+        {
+          "startLap": 38,
+          "endLap": 56,
+          "fastestLapTime": "1:34.716",
+          "avgPaceSec": 95.971
+        }
+      ],
+      "consistencySec": 13.259
+    },
+    {
+      "driverId": "bottas",
+      "driverName": "Valtteri Bottas",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 5,
+          "fastestLapTime": "1:36.607",
+          "avgPaceSec": 100.63
+        },
+        {
+          "startLap": 7,
+          "endLap": 20,
+          "fastestLapTime": "1:36.080",
+          "avgPaceSec": 111.265
+        },
+        {
+          "startLap": 22,
+          "endLap": 29,
+          "fastestLapTime": "1:36.262",
+          "avgPaceSec": 98.485
+        },
+        {
+          "startLap": 31,
+          "endLap": 55,
+          "fastestLapTime": "1:37.114",
+          "avgPaceSec": 99.043
+        }
+      ],
+      "consistencySec": 12.573
+    },
+    {
+      "driverId": "hulkenberg",
+      "driverName": "Nico Hülkenberg",
+      "stints": [
+        {
+          "startLap": 2,
+          "endLap": 7,
+          "fastestLapTime": "1:34.523",
+          "avgPaceSec": 120.957
+        }
+      ],
+      "consistencySec": 24.758
+    },
+    {
+      "driverId": "lawson",
+      "driverName": "Liam Lawson",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 6,
+          "fastestLapTime": "1:34.814",
+          "avgPaceSec": 112.642
+        }
+      ],
+      "consistencySec": 24.527
+    },
+    {
+      "driverId": "gasly",
+      "driverName": "Pierre Gasly",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 4,
+          "fastestLapTime": "1:34.856",
+          "avgPaceSec": 97.68
+        }
+      ]
+    },
+    {
+      "driverId": "hadjar",
+      "driverName": "Isack Hadjar",
+      "stints": [
+        {
+          "startLap": 1,
+          "endLap": 4,
+          "fastestLapTime": "1:34.833",
+          "avgPaceSec": 98.929
+        }
+      ]
+    }
+  ],
+  "sectorLeaders": {
+    "s1": null,
+    "s2": null,
+    "s3": null
+  },
+  "topSpeeds": [],
+  "hasTelemetry": false,
+  "generatedAt": "2026-05-04T21:30:19.095Z"
+}
