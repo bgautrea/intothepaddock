@@ -100,9 +100,12 @@ export async function getSeasonSchedule(): Promise<Race[]> {
 
 export async function getNextRace(): Promise<Race | null> {
   const races = await getSeasonSchedule();
-  const today = new Date().toISOString().slice(0, 10);
-  // "Next" includes today's race if it hasn't started yet.
-  return races.find((r) => r.date >= today) ?? null;
+  const now = Date.now();
+  // "Next" = first race whose start instant is still in the future. Comparing
+  // by full datetime (not just date) means the countdown advances to the next
+  // round the moment lights-out happens, instead of staying parked on a race
+  // that already ran.
+  return races.find((r) => new Date(raceStartISO(r)).getTime() > now) ?? null;
 }
 
 export async function getDriverStandings(): Promise<DriverStanding[]> {
