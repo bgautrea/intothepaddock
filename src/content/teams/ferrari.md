@@ -10,12 +10,13 @@ constructorTitles: 16
 primaryColor: '#dc0000'
 secondaryColor: '#fff200'
 tagline: 'The only team to have raced every season since 1950. Italy in red.'
+principalCharacterRead: "Frédéric Vasseur took over from Mattia Binotto in 2023 and brought Lewis Hamilton to Maranello. The most consequential Ferrari hire in a generation, depending on how it ends."
 car: '../../assets/photos/teams/ferrari.jpg'
 carCredit: 'Photo: Liauzh (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 Ferrari is F1's founding team and its emotional center. Every Ferrari victory is a national event in Italy. Every Ferrari mistake is a national tragedy. There is no equivalent franchise in any other sport.
 
-They've won 16 constructors' championships — more than anyone — and built dynasties around Niki Lauda in the 70s, then Michael Schumacher and technical director Ross Brawn from 2000 to 2004 (five straight titles). They haven't won a championship since 2008. That drought is the running story.
+They've won 16 constructors' championships, more than anyone, and built dynasties around Niki Lauda in the 70s, then Michael Schumacher and technical director Ross Brawn from 2000 to 2004 (five straight titles). They haven't won a championship since 2008. That drought is the running story.
 
 Watch a race weekend at Monza and you'll understand why this team is different. The hills behind the circuit fill with red flares the moment a Ferrari leads. They don't have fans; they have a religion.

@@ -40,8 +40,6 @@ const { Content } = await render(entry);
   .long-form :global(h2) {
     font-size: var(--fs-700);
     font-family: var(--font-display);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
     color: var(--text-primary);
     margin-block: var(--sp-16) var(--sp-4);
     padding-bottom: var(--sp-3);
@@ -62,7 +60,8 @@ const { Content } = await render(entry);
     margin: var(--sp-6) 0;
     padding: var(--sp-4) var(--sp-5);
     background: var(--asphalt-800);
-    border-left: 3px solid var(--kerb-yellow);
+    border: var(--border-thin);
+    border-top: 3px solid var(--kerb-yellow);
     border-radius: var(--radius-sm);
   }
 

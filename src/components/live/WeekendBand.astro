@@ -1,0 +1,254 @@
+---
+/**
+ * WeekendBand — slim "this weekend" band for the homepage.
+ *
+ * Three regions: countdown to the next race (left), top-3 driver standings
+ * (center), top-3 constructor standings (right). On mobile, regions stack.
+ * Replaces the full LiveStandingsTable + NextRaceCountdown hero pairing
+ * with a single footer-adjacent strip.
+ *
+ * Live data is fetched at build time via the calling page (see jolpica.ts).
+ * "Full standings →" anchor renders but is currently inert — the /standings
+ * route ships in v1.1.
+ */
+interface DriverRow {
+  position: string;
+  Driver: { givenName: string; familyName: string; code?: string };
+  Constructors?: Array<{ name: string }>;
+  points: string;
+}
+
+interface ConstructorRow {
+  position: string;
+  Constructor: { name: string };
+  points: string;
+}
+
+interface Props {
+  raceName: string;
+  circuit: string;
+  raceDate: string;
+  round: number;
+  drivers: DriverRow[];
+  constructors: ConstructorRow[];
+}
+
+const { raceName, circuit, raceDate, round, drivers, constructors } = Astro.props;
+
+const top3Drivers = drivers.slice(0, 3);
+const top3Constructors = constructors.slice(0, 3);
+---
+
+<aside class="weekend-band" aria-label="Following along this weekend">
+  <p class="wb-eyebrow mono">Following along this weekend?</p>
+
+  <div class="wb-grid">
+    <div class="wb-region wb-countdown">
+      <p class="wb-region-label mono">Up next · Round {round}</p>
+      <p class="wb-race">{raceName}</p>
+      <p class="wb-circuit">{circuit}</p>
+      <div class="wb-clock mono" data-race-date={raceDate}>
+        <span class="wb-clock-cell"><span class="wb-num" data-unit="d">--</span><span class="wb-lbl">d</span></span>
+        <span class="wb-clock-cell"><span class="wb-num" data-unit="h">--</span><span class="wb-lbl">h</span></span>
+        <span class="wb-clock-cell"><span class="wb-num" data-unit="m">--</span><span class="wb-lbl">m</span></span>
+        <span class="wb-clock-cell"><span class="wb-num" data-unit="s">--</span><span class="wb-lbl">s</span></span>
+      </div>
+    </div>
+
+    <div class="wb-region wb-drivers">
+      <p class="wb-region-label mono">Drivers · top 3</p>
+      <ol class="wb-list">
+        {top3Drivers.map((d) => (
+          <li class="wb-row mono">
+            <span class="wb-pos">P{d.position}</span>
+            <span class="wb-name">{d.Driver.givenName} {d.Driver.familyName}</span>
+            <span class="wb-pts">{d.points} pts</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <div class="wb-region wb-constructors">
+      <p class="wb-region-label mono">Constructors · top 3</p>
+      <ol class="wb-list">
+        {top3Constructors.map((c) => (
+          <li class="wb-row mono">
+            <span class="wb-pos">P{c.position}</span>
+            <span class="wb-name">{c.Constructor.name}</span>
+            <span class="wb-pts">{c.points} pts</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+
+  <p class="wb-more mono">
+    <span aria-hidden="true">Full standings page in the next release.</span>
+  </p>
+</aside>
+
+<style>
+  .weekend-band {
+    background: var(--asphalt-800);
+    border: var(--border-thin);
+    border-radius: var(--radius-md);
+    padding: var(--sp-5) var(--sp-6);
+  }
+
+  .wb-eyebrow {
+    color: var(--kerb-yellow);
+    font-size: var(--fs-200);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 var(--sp-4);
+  }
+
+  .wb-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--sp-6);
+    align-items: start;
+  }
+
+  .wb-region {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    min-width: 0;
+  }
+
+  .wb-region-label {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .wb-race {
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    font-size: var(--fs-500);
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  .wb-circuit {
+    color: var(--concrete);
+    font-size: var(--fs-300);
+    margin: 0;
+  }
+
+  .wb-clock {
+    display: flex;
+    gap: var(--sp-3);
+    margin-top: var(--sp-2);
+  }
+
+  .wb-clock-cell {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 2px;
+    color: var(--text-primary);
+  }
+
+  .wb-num {
+    font-size: var(--fs-500);
+    color: var(--kerb-yellow);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+
+  .wb-lbl {
+    font-size: var(--fs-200);
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .wb-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .wb-row {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr) auto;
+    gap: var(--sp-3);
+    align-items: baseline;
+    color: var(--text-primary);
+    font-size: var(--fs-300);
+  }
+
+  .wb-pos {
+    color: var(--kerb-yellow);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .wb-name {
+    color: var(--text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .wb-pts {
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--fs-200);
+  }
+
+  .wb-more {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: var(--sp-4) 0 0;
+    text-align: right;
+  }
+
+  @media (max-width: 880px) {
+    .wb-grid {
+      grid-template-columns: 1fr;
+      gap: var(--sp-5);
+    }
+  }
+</style>
+
+<script>
+  for (const clock of document.querySelectorAll<HTMLElement>('.wb-clock')) {
+    const target = new Date(clock.getAttribute('data-race-date') || '').getTime();
+    if (Number.isNaN(target)) continue;
+
+    const cells: Record<string, HTMLElement | null> = {
+      d: clock.querySelector<HTMLElement>('[data-unit="d"]'),
+      h: clock.querySelector<HTMLElement>('[data-unit="h"]'),
+      m: clock.querySelector<HTMLElement>('[data-unit="m"]'),
+      s: clock.querySelector<HTMLElement>('[data-unit="s"]'),
+    };
+
+    const tick = () => {
+      const now = Date.now();
+      let diff = Math.max(0, target - now);
+      const days = Math.floor(diff / 86_400_000);
+      diff -= days * 86_400_000;
+      const hrs = Math.floor(diff / 3_600_000);
+      diff -= hrs * 3_600_000;
+      const mins = Math.floor(diff / 60_000);
+      diff -= mins * 60_000;
+      const secs = Math.floor(diff / 1000);
+      const pad = (n: number) => String(n).padStart(2, '0');
+      if (cells.d) cells.d.textContent = pad(days);
+      if (cells.h) cells.h.textContent = pad(hrs);
+      if (cells.m) cells.m.textContent = pad(mins);
+      if (cells.s) cells.s.textContent = pad(secs);
+    };
+
+    tick();
+    setInterval(tick, 1000);
+  }
+</script>

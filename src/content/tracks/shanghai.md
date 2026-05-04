@@ -24,14 +24,14 @@ photoCredit: 'Photo: Planet Labs, Inc. (CC BY-SA 4.0) via Wikimedia Commons'
 
 ## The Shanghai layout
 
-Designed by Hermann Tilke and shaped — when seen from the air — like the Chinese character 上 ("up" or "above"). It's a Tilke circuit done well: a genuinely difficult opening sector, a long straight, a heavy braking zone for overtaking, and a unique Turn 1–2–3 sequence that tightens continuously like a coiled spring.
+Designed by Hermann Tilke and shaped, when seen from the air, like the Chinese character 上 ("up" or "above"). It's a Tilke circuit done well: a genuinely difficult opening sector, a long straight, a heavy braking zone for overtaking, and a unique Turn 1–2–3 sequence that tightens continuously like a coiled spring.
 
 ## Why it matters
 
-Shanghai returned to the calendar in 2024 after a five-year COVID-era absence. The track surface is unusually abrasive, which makes tyre strategy a defining factor every year — and the long Turn 13 onto the back straight is one of the most physical corners on the calendar for drivers' necks.
+Shanghai returned to the calendar in 2024 after a five-year COVID-era absence. The track surface is unusually abrasive, which makes tyre strategy a defining factor every year. The long Turn 13 onto the back straight is one of the most physical corners on the calendar for drivers' necks.
 
 ## What to watch for
 
-- **Turn 1** — a 270° decreasing-radius turn. Drivers who lean too long on entry pay all lap.
-- **The back straight (over 1.2 km)** — among the longest DRS zones of the year. Easy slipstream overtake into Turn 14.
-- **Tyre degradation** — Shanghai usually demands two stops; teams that try to one-stop almost always regret it.
+- **Turn 1:** a 270° decreasing-radius turn. Drivers who lean too long on entry pay all lap.
+- **The back straight (over 1.2 km):** among the longest DRS zones of the year. Easy slipstream overtake into Turn 14.
+- **Tyre degradation:** Shanghai usually demands two stops; teams that try to one-stop almost always regret it.

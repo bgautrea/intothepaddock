@@ -32,6 +32,6 @@ The home of the Orange Army. The grandstands are filled with Dutch fans in orang
 
 ## What to watch for
 
-- **Turn 3** — modern banked turn, allows multiple racing lines. Watch how cars pick different ones.
-- **Turn 14 (Arie Luyendyk)** — the steeply banked final corner that pushes drivers right onto the start-finish straight at speed.
-- **The wind off the North Sea** — coastal weather changes lap to lap. Setups that work on Friday don't always work on Sunday.
+- **Turn 3:** modern banked turn, allows multiple racing lines. Watch how cars pick different ones.
+- **Turn 14 (Arie Luyendyk):** the steeply banked final corner that pushes drivers right onto the start-finish straight at speed.
+- **The wind off the North Sea:** coastal weather changes lap to lap. Setups that work on Friday don't always work on Sunday.

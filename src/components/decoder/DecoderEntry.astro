@@ -1,0 +1,165 @@
+---
+/**
+ * DecoderEntry — renders a single glossary collection entry.
+ *
+ * Used on the /decoder route (full list, anchor-organised) and inside an
+ * expanded JargonTip panel (single-entry preview before "more →"). The
+ * component takes the resolved entry as a prop so callers can pre-fetch
+ * via getEntry() / getCollection() and pass it in.
+ *
+ * Each entry is anchored via id={entry.id} so /decoder#virtual-safety-car
+ * scroll-jumps to that term.
+ */
+import { render, type CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'glossary'>;
+  /** Compact variant for inline use (e.g., inside JargonTip panel). Drops body content. */
+  compact?: boolean;
+}
+
+const { entry, compact = false } = Astro.props;
+const { Content } = await render(entry);
+const data = entry.data;
+
+const categoryLabel: Record<string, string> = {
+  'race-control': 'Race control',
+  strategy: 'Strategy',
+  tyres: 'Tyres',
+  'the-car': 'The car',
+  'race-weekend': 'Race weekend',
+  penalties: 'Penalties',
+};
+---
+
+<article class={`decoder-entry ${compact ? 'decoder-entry--compact' : ''}`} id={entry.id}>
+  <header class="de-head">
+    <h3 class="de-term">{data.term}</h3>
+    <span class="de-category mono">{categoryLabel[data.category] ?? data.category}</span>
+  </header>
+
+  {!compact && (
+    <div class="de-body">
+      <Content />
+    </div>
+  )}
+
+  <p class="de-trigger">
+    <span class="de-trigger-label mono">You'll hear this when</span>
+    {' '}
+    <span class="de-trigger-text">{data.youllHearWhen}</span>
+  </p>
+
+  {data.example && !compact && (
+    <p class="de-example">
+      <span class="de-example-label mono">Example</span>
+      {' '}
+      <span class="de-example-text">{data.example}</span>
+    </p>
+  )}
+
+  {data.aliases.length > 0 && !compact && (
+    <p class="de-aliases">
+      <span class="de-aliases-label mono">Also called</span>
+      {' '}
+      <span class="de-aliases-text">{data.aliases.join(', ')}</span>
+    </p>
+  )}
+</article>
+
+<style>
+  .decoder-entry {
+    background: var(--asphalt-800);
+    border: var(--border-thin);
+    border-radius: var(--radius-md);
+    padding: var(--sp-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+    scroll-margin-top: calc(var(--nav-height) + var(--sp-6));
+  }
+
+  .decoder-entry--compact {
+    background: transparent;
+    border: 0;
+    padding: var(--sp-3) 0;
+    gap: var(--sp-3);
+  }
+
+  .de-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    flex-wrap: wrap;
+  }
+
+  .de-term {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-700);
+    line-height: 1;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .decoder-entry--compact .de-term {
+    font-size: var(--fs-600);
+  }
+
+  .de-category {
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--kerb-yellow);
+    flex-shrink: 0;
+  }
+
+  .de-body {
+    color: var(--text-secondary);
+    font-size: var(--fs-400);
+    line-height: 1.6;
+  }
+
+  .de-body :global(p) {
+    margin: 0;
+  }
+
+  .de-body :global(p + p) {
+    margin-top: var(--sp-3);
+  }
+
+  .de-trigger,
+  .de-example,
+  .de-aliases {
+    margin: 0;
+    font-size: var(--fs-300);
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+
+  .de-trigger-label,
+  .de-example-label,
+  .de-aliases-label {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-right: var(--sp-1);
+  }
+
+  .de-trigger-text {
+    font-style: italic;
+    color: var(--text-primary);
+  }
+
+  .de-example-text {
+    color: var(--text-secondary);
+  }
+
+  .de-aliases-text {
+    color: var(--concrete);
+    font-family: var(--font-mono);
+    font-size: var(--fs-200);
+  }
+</style>

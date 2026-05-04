@@ -13,7 +13,7 @@ const cards = tracks.map((t) => ({
   title: t.data.grandPrix,
   badge: t.data.calendarRound ? `ROUND ${t.data.calendarRound}` : t.data.country.toUpperCase(),
   subtitle: t.data.nickname ?? t.data.name,
-  accent: '#fce700',
+  accent: 'var(--section-tracks)',
   image: t.data.photo,
   imageAlt: `${t.data.name}, ${t.data.city}`,
   stats: [
@@ -24,7 +24,7 @@ const cards = tracks.map((t) => ({
 }));
 ---
 
-<BaseLayout title="Tracks" description="Every circuit on the F1 calendar — the layout, history, and what to watch for.">
+<BaseLayout title="Tracks" description="Every circuit on the F1 calendar. The layout, history, and what to watch for.">
   <Hero
     eyebrow="Section 06"
     title="The Tracks"

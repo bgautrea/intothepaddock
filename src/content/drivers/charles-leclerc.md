@@ -11,7 +11,8 @@ careerPodiums: 45
 careerPoles: 27
 championships: 0
 status: 'active'
-bio: 'Ferrari''s lead driver since 2019. The most natural one-lap qualifier on the current grid — pole positions in the high twenties, mostly extracted from cars that didn''t deserve them.'
+bio: 'Ferrari''s lead driver since 2019. The most natural one-lap qualifier on the current grid; pole positions in the high twenties, mostly extracted from cars that did not deserve them.'
+characterRead: 'Ferrari''s hometown talisman. More poles than wins, which is a very Ferrari sentence.'
 funFact: 'He grew up in an apartment overlooking the Monaco GP track. His best friend as a kid was Jules Bianchi, who would later die from injuries sustained in the 2014 Japanese Grand Prix.'
 portrait: '../../assets/photos/drivers/charles-leclerc.jpg'
 portraitCredit: 'Photo: Steffen Prößdorf (CC BY-SA 4.0) via Wikimedia Commons'
@@ -19,7 +20,7 @@ portraitCredit: 'Photo: Steffen Prößdorf (CC BY-SA 4.0) via Wikimedia Commons'
 
 ## Why he matters
 
-Leclerc came up through the Ferrari Driver Academy, won F2 on his first attempt in 2017, and was promoted to Ferrari for 2019 over Daniel Ricciardo. He has been the team's lead driver ever since. The narrative around him is brutal: enormous talent, particularly in qualifying, paired with seasons of strategic missteps and reliability failures from the team — including a heartbreak win-from-pole at his home Monaco GP that finally arrived in 2024 after years of misfortune.
+Leclerc came up through the Ferrari Driver Academy, won F2 on his first attempt in 2017, and was promoted to Ferrari for 2019 over Daniel Ricciardo. He has been the team's lead driver ever since. The narrative around him is brutal: enormous talent, particularly in qualifying, paired with seasons of strategic missteps and reliability failures from the team, including a heartbreak win-from-pole at his home Monaco GP that finally arrived in 2024 after years of misfortune.
 
 ## How he drives
 
@@ -27,6 +28,6 @@ In qualifying he is unmatched on a single lap. In races he's harder on tyres tha
 
 ## Watch for
 
-- Saturday qualifying, especially at street circuits — he is consistently fastest in Sectors 2 and 3.
-- His battles with Lewis Hamilton, his teammate since 2025 — the most intense intra-team rivalry on the grid.
-- Monaco — winning there in 2024 was the largest emotional moment of his career so far.
+- Saturday qualifying, especially at street circuits. He is consistently fastest in Sectors 2 and 3.
+- His battles with Lewis Hamilton, his teammate since 2025: the most intense intra-team rivalry on the grid.
+- Monaco. Winning there in 2024 was the largest emotional moment of his career so far.

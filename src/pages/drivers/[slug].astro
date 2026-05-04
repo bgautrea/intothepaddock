@@ -1,12 +1,12 @@
 ---
 import { getCollection, getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Hero from '../../components/hero/Hero.astro';
+import CharacterHero from '../../components/hero/CharacterHero.astro';
 import KerbDivider from '../../components/ui/KerbDivider.astro';
 import StatBlock from '../../components/ui/StatBlock.astro';
-import PhotoStrip from '../../components/ui/PhotoStrip.astro';
 import NextRaceCountdown from '../../components/live/NextRaceCountdown.astro';
 import { getNextRace, raceStartISO } from '../../lib/jolpica';
+import { getTeamTextColor } from '../../lib/teamColors';
 
 export async function getStaticPaths() {
   const drivers = await getCollection('drivers');
@@ -18,7 +18,8 @@ const team = entry.data.team ? await getEntry(entry.data.team) : null;
 const { Content } = await render(entry);
 
 const teamLabel = team?.data.shortName ?? entry.data.legendaryTeam ?? 'Driver';
-const teamColor = team?.data.primaryColor ?? '#fce700';
+const teamColor = team?.data.primaryColor ?? 'var(--kerb-yellow)';
+const teamTextColor = team ? getTeamTextColor(team.id) : 'var(--kerb-yellow)';
 const dobYear = entry.data.dob.getFullYear();
 const age = new Date().getFullYear() - dobYear;
 
@@ -45,28 +46,17 @@ const next = entry.data.status === 'active' ? await getNextRace() : null;
 ---
 
 <BaseLayout title={entry.data.name} description={entry.data.bio}>
-  <article style={`--team-primary: ${teamColor};`}>
-    <Hero eyebrow={`#${entry.data.number} · ${teamLabel}`} title={entry.data.name} subtitle={entry.data.bio}>
-      <Fragment slot="visual">
-        <div class="driver-stats-grid">
-          <StatBlock value={entry.data.careerWins} label="Race wins" />
-          <StatBlock value={entry.data.careerPodiums} label="Podiums" />
-          <StatBlock value={entry.data.careerPoles} label="Pole positions" />
-          <StatBlock value={entry.data.championships} label="Championships" />
-        </div>
-      </Fragment>
-    </Hero>
-
-    {entry.data.portrait && (
-      <section class="container">
-        <PhotoStrip
-          image={entry.data.portrait}
-          alt={`Portrait of ${entry.data.name}`}
-          aspectRatio="4/3"
-          credit={entry.data.portraitCredit}
-        />
-      </section>
-    )}
+  <article style={`--team-primary: ${teamColor}; --team-primary-text: ${teamTextColor};`}>
+    <CharacterHero
+      eyebrow={`#${entry.data.number} · ${teamLabel}`}
+      title={entry.data.name}
+      characterRead={entry.data.characterRead}
+      photo={entry.data.portrait}
+      photoAlt={`Portrait of ${entry.data.name}`}
+      photoCredit={entry.data.portraitCredit}
+    >
+      <p>{entry.data.bio}</p>
+    </CharacterHero>
 
     <KerbDivider variant="thin" />
 
@@ -98,6 +88,21 @@ const next = entry.data.status === 'active' ? await getNextRace() : null;
       )}
     </section>
 
+    <KerbDivider variant="thin" />
+
+    <section class="container career-receipts">
+      <header class="cr-head">
+        <h2>Career receipts</h2>
+        <p class="cr-sub mono">Through the {new Date().getFullYear()} season</p>
+      </header>
+      <div class="career-stats-grid">
+        <StatBlock value={entry.data.careerWins} label="Race wins" />
+        <StatBlock value={entry.data.careerPodiums} label="Podiums" />
+        <StatBlock value={entry.data.careerPoles} label="Pole positions" />
+        <StatBlock value={entry.data.championships} label="Championships" />
+      </div>
+    </section>
+
     {next && (
       <>
         <KerbDivider variant="thin" />
@@ -119,11 +124,38 @@ const next = entry.data.status === 'active' ? await getNextRace() : null;
 </BaseLayout>
 
 <style>
-  .driver-stats-grid {
+  .career-receipts {
+    padding-block: var(--sp-12);
+  }
+
+  .cr-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    margin-bottom: var(--sp-6);
+    padding-bottom: var(--sp-3);
+    border-bottom: 1px solid var(--asphalt-600);
+  }
+
+  .cr-head h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-700);
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .cr-sub {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .career-stats-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--sp-3);
-    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--sp-6);
   }
 
   .meta-strip {
@@ -141,13 +173,13 @@ const next = entry.data.status === 'active' ? await getNextRace() : null;
     display: flex;
     flex-direction: column;
     gap: var(--sp-1);
-    border-left: 2px solid var(--asphalt-600);
-    padding-left: var(--sp-4);
+    border-top: 1px solid var(--asphalt-600);
+    padding-top: var(--sp-2);
   }
 
   .meta dt {
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: var(--fs-200);
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--text-muted);
@@ -161,7 +193,7 @@ const next = entry.data.status === 'active' ? await getNextRace() : null;
 
   .meta .status {
     text-transform: uppercase;
-    color: var(--team-primary);
+    color: var(--team-primary-text);
     font-family: var(--font-mono);
     letter-spacing: 0.12em;
     font-size: var(--fs-300);
@@ -175,7 +207,7 @@ const next = entry.data.status === 'active' ? await getNextRace() : null;
   }
 
   .teammate-link:hover {
-    color: var(--team-primary);
+    color: var(--team-primary-text);
   }
 
   .long-form {
@@ -186,8 +218,7 @@ const next = entry.data.status === 'active' ? await getNextRace() : null;
   .long-form :global(h2) {
     font-size: var(--fs-600);
     margin-block: var(--sp-8) var(--sp-3);
-    border-left: 4px solid var(--team-primary);
-    padding-left: var(--sp-3);
+    color: var(--text-primary);
   }
 
   .long-form :global(h2:first-child) {
@@ -215,12 +246,14 @@ const next = entry.data.status === 'active' ? await getNextRace() : null;
   .fun-fact {
     margin-top: var(--sp-8);
     padding: var(--sp-5);
-    border-left: 3px solid var(--team-primary);
     background: var(--asphalt-800);
+    border: var(--border-thin);
+    border-top: 3px solid var(--team-primary);
+    border-radius: var(--radius-sm);
   }
 
   .fun-fact .eyebrow {
-    color: var(--team-primary);
+    color: var(--team-primary-text);
     margin-bottom: var(--sp-2);
   }
 
@@ -246,8 +279,6 @@ const next = entry.data.status === 'active' ? await getNextRace() : null;
   .nrs-head h2 {
     font-family: var(--font-display);
     font-size: var(--fs-700);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
     color: var(--text-primary);
     margin: 0;
   }

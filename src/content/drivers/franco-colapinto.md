@@ -23,10 +23,10 @@ Colapinto's late-2024 cameo at Williams was one of the most viral rookie debuts 
 
 ## How he drives
 
-Aggressive, instinctive, and accident-prone in his rookie cameo — three big crashes in his first ten weekends. He has since matured. The South American driving press compares his car-control style to Juan Manuel Fangio, which is a heavy comparison and not necessarily fair.
+Aggressive, instinctive, and accident-prone in his rookie cameo: three big crashes in his first ten weekends. He has since matured. The South American driving press compares his car-control style to Juan Manuel Fangio, which is a heavy comparison and not necessarily fair.
 
 ## Watch for
 
-- Argentine flags in the crowd — his fan base travels in numbers everywhere.
-- His battles with teammate Gasly — Colapinto is fast, Gasly is the established midfield benchmark, this is genuinely a 50/50 pairing.
-- His race-day overtakes — he commits to moves earlier than most drivers, sometimes too early.
+- Argentine flags in the crowd. His fan base travels in numbers everywhere.
+- His battles with teammate Gasly. Colapinto is fast, Gasly is the established midfield benchmark; this is genuinely a 50/50 pairing.
+- His race-day overtakes. He commits to moves earlier than most drivers, sometimes too early.

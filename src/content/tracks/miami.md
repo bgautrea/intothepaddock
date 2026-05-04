@@ -24,7 +24,7 @@ photoCredit: 'Photo: USACJack (CC BY-SA 4.0) via Wikimedia Commons'
 
 ## The new American race
 
-The Miami Grand Prix is held on a temporary circuit built around the Hard Rock Stadium (home of the Dolphins). It's part of F1's American expansion strategy — three US races now (Miami, Austin, Las Vegas), more than any other country.
+The Miami Grand Prix is held on a temporary circuit built around the Hard Rock Stadium (home of the Dolphins). It's part of F1's American expansion strategy: three US races now (Miami, Austin, Las Vegas), more than any other country.
 
 ## Why it matters
 
@@ -32,6 +32,6 @@ The circuit's chicane and tight turns 14–16 (the slow section through the mari
 
 ## What to watch for
 
-- **Turn 1** — the heaviest braking zone, where positions shift on lap one.
-- **The infield section (Turns 11–16)** — slow, technical, and easy to lose time.
-- **The fake marina** — a paddock-built imitation harbor visible behind the cars on broadcast. Hosts more celebrities per square metre than any other GP.
+- **Turn 1:** the heaviest braking zone, where positions shift on lap one.
+- **The infield section (Turns 11–16):** slow, technical, and easy to lose time.
+- **The fake marina:** a paddock-built imitation harbor visible behind the cars on broadcast. Hosts more celebrities per square metre than any other GP.

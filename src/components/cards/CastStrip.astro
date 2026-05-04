@@ -1,0 +1,197 @@
+---
+/**
+ * CastStrip — homepage row of curated cast members (drivers or principals).
+ *
+ * Cards lay out in a row on desktop (≥ 881px) and become a horizontal
+ * scroll-snap strip on mobile so a partial trailing card hints "there's
+ * more here." Each card carries a portrait, a name, a one-line
+ * character-read, and a team-color top-stripe.
+ *
+ * Used twice on the homepage: once for the 6 cast-strip drivers
+ * ("Meet the cast"), once for 4-5 team principals ("Meet the principals").
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+export interface CastItem {
+  href: string;
+  name: string;
+  characterRead?: string;
+  photo?: ImageMetadata;
+  photoAlt?: string;
+  /** Team color for the top stripe; falls back to kerb yellow. */
+  accent?: string;
+  /** Eyebrow label, e.g. team shortName or role. Optional. */
+  meta?: string;
+}
+
+interface Props {
+  items: CastItem[];
+  /** Visual weight. `large` = primary (drivers); `small` = sub-strip (principals). */
+  size?: 'large' | 'small';
+}
+
+const { items, size = 'large' } = Astro.props;
+---
+
+<div class={`cast-strip cast-strip--${size}`} role="list">
+  {items.map((item) => (
+    <a class="cs-card" href={item.href} role="listitem" style={`--accent: ${item.accent ?? 'var(--kerb-yellow)'};`}>
+      <span class="cs-stripe" aria-hidden="true"></span>
+      {item.photo && (
+        <div class="cs-photo">
+          <Image
+            src={item.photo}
+            alt={item.photoAlt ?? item.name}
+            widths={[240, 360, 480]}
+            sizes="(max-width: 880px) 70vw, 240px"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      )}
+      <div class="cs-body">
+        {item.meta && <p class="cs-meta mono">{item.meta}</p>}
+        <h3 class="cs-name">{item.name}</h3>
+        {item.characterRead && <p class="cs-read">{item.characterRead}</p>}
+      </div>
+    </a>
+  ))}
+</div>
+
+<style>
+  .cast-strip {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: var(--sp-4);
+  }
+
+  .cast-strip--small {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--sp-3);
+  }
+
+  .cs-card {
+    --accent: var(--kerb-yellow);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--asphalt-800);
+    border: var(--border-thin);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    text-decoration: none;
+    overflow: hidden;
+    transition:
+      border-color var(--dur-base) var(--ease-snap),
+      background var(--dur-base) var(--ease-snap),
+      transform var(--dur-base) var(--ease-snap);
+  }
+
+  .cs-card:hover,
+  .cs-card:focus-visible {
+    border-color: var(--accent);
+    background: var(--asphalt-700);
+    transform: translateY(-2px);
+  }
+
+  .cs-stripe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+    z-index: 1;
+  }
+
+  .cs-photo {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--asphalt-900);
+    border-bottom: 1px solid var(--asphalt-600);
+  }
+
+  .cs-photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.95);
+    transition: transform var(--dur-base) var(--ease-snap);
+  }
+
+  .cs-card:hover .cs-photo :global(img) {
+    transform: scale(1.03);
+    filter: saturate(1.05);
+  }
+
+  .cs-body {
+    padding: var(--sp-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    flex: 1;
+  }
+
+  .cast-strip--small .cs-body {
+    padding: var(--sp-3);
+    gap: var(--sp-1);
+  }
+
+  .cs-meta {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .cs-name {
+    font-family: var(--font-display);
+    font-size: var(--fs-600);
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  .cast-strip--small .cs-name {
+    font-size: var(--fs-500);
+  }
+
+  .cs-read {
+    color: var(--text-secondary);
+    font-size: var(--fs-300);
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .cast-strip--small .cs-read {
+    font-size: var(--fs-200);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 880px) {
+    .cast-strip,
+    .cast-strip--small {
+      display: flex;
+      grid-template-columns: none;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-left: var(--sp-4);
+      gap: var(--sp-3);
+      padding-bottom: var(--sp-3);
+      margin-inline: calc(-1 * var(--sp-4));
+      padding-inline: var(--sp-4);
+    }
+
+    .cs-card {
+      flex: 0 0 70%;
+      scroll-snap-align: start;
+    }
+
+    .cast-strip--small .cs-card {
+      flex: 0 0 56%;
+    }
+  }
+</style>

@@ -27,6 +27,6 @@ Lawson is quick over a single lap, robust in wheel-to-wheel combat, and willing 
 
 ## Watch for
 
-- His battles with rookie teammate Arvid Lindblad — a generational pairing inside a Red Bull-fed team.
-- His qualifying performances at street circuits — Lawson punches above the car's level when the track punishes mistakes.
+- His battles with rookie teammate Arvid Lindblad: a generational pairing inside a Red Bull-fed team.
+- His qualifying performances at street circuits. Lawson punches above the car's level when the track punishes mistakes.
 - The persistent question of whether Red Bull will ever bring him back to the senior team.

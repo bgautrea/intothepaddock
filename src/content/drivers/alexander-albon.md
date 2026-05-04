@@ -23,10 +23,10 @@ Albon's career arc is one of the more interesting redemption stories on the grid
 
 ## How he drives
 
-Albon's race-craft is unusually patient — he's the driver who will sit behind a faster car for ten laps, conserve tyres, and overtake on lap 35 when others have given up. He's not the quickest qualifier in the field, but his tyre management is among the best.
+Albon's race-craft is unusually patient. He's the driver who will sit behind a faster car for ten laps, conserve tyres, and overtake on lap 35 when others have given up. He's not the quickest qualifier in the field, but his tyre management is among the best.
 
 ## Watch for
 
-- His Q3 appearances when Williams brings an upgrade — Albon is the team's reference for what a new package can do.
-- His battles with teammate Carlos Sainz, his contemporary at Toro Rosso a decade ago — quiet, professional, equal-fast on most weekends.
-- His Thai fan base — Albon races for the Thai flag and is the country's only ever F1 podium-finisher.
+- His Q3 appearances when Williams brings an upgrade: Albon is the team's reference for what a new package can do.
+- His battles with teammate Carlos Sainz, his contemporary at Toro Rosso a decade ago: quiet, professional, equal-fast on most weekends.
+- His Thai fan base. Albon races for the Thai flag and is the country's only ever F1 podium-finisher.

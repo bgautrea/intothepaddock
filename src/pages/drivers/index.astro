@@ -56,6 +56,7 @@ const cards = await Promise.all(
       accent,
       image: d.data.portrait,
       imageAlt: `Portrait of ${d.data.name}`,
+      characterRead: d.data.characterRead,
       stats: [
         { label: 'Wins', value: d.data.careerWins },
         { label: 'Podiums', value: d.data.careerPodiums },
@@ -73,7 +74,7 @@ const legends = cards
   .sort((a, b) => b.stats[2].value - a.stats[2].value);
 ---
 
-<BaseLayout title="Drivers" description="The current F1 grid plus selected legends — every driver, decoded.">
+<BaseLayout title="Drivers" description="The current F1 grid plus selected legends. Every driver, decoded.">
   <Hero
     eyebrow="Section 01"
     title="The Drivers"
@@ -85,7 +86,7 @@ const legends = cards
   <section class="container drivers-section">
     <header class="section-head">
       <h2 class="section-title">Current grid</h2>
-      <p class="section-sub mono">2026 season — sorted by championship position</p>
+      <p class="section-sub mono">2026 season · sorted by championship position</p>
     </header>
     <div class="grid">
       {active.map((c) => <EntityCard {...c} />)}

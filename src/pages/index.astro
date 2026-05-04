@@ -1,77 +1,170 @@
 ---
+import { getCollection, getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/hero/Hero.astro';
 import KerbDivider from '../components/ui/KerbDivider.astro';
 import EntityCard from '../components/cards/EntityCard.astro';
-import StepCard from '../components/cards/StepCard.astro';
-import NextRaceCountdown from '../components/live/NextRaceCountdown.astro';
-import LiveStandingsTable from '../components/live/LiveStandingsTable.astro';
+import CastStrip, { type CastItem } from '../components/cards/CastStrip.astro';
+import StorylineCard from '../components/cards/StorylineCard.astro';
+import DecoderSearch from '../components/decoder/DecoderSearch.astro';
+import WeekendBand from '../components/live/WeekendBand.astro';
 import { getNextRace, raceStartISO, getDriverStandings, getConstructorStandings } from '../lib/jolpica';
 
 const next = await getNextRace();
-const driverStandings = (await getDriverStandings()).slice(0, 10);
+const driverStandings = await getDriverStandings();
 const constructorStandings = await getConstructorStandings();
-const season = next?.season;
-const round = next ? String(Math.max(1, Number(next.round) - 1)) : undefined;
+
+const drivers = await getCollection('drivers');
+const teams = await getCollection('teams');
+const storylines = (await getCollection('storylines')).sort((a, b) => a.data.order - b.data.order);
+
+// Hand-curated cast strip — six drivers we want to feature.
+// Refreshed quarterly with the storylines band; see DESIGN_BRIEF v1 scope.
+const castSlugs = ['lando-norris', 'max-verstappen', 'oscar-piastri', 'lewis-hamilton', 'charles-leclerc', 'george-russell'];
+const cast: CastItem[] = await Promise.all(
+  castSlugs.map(async (slug) => {
+    const driver = drivers.find((d) => d.id === slug)!;
+    const teamRef = driver.data.team;
+    const team = teamRef ? await getEntry(teamRef) : null;
+    return {
+      href: `/drivers/${slug}`,
+      name: driver.data.name,
+      characterRead: driver.data.characterRead,
+      photo: driver.data.portrait,
+      photoAlt: `Portrait of ${driver.data.name}`,
+      meta: team?.data.shortName ?? driver.data.legendaryTeam ?? '',
+      accent: team?.data.primaryColor ?? 'var(--kerb-yellow)',
+    };
+  })
+);
+
+// Hand-curated principal strip — only the 3 teams whose principal is currently
+// profiled with a character-read line. Adds Aston Martin and McLaren in v1.1.
+const principalSlugs = ['mercedes', 'red-bull', 'ferrari'];
+const principals: CastItem[] = principalSlugs
+  .map((slug) => {
+    const team = teams.find((t) => t.id === slug);
+    if (!team || !team.data.principalCharacterRead) return null;
+    return {
+      href: `/teams/${slug}`,
+      name: team.data.teamPrincipal,
+      characterRead: team.data.principalCharacterRead,
+      meta: team.data.shortName,
+      accent: team.data.primaryColor,
+    };
+  })
+  .filter((x): x is CastItem => x !== null);
+
+const heroPortrait = drivers.find((d) => d.id === 'lewis-hamilton')!.data.portrait;
 
 const sections = [
-  { href: '/drivers', title: 'Drivers', badge: 'SECTION 01', subtitle: 'The current grid and the legends who built the sport.', accent: '#fce700' },
-  { href: '/teams', title: 'Teams', badge: 'SECTION 02', subtitle: 'Eleven constructors. Eleven engineering philosophies. Eleven paint schemes.', accent: '#dc0000' },
-  { href: '/the-car', title: 'The Car', badge: 'SECTION 03', subtitle: 'Halo. Diffuser. Turbo. Every part of an F1 car decoded.', accent: '#27f4d2' },
-  { href: '/race-weekend', title: 'Race Weekend', badge: 'SECTION 04', subtitle: 'Practice, qualifying, sprint, race — what each session actually does.', accent: '#ff8000' },
-  { href: '/rules', title: 'Rules & Regs', badge: 'SECTION 05', subtitle: 'Points, flags, penalties, parc fermé — without the rulebook tedium.', accent: '#b545ff' },
-  { href: '/tracks', title: 'Tracks', badge: 'SECTION 06', subtitle: '22 circuits, 22 personalities. From Monaco to Las Vegas.', accent: '#2bbf4d' },
-  { href: '/strategy', title: 'Strategy', badge: 'SECTION 07', subtitle: 'Tyres, pit stops, undercut, DRS, ERS — the why behind every move.', accent: '#1e41ff' },
+  { href: '/drivers', title: 'Drivers', badge: 'SECTION 01', subtitle: 'The current grid and the legends who built the sport.', accent: 'var(--section-drivers)' },
+  { href: '/teams', title: 'Teams', badge: 'SECTION 02', subtitle: 'Eleven constructors. Eleven engineering philosophies. Eleven paint schemes.', accent: 'var(--section-teams)' },
+  { href: '/the-car', title: 'The Car', badge: 'SECTION 03', subtitle: 'Halo. Diffuser. Turbo. Every part of an F1 car decoded.', accent: 'var(--section-car)' },
+  { href: '/race-weekend', title: 'Race Weekend', badge: 'SECTION 04', subtitle: 'Practice, qualifying, sprint, race: what each session actually does.', accent: 'var(--section-race-weekend)' },
+  { href: '/rules', title: 'Rules & Regs', badge: 'SECTION 05', subtitle: 'Points, flags, penalties, parc fermé, without the rulebook tedium.', accent: 'var(--section-rules)' },
+  { href: '/tracks', title: 'Tracks', badge: 'SECTION 06', subtitle: '24 circuits, 24 personalities. From Monaco to Las Vegas.', accent: 'var(--section-tracks)' },
+  { href: '/strategy', title: 'Strategy', badge: 'SECTION 07', subtitle: 'Tyres, pit stops, undercut, DRS, ERS: the why behind every move.', accent: 'var(--section-strategy)' },
 ];
 ---
 
-<BaseLayout title="Into the Paddock" description="An independent guide to Formula 1 for newcomers and casual fans leveling up.">
-  <Hero
-    eyebrow="Pull the curtain back"
-    title="Welcome to the paddock."
-    subtitle="Formula 1, explained without jargon left undefined and without knowledge assumed. Built for fans who started with Drive to Survive — and want to know how the sport actually works."
-  >
-    <Fragment slot="visual">
-      {next ? (
-        <NextRaceCountdown
-          raceName={next.raceName}
-          circuit={`${next.Circuit.circuitName} · ${next.Circuit.Location.locality}`}
-          raceDate={raceStartISO(next)}
-          round={Number(next.round)}
-        />
-      ) : (
-        <p class="muted-mono">Season schedule unavailable.</p>
+<BaseLayout title="Into the Paddock" description="An independent guide to Formula 1, for fans who started with Drive to Survive.">
+  <section class="home-hero">
+    <div class="container hh-grid">
+      <div class="hh-text">
+        <p class="eyebrow">Pull the curtain back</p>
+        <h1 class="hh-title">F1 is a soap opera with engineers.</h1>
+        <p class="hh-sub">An independent guide to Formula 1, for fans who started with Drive to Survive and want to know who, what, and why.</p>
+        <div class="hh-cta">
+          <a class="hh-btn hh-btn--primary" href="#cast">Meet the cast <span aria-hidden="true">→</span></a>
+          <a class="hh-btn hh-btn--ghost" href="#decoder">Decode the broadcast <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      {heroPortrait && (
+        <figure class="hh-photo">
+          <Image
+            src={heroPortrait}
+            alt="Lewis Hamilton, year two at Ferrari"
+            widths={[480, 720, 960]}
+            sizes="(max-width: 880px) 100vw, 480px"
+            loading="eager"
+            decoding="async"
+          />
+          <figcaption class="hh-credit mono">Hamilton, year two at Ferrari</figcaption>
+        </figure>
       )}
-    </Fragment>
-  </Hero>
-
-  <section class="container what-is">
-    <p class="eyebrow">What Is F1?</p>
-    <h2>Twenty-two drivers. Eleven teams. The fastest cars on Earth.</h2>
-    <p class="lead">
-      Formula 1 is the top tier of motorsport. Each year, eleven teams build two cars from scratch
-      under a strict rulebook, and twenty-two drivers race them around twenty-two circuits.
-      Whoever scores the most points becomes World Champion. That's the surface. The depth —
-      the engineering, the strategy, the politics — is what this site exists to explain.
-    </p>
+    </div>
   </section>
 
   <KerbDivider />
 
-  <section class="container standings-section">
-    <p class="eyebrow">Where the season stands</p>
-    <h2>Live standings</h2>
-    <div class="standings-grid">
-      <LiveStandingsTable variant="drivers" rows={driverStandings} season={season} asOfRound={round} />
-      <LiveStandingsTable variant="constructors" rows={constructorStandings} season={season} asOfRound={round} />
+  <section class="container cast-section" id="cast">
+    <header class="section-head">
+      <p class="eyebrow">Meet the cast</p>
+      <h2>Who you should know first</h2>
+    </header>
+    <CastStrip items={cast} size="large" />
+  </section>
+
+  <KerbDivider variant="thin" />
+
+  <section class="container decoder-section" id="decoder">
+    <header class="section-head">
+      <p class="eyebrow">Decode the broadcast</p>
+      <h2>What they mean when they say it</h2>
+      <p class="section-sub">Search for any term you have heard a commentator use, or browse the full <a href="/decoder">decoder</a>.</p>
+    </header>
+    <DecoderSearch id="home-decoder-search" />
+  </section>
+
+  <KerbDivider variant="thin" />
+
+  <section class="container principals-section">
+    <header class="section-head">
+      <p class="eyebrow">Meet the principals</p>
+      <h2>The bosses on the pit wall</h2>
+    </header>
+    {principals.length > 0 ? (
+      <CastStrip items={principals} size="small" />
+    ) : (
+      <p class="muted-line">Principal profiles coming with v1.1.</p>
+    )}
+  </section>
+
+  <KerbDivider />
+
+  <section class="container storylines-section">
+    <header class="section-head">
+      <p class="eyebrow">Current storylines</p>
+      <h2>What is interesting right now</h2>
+    </header>
+    <div class="storyline-grid">
+      {storylines.map((s, i) => (
+        <StorylineCard title={s.data.title} summary={s.data.summary} href={s.data.href} index={i + 1} />
+      ))}
     </div>
   </section>
 
   <KerbDivider variant="thin" />
 
+  <section class="container what-is">
+    <p class="eyebrow">The basics, in one paragraph</p>
+    <h2>Twenty-two drivers. Eleven teams. The fastest cars on Earth.</h2>
+    <p class="lead">
+      Formula 1 is the top tier of motorsport. Each year, eleven teams build two cars from scratch
+      under a strict rulebook, and twenty-two drivers race them around twenty-four circuits.
+      Whoever scores the most points becomes World Champion. That is the surface. The depth,
+      the engineering, the strategy, the politics, is what this site exists to explain.
+    </p>
+  </section>
+
+  <KerbDivider variant="thin" />
+
   <section class="container sections">
-    <p class="eyebrow">Pick a section</p>
-    <h2>Where do you want to start?</h2>
+    <header class="section-head">
+      <p class="eyebrow">When you're ready, go deeper</p>
+      <h2>How the sport works</h2>
+    </header>
     <div class="section-grid">
       {sections.map((s) => <EntityCard {...s} />)}
     </div>
@@ -79,28 +172,164 @@ const sections = [
 
   <KerbDivider variant="thin" />
 
-  <section class="container how-to-read">
-    <p class="eyebrow">How to read this site</p>
-    <h2>Two audiences. Same pages.</h2>
-
-    <div class="how-grid">
-      <StepCard number="A" title="Just here to get the basics" accent="#fce700" analogy="Read the top of every page and stop where you want.">
-        Each page opens in plain language. No jargon, no assumed knowledge. If you only read the
-        top of every section, you'll come away with a real understanding of what Formula 1 is.
-      </StepCard>
-
-      <StepCard number="B" title="Want the strategic 'why'" accent="#27f4d2" analogy="Keep scrolling. The deeper you go, the deeper the page goes.">
-        Every page has a deep end. Strategic context, technical detail, the reasoning behind why
-        teams make the calls they do. If you've watched a season or two and want to level up,
-        that's where you'll spend your time.
-      </StepCard>
-    </div>
+  <section class="container weekend-section">
+    {next ? (
+      <WeekendBand
+        raceName={next.raceName}
+        circuit={`${next.Circuit.circuitName} · ${next.Circuit.Location.locality}`}
+        raceDate={raceStartISO(next)}
+        round={Number(next.round)}
+        drivers={driverStandings}
+        constructors={constructorStandings}
+      />
+    ) : (
+      <p class="muted-line">Season schedule unavailable.</p>
+    )}
   </section>
 </BaseLayout>
 
 <style>
+  .home-hero {
+    padding-block: var(--sp-12) var(--sp-16);
+    background:
+      radial-gradient(circle at 95% 15%, rgba(252, 231, 0, 0.06) 0%, transparent 45%),
+      var(--asphalt-900);
+  }
+
+  .hh-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: var(--sp-12);
+    align-items: center;
+  }
+
+  .hh-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-5);
+  }
+
+  .hh-title {
+    font-size: var(--fs-900);
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.05;
+  }
+
+  .hh-sub {
+    color: var(--text-secondary);
+    font-size: var(--fs-500);
+    line-height: 1.5;
+    max-width: 56ch;
+    margin: 0;
+  }
+
+  .hh-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+    margin-top: var(--sp-3);
+  }
+
+  .hh-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    padding: var(--sp-3) var(--sp-5);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: var(--fs-300);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background var(--dur-fast) var(--ease-snap), color var(--dur-fast) var(--ease-snap);
+    min-height: 44px;
+  }
+
+  .hh-btn--primary {
+    background: var(--kerb-yellow);
+    color: var(--asphalt-900);
+  }
+
+  .hh-btn--primary:hover {
+    background: var(--kerb-yellow-dim);
+  }
+
+  .hh-btn--ghost {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--asphalt-500);
+  }
+
+  .hh-btn--ghost:hover {
+    border-color: var(--kerb-yellow);
+    color: var(--kerb-yellow);
+  }
+
+  .hh-photo {
+    position: relative;
+    margin: 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--asphalt-800);
+    aspect-ratio: 4 / 5;
+  }
+
+  .hh-photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.95);
+  }
+
+  .hh-credit {
+    position: absolute;
+    left: var(--sp-3);
+    bottom: var(--sp-3);
+    font-size: var(--fs-200);
+    color: var(--kerb-white);
+    background: rgba(14, 15, 16, 0.7);
+    padding: var(--sp-1) var(--sp-2);
+    border-radius: var(--radius-sm);
+    letter-spacing: 0.04em;
+  }
+
+  .section-head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    margin-bottom: var(--sp-6);
+  }
+
+  .section-head h2 {
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .section-sub {
+    color: var(--text-secondary);
+    font-size: var(--fs-400);
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  .section-sub a {
+    color: var(--kerb-yellow);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .cast-section,
+  .decoder-section,
+  .principals-section,
+  .storylines-section,
+  .sections {
+    padding-block: var(--sp-12);
+  }
+
   .what-is {
-    padding-block: var(--sp-16) var(--sp-12);
+    padding-block: var(--sp-12);
   }
 
   .what-is h2 {
@@ -114,52 +343,48 @@ const sections = [
     line-height: 1.6;
   }
 
-  .standings-section {
-    padding-block: var(--sp-12);
-  }
-
-  .standings-section h2 {
-    margin-block: var(--sp-3) var(--sp-8);
-  }
-
-  .standings-grid {
+  .storyline-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-    gap: var(--sp-6);
-  }
-
-  .sections {
-    padding-block: var(--sp-12);
-  }
-
-  .sections h2 {
-    margin-block: var(--sp-3) var(--sp-8);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--sp-5);
   }
 
   .section-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: var(--sp-5);
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--sp-4);
   }
 
-  .how-to-read {
-    padding-block: var(--sp-12);
+  .weekend-section {
+    padding-block: var(--sp-8) var(--sp-16);
   }
 
-  .how-to-read h2 {
-    margin-block: var(--sp-3) var(--sp-8);
-  }
-
-  .how-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: var(--sp-5);
-  }
-
-  .muted-mono {
+  .muted-line {
     color: var(--text-muted);
     font-family: var(--font-mono);
     font-size: var(--fs-300);
     text-align: center;
+  }
+
+  @media (max-width: 880px) {
+    .hh-grid {
+      grid-template-columns: 1fr;
+      gap: var(--sp-6);
+    }
+
+    .hh-photo {
+      aspect-ratio: 4 / 3;
+      max-width: 480px;
+      margin-inline: auto;
+    }
+
+    .hh-cta {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hh-btn {
+      justify-content: center;
+    }
   }
 </style>

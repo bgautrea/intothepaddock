@@ -12,7 +12,8 @@ careerPoles: 45
 championships: 4
 status: 'active'
 bio: 'The youngest race winner in F1 history. A four-time World Champion known for ruthless racecraft, late braking, and a complete inability to lift in the wet.'
-funFact: "He raced karts before he could legally ride a bicycle on the road — his father Jos, an ex-F1 driver himself, started him at age 4."
+characterRead: 'Four-time champion. The bar everyone else is measuring themselves against.'
+funFact: "He raced karts before he could legally ride a bicycle on the road. His father Jos, an ex-F1 driver himself, started him at age 4."
 portrait: '../../assets/photos/drivers/max-verstappen.jpg'
 portraitCredit: 'Photo: Steffen Prößdorf (CC BY-SA 4.0) via Wikimedia Commons'
 ---
@@ -27,6 +28,6 @@ If you've heard commentators say a driver is "on the limit," watch Verstappen fo
 
 ## Watch for
 
-- His radio messages — he's curt, often funny, and unfiltered.
-- Starts off pole — he's exceptionally good at converting pole positions into race wins.
+- His radio messages. He's curt, often funny, and unfiltered.
+- Starts off pole. He's exceptionally good at converting pole positions into race wins.
 - Wet-weather races, especially Spa, where he's effectively a different driver from the rest of the grid.

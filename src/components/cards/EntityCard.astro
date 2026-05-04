@@ -16,6 +16,8 @@ interface Props {
   stats?: Stat[];
   image?: ImageMetadata;
   imageAlt?: string;
+  /** One-line drama-forward hook, rendered above stats. Optional. */
+  characterRead?: string;
 }
 
 const {
@@ -27,6 +29,7 @@ const {
   stats = [],
   image,
   imageAlt,
+  characterRead,
 } = Astro.props;
 ---
 
@@ -45,6 +48,8 @@ const {
       <h3 class="card-title">{title}</h3>
       {subtitle && <p class="card-sub">{subtitle}</p>}
     </div>
+
+    {characterRead && <p class="card-character-read">{characterRead}</p>}
 
     {stats.length > 0 && (
       <dl class="card-stats">
@@ -117,15 +122,15 @@ const {
     position: absolute;
     top: 0;
     left: 0;
-    bottom: 0;
-    width: 4px;
+    right: 0;
+    height: 4px;
     background: var(--accent);
     z-index: 1;
-    transition: width var(--dur-base) var(--ease-snap);
+    transition: height var(--dur-base) var(--ease-snap);
   }
 
   .entity-card:hover .card-stripe {
-    width: 7px;
+    height: 7px;
   }
 
   .card-badge {
@@ -148,6 +153,13 @@ const {
     font-size: var(--fs-300);
   }
 
+  .card-character-read {
+    color: var(--text-secondary);
+    font-size: var(--fs-300);
+    line-height: 1.5;
+    margin: 0;
+  }
+
   .card-stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
@@ -165,7 +177,7 @@ const {
 
   .stat-label {
     font-family: var(--font-mono);
-    font-size: 0.65rem;
+    font-size: var(--fs-200);
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--text-muted);

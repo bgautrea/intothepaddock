@@ -4,6 +4,7 @@ import Hero from '../components/hero/Hero.astro';
 import KerbDivider from '../components/ui/KerbDivider.astro';
 import TyreChip from '../components/ui/TyreChip.astro';
 import AnalogyCallout from '../components/ui/AnalogyCallout.astro';
+import JargonTip from '../components/ui/JargonTip.astro';
 
 interface Crew {
   role: string;
@@ -24,7 +25,7 @@ const crew: Crew[] = [
 const totalCrew = crew.reduce((sum, c) => sum + c.count, 0);
 ---
 
-<BaseLayout title="Race Strategy" description="The why behind every move — tyres, pit stops, undercuts, DRS, ERS, fuel saving.">
+<BaseLayout title="Race Strategy" description="The why behind every move: tyres, pit stops, undercuts, DRS, ERS, fuel saving.">
   <Hero
     eyebrow="Section 07"
     title="Race Strategy"
@@ -35,13 +36,13 @@ const totalCrew = crew.reduce((sum, c) => sum + c.count, 0);
 
   <section class="container intro">
     <p class="lead">
-      The fastest single lap doesn't always win the race. The driver who manages tyre temperature best, pits at the right corner of the right lap, and times their ERS deploy windows — they win. Strategy is what bridges raw pace and a finish position.
+      The fastest single lap doesn't always win the race. The driver who manages tyre temperature best, pits at the right corner of the right lap, and times their <JargonTip slug="ers">ERS</JargonTip> deploy windows: they win. Strategy is what bridges raw pace and a finish position.
     </p>
   </section>
 
   <section class="container tyres-section">
     <h2 id="tyres">Tyre compounds</h2>
-    <p class="section-sub">Pirelli is the sole supplier. Five compounds — three dry-weather, two wet.</p>
+    <p class="section-sub">Pirelli is the sole supplier. Five compounds: three dry-weather, two wet.</p>
     <div class="tyre-row">
       <article class="tyre-card">
         <TyreChip compound="soft" label="Soft" />
@@ -61,7 +62,7 @@ const totalCrew = crew.reduce((sum, c) => sum + c.count, 0);
       </article>
       <article class="tyre-card">
         <TyreChip compound="wet" label="Full wet" />
-        <p>Heavy rain. Disperses ~85 L of water per second per tyre at 300 km/h. Almost never used by choice — drivers switch to inters as soon as they can.</p>
+        <p>Heavy rain. Disperses ~85 L of water per second per tyre at 300 km/h. Almost never used by choice; drivers switch to inters as soon as they can.</p>
       </article>
     </div>
     <AnalogyCallout>
@@ -69,7 +70,7 @@ const totalCrew = crew.reduce((sum, c) => sum + c.count, 0);
     </AnalogyCallout>
     <h3>The two-compound rule</h3>
     <p>
-      In dry conditions, every driver must use at least two different compounds during the race. That single rule guarantees at least one pit stop per car and is the seed from which all race strategy grows. In wet conditions, the rule is lifted — drivers can run inters or wets the whole race if they choose.
+      In dry conditions, every driver must use at least two different compounds during the race. That single rule guarantees at least one pit stop per car and is the seed from which all race strategy grows. In wet conditions, the rule is lifted: drivers can run inters or wets the whole race if they choose.
     </p>
   </section>
 
@@ -116,14 +117,14 @@ const totalCrew = crew.reduce((sum, c) => sum + c.count, 0);
   <section class="container content-section">
     <h2 id="undercut">The undercut</h2>
     <p>
-      You're running second, three seconds behind the leader. You can't pass on track. So you pit one lap before they do. With fresh tyres, your next lap is two seconds faster than they're managing on their old set. You do it again the next lap. After they finally pit and rejoin, you're <strong>ahead</strong> — without ever overtaking on track.
+      You're running second, three seconds behind the leader. You can't pass on track. So you pit one lap before they do. With fresh tyres, your next lap is two seconds faster than they're managing on their old set. You do it again the next lap. After they finally pit and rejoin, you're <strong>ahead</strong>, without ever overtaking on track.
     </p>
     <p>
       That's the undercut. It works when:
     </p>
     <ul>
-      <li>Fresh-tyre warmup is fast enough to deliver the pace gain in 2–3 laps (some compounds take 4–5 laps to "switch on" — undercut fails).</li>
-      <li>Track position matters more than tyre life (most circuits — Monaco, Hungary, Singapore most extremely).</li>
+      <li>Fresh-tyre warmup is fast enough to deliver the pace gain in 2–3 laps (some compounds take 4–5 laps to "switch on", and there the undercut fails).</li>
+      <li>Track position matters more than tyre life (most circuits, with Monaco, Hungary, and Singapore the most extreme cases).</li>
       <li>The car ahead can't respond by pitting the same lap (the team radio caller has to spot the move within seconds).</li>
     </ul>
 
@@ -132,21 +133,21 @@ const totalCrew = crew.reduce((sum, c) => sum + c.count, 0);
       The mirror image. You stay out longer than the car ahead, betting that on warmer tyres in clean air you'll lap faster than they do on cooler new tyres in dirty air. When you eventually pit, you've banked enough lap-time advantage to come out ahead.
     </p>
     <p>
-      Overcut works at high-speed, low-tyre-degradation circuits — Spa, Monza, Las Vegas. It also works when the car ahead pits into traffic and gets stuck behind a slow car for two or three laps.
+      Overcut works at high-speed, low-tyre-degradation circuits like Spa, Monza, and Las Vegas. It also works when the car ahead pits into traffic and gets stuck behind a slow car for two or three laps.
     </p>
 
-    <h2 id="drs">DRS — Drag Reduction System</h2>
+    <h2 id="drs">DRS: Drag Reduction System</h2>
     <p>
       A driver-controlled flap on the rear wing that opens to reduce drag and add ~10 km/h of top speed. Allowed only:
     </p>
     <ul>
       <li>In marked <strong>DRS zones</strong> on the track (each circuit has 1–4).</li>
       <li>When you're within <strong>1 second of the car ahead</strong> at the activation line.</li>
-      <li><strong>Not</strong> in the first two laps after a race start, restart, or safety car.</li>
+      <li><strong>Not</strong> in the first two laps after a race start, restart, or <JargonTip slug="safety-car">safety car</JargonTip>.</li>
       <li><strong>Not</strong> in wet conditions (rules of thumb; race director confirms).</li>
     </ul>
     <p>
-      DRS turns most overtakes from "needs a brave move" into "needs a faster engine." It's the single most-criticized rule in the modern sport — it makes overtaking too easy, the argument goes, by removing the work. The 2026 regulations preserve DRS but pair it with a new "manual override" deploy mode (see ERS below).
+      DRS turns most overtakes from "needs a brave move" into "needs a faster engine." It's the single most-criticized rule in the modern sport: it makes overtaking too easy, the argument goes, by removing the work. The 2026 regulations preserve DRS but pair it with a new "manual override" deploy mode (see ERS below).
     </p>
 
     <h2 id="ers">ERS deployment</h2>
@@ -154,20 +155,20 @@ const totalCrew = crew.reduce((sum, c) => sum + c.count, 0);
       Across one lap, a driver has roughly 4 MJ of stored electrical energy to spend. Where they spend it matters enormously:
     </p>
     <ul>
-      <li><strong>Onto a long straight</strong> — maximum top-speed gain, easy overtake setup, sometimes worth 0.4 s a lap.</li>
-      <li><strong>Out of a slow corner</strong> — accelerate harder than the car ahead can match. Defensive use.</li>
-      <li><strong>Saving for a one-shot lap</strong> — qualifying use, or a final-lap push for fastest lap.</li>
+      <li><strong>Onto a long straight:</strong> maximum top-speed gain, easy overtake setup, sometimes worth 0.4 s a lap.</li>
+      <li><strong>Out of a slow corner:</strong> accelerate harder than the car ahead can match. Defensive use.</li>
+      <li><strong>Saving for a one-shot lap:</strong> <JargonTip slug="qualifying">qualifying</JargonTip> use, or a final-lap push for <JargonTip slug="fastest-lap">fastest lap</JargonTip>.</li>
     </ul>
     <p>
-      Energy is recovered under braking (MGU-K). On heavy-braking circuits like Singapore or Baku, drivers can harvest more than they need; on flat-out tracks like Monza, they're often "energy-limited" — running at lower-than-max power for parts of the lap to conserve.
+      Energy is recovered under braking (MGU-K). On heavy-braking circuits like Singapore or Baku, drivers can harvest more than they need; on flat-out tracks like Monza, they're often "energy-limited," running at lower-than-max power for parts of the lap to conserve.
     </p>
 
     <h2 id="fuel">Fuel saving</h2>
     <p>
-      Each car starts the race with a fixed amount of fuel — minimum 70 kg for a full distance — but no refueling is allowed during the race (banned since 2010 for safety). So if you start heavy, you're slow on the early laps; if you start light, you're saving fuel on the late laps.
+      Each car starts the race with a fixed amount of fuel (minimum 70 kg for a full distance), but no refueling is allowed during the race (banned since 2010 for safety). So if you start heavy, you're slow on the early laps; if you start light, you're saving fuel on the late laps.
     </p>
     <p>
-      "Fuel saving" — a phrase you'll hear constantly on team radio — means lifting the throttle slightly earlier on long straights, coasting briefly into braking zones, and short-shifting up a gear before redline. It costs about 0.3–0.5 seconds a lap. Drivers hate it, but the alternative is running out of fuel before the chequered flag — which has happened to more than one championship-winning car (most famously Hamilton at Brazil 2008, who saved fuel hard enough to win the title by the closest margin in F1 history).
+      "Fuel saving" (a phrase you'll hear constantly on team radio) means lifting the throttle slightly earlier on long straights, coasting briefly into braking zones, and short-shifting up a gear before redline. It costs about 0.3–0.5 seconds a lap. Drivers hate it, but the alternative is running out of fuel before the <JargonTip slug="chequered-flag">chequered flag</JargonTip>, which has happened to more than one championship-winning car (most famously Hamilton at Brazil 2008, who saved fuel hard enough to win the title by the closest margin in F1 history).
     </p>
 
     <h2 id="weather">Weather and the rain call</h2>
@@ -205,8 +206,6 @@ const totalCrew = crew.reduce((sum, c) => sum + c.count, 0);
   h2 {
     font-family: var(--font-display);
     font-size: var(--fs-700);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
     color: var(--text-primary);
     margin-block: 0 var(--sp-4);
     padding-bottom: var(--sp-3);
@@ -225,8 +224,6 @@ const totalCrew = crew.reduce((sum, c) => sum + c.count, 0);
   h3 {
     font-family: var(--font-display);
     font-size: var(--fs-500);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
     color: var(--kerb-yellow);
     margin: var(--sp-8) 0 var(--sp-3);
   }
@@ -273,7 +270,7 @@ const totalCrew = crew.reduce((sum, c) => sum + c.count, 0);
   .pit-stat {
     background: var(--asphalt-800);
     border: 1px solid var(--asphalt-600);
-    border-left: 3px solid var(--kerb-yellow);
+    border-top: 3px solid var(--kerb-yellow);
     border-radius: var(--radius-md);
     padding: var(--sp-4) var(--sp-5);
     display: flex;

@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/hero/Hero.astro';
 import KerbDivider from '../components/ui/KerbDivider.astro';
 import AnalogyCallout from '../components/ui/AnalogyCallout.astro';
+import JargonTip from '../components/ui/JargonTip.astro';
 
 interface Session {
   label: string;
@@ -55,7 +56,7 @@ const sprint: Day[] = [
   <Hero
     eyebrow="Section 04"
     title="Anatomy of a Race Weekend"
-    subtitle="Three days. Five (or seven, on a sprint weekend) on-track sessions. Each one has a distinct purpose — here's what they actually do."
+    subtitle="Three days. Five (or seven, on a sprint weekend) on-track sessions. Each one has a distinct purpose. Here's what they actually do."
   />
 
   <KerbDivider variant="thin" />
@@ -95,7 +96,7 @@ const sprint: Day[] = [
     </p>
     <ul>
       <li><strong>FP1</strong>: aero rake testing and baseline data collection. Sometimes a reserve driver runs in this session to clock their mandatory FIA practice mileage.</li>
-      <li><strong>FP2</strong>: long-run race simulations on race-spec tyres. The lap times you see on the timing screen here matter more than the headline pole-pace lap times — this is where teams measure tyre degradation.</li>
+      <li><strong>FP2</strong>: long-run race simulations on race-spec tyres. The lap times you see on the timing screen here matter more than the headline pole-pace lap times: this is where teams measure <JargonTip slug="tyre-deg">tyre degradation</JargonTip>.</li>
       <li><strong>FP3</strong>: final qualifying setup. By the end of FP3, the car is in the configuration it will qualify in.</li>
     </ul>
     <AnalogyCallout>
@@ -107,26 +108,26 @@ const sprint: Day[] = [
       A 65-minute, three-stage knockout:
     </p>
     <ul>
-      <li><strong>Q1</strong> (18 min) — all 22 cars on track. The slowest 5 are eliminated and start the race in positions 18–22.</li>
-      <li><strong>Q2</strong> (15 min) — remaining 17 cars run again. Slowest 5 eliminated, locked into 11–15.</li>
-      <li><strong>Q3</strong> (12 min) — the top 10 fight for pole position. Each driver typically gets two flying-lap attempts.</li>
+      <li><strong>Q1</strong> (18 min): all 22 cars on track. The slowest 5 are eliminated and start the race in positions 18–22.</li>
+      <li><strong>Q2</strong> (15 min): remaining 17 cars run again. Slowest 5 eliminated, locked into 11–15.</li>
+      <li><strong>Q3</strong> (12 min): the top 10 fight for <JargonTip slug="pole-position">pole position</JargonTip>. Each driver typically gets two flying-lap attempts.</li>
     </ul>
     <p>
       Drivers will run around 1–3 fast laps per stage, with cooling laps in between. The fastest single lap from each driver across all their runs is the one that counts.
     </p>
     <p>
-      <strong>Track evolution</strong> — grip increases steadily through the session as rubber lays down on the racing line. Q3 lap times are almost always faster than Q1, even when nothing else has changed.
+      <strong>Track evolution:</strong> grip increases steadily through the session as rubber lays down on the racing line. Q3 lap times are almost always faster than Q1, even when nothing else has changed.
     </p>
 
     <h2 id="race">The race</h2>
     <p>
-      Sunday afternoon. Maximum 305 km, with a 2-hour ceiling on race time (3 hours including any red-flag stoppages). Most races are 50–70 laps. The grid is set by qualifying; the race uses a standing start with a five-lights sequence and a partial-throw clutch off the line.
+      Sunday afternoon. Maximum 305 km, with a 2-hour ceiling on race time (3 hours including any <JargonTip slug="red-flag">red-flag</JargonTip> stoppages). Most races are 50–70 laps. The grid is set by qualifying; the race uses a <JargonTip slug="standing-start">standing start</JargonTip> with a five-lights sequence and a partial-throw clutch off the line.
     </p>
     <p>
       The single rule that shapes strategy: <strong>each driver must use at least two different tyre compounds during the race</strong> (in dry conditions). That forces at least one pit stop per car. Teams choose which compounds to start on and which to switch to, and a swing in race position usually traces back to that choice.
     </p>
     <p>
-      Points are scored by the top 10 finishers (see the <a href="/rules">rules page</a> for the full table) plus one extra for fastest lap if the driver who set it finished in the points.
+      Points are scored by the top 10 finishers (see the <a href="/rules">rules page</a> for the full table) plus one extra for <JargonTip slug="fastest-lap">fastest lap</JargonTip> if the driver who set it finished in the points.
     </p>
   </section>
 
@@ -135,7 +136,7 @@ const sprint: Day[] = [
   <section class="container timeline-section">
     <h2 class="th">Sprint weekend (six per season)</h2>
     <p class="sprint-intro">
-      On six designated weekends a year, the format changes. There is one practice session, a separate sprint qualifying session, a 100 km Sprint race on Saturday morning, and the standard qualifying + race remain in their normal slots. This format compresses the weekend and gives teams less time to set up the car.
+      On six designated weekends a year, the format changes. There is one practice session, a separate <JargonTip slug="sprint-shootout">sprint qualifying</JargonTip> session, a 100 km <JargonTip slug="sprint">Sprint</JargonTip> race on Saturday morning, and the standard qualifying + race remain in their normal slots. This format compresses the weekend and gives teams less time to set up the car.
     </p>
     <div class="timeline">
       {sprint.map((d) => (
@@ -156,7 +157,7 @@ const sprint: Day[] = [
       ))}
     </div>
     <p class="sprint-notes">
-      The Sprint awards points to the top 8 finishers (8-7-6-5-4-3-2-1). It does <strong>not</strong> set the grid for Sunday's race — that's still done by Saturday afternoon's qualifying. The Sprint is a standalone race in the middle of the weekend.
+      The Sprint awards points to the top 8 finishers (8-7-6-5-4-3-2-1). It does <strong>not</strong> set the grid for Sunday's race; that's still done by Saturday afternoon's qualifying. The Sprint is a standalone race in the middle of the weekend.
     </p>
   </section>
 </BaseLayout>
@@ -184,8 +185,6 @@ const sprint: Day[] = [
   .th {
     font-family: var(--font-display);
     font-size: var(--fs-700);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
     color: var(--text-primary);
     margin-block: 0 var(--sp-6);
     padding-bottom: var(--sp-3);
@@ -308,8 +307,6 @@ const sprint: Day[] = [
   .content-section h2 {
     font-family: var(--font-display);
     font-size: var(--fs-700);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
     color: var(--text-primary);
     margin-block: var(--sp-12) var(--sp-4);
     padding-bottom: var(--sp-3);

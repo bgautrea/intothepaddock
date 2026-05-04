@@ -37,8 +37,38 @@
   --tyre-intermediate: #2bbf4d;
   --tyre-wet: #2680ff;
 
-  /* Default team accent (overridden per page) */
+  /* Default team accent (overridden per page).
+   * --team-primary carries the team's raw brand color for non-text accents
+   * (stripes, dividers, photo edges).
+   * --team-primary-text is a brightened-for-contrast variant used for type and
+   * links where the brand color fails 4.5:1 against --asphalt-900. Both
+   * default to kerb yellow when no team is set. Per-team values are sourced
+   * from src/lib/teamColors.ts and set inline on driver/team pages.
+   */
   --team-primary: var(--kerb-yellow);
+  --team-primary-text: var(--kerb-yellow);
+
+  /* Section accents — homepage tile grid + per-section page eyebrows.
+   * Promoted from inline hex values in pages/index.astro per CURRENT_STATE_AUDIT.md.
+   * Section 01 inherits kerb-yellow; the rest reference team or telemetry hues
+   * deliberately so the section identity carries through the site.
+   */
+  --section-drivers: var(--kerb-yellow);
+  --section-teams: #dc0000;
+  --section-car: #27f4d2;
+  --section-race-weekend: #ff8000;
+  --section-rules: var(--sector-purple);
+  --section-tracks: #2bbf4d;
+  --section-strategy: #1e41ff;
+
+  /* Component-scoped tokens for the cast-and-decoder redesign components.
+   * Kept here (rather than buried inside each component) so the design system
+   * has one place to inspect.
+   */
+  --character-hero-stripe: 4px;
+  --decoder-search-bg: var(--asphalt-800);
+  --decoder-search-z: 60;
+  --weekend-band-height: 56px;
 
   /* Type */
   --font-display: 'Barlow Condensed', 'Oswald', 'Arial Narrow', sans-serif;

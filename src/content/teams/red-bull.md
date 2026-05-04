@@ -10,6 +10,7 @@ constructorTitles: 6
 primaryColor: '#1e41ff'
 secondaryColor: '#fcd700'
 tagline: 'The team that turned an energy-drink brand into an F1 dynasty.'
+principalCharacterRead: "Christian Horner has been team principal since day one in 2005. The longest-tenured boss on the grid, and the one with the most receipts to point at."
 car: '../../assets/photos/teams/red-bull.jpg'
 carCredit: 'Photo: Liauzh (CC BY-SA 4.0) via Wikimedia Commons'
 ---

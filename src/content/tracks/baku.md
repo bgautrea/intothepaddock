@@ -32,6 +32,6 @@ The Baku circuit is famous for chaos. Every year produces multiple safety cars, 
 
 ## What to watch for
 
-- **The castle section (Turns 8–12)** — narrowest part of any F1 circuit. Walls touch on either side at one point.
-- **Turn 1** — heaviest braking. Top-speed slipstream battles into here every lap.
-- **Late-race chaos** — strategists hold back a tyre stop for an inevitable safety car. They're almost always right to.
+- **The castle section (Turns 8–12):** narrowest part of any F1 circuit. Walls touch on either side at one point.
+- **Turn 1:** heaviest braking. Top-speed slipstream battles into here every lap.
+- **Late-race chaos:** strategists hold back a tyre stop for an inevitable safety car. They're almost always right to.

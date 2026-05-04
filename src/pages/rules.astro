@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/hero/Hero.astro';
 import KerbDivider from '../components/ui/KerbDivider.astro';
+import JargonTip from '../components/ui/JargonTip.astro';
 
 interface FlagDef {
   name: string;
@@ -25,11 +26,11 @@ const points = [
 
 const flags: FlagDef[] = [
   { name: 'Yellow', swatch: 'yellow', meaning: 'Hazard ahead. Slow down. No overtaking until you pass the flag-clear point.', who: 'Marshals at incident sector' },
-  { name: 'Double yellow', swatch: 'yellow', meaning: 'Serious hazard — be prepared to stop. Marshals or vehicles likely on track.', who: 'Marshals' },
+  { name: 'Double yellow', swatch: 'yellow', meaning: 'Serious hazard. Be prepared to stop. Marshals or vehicles likely on track.', who: 'Marshals' },
   { name: 'Red', swatch: 'red', meaning: 'Session stopped. Return to pit lane immediately at reduced speed.', who: 'Race director' },
   { name: 'Blue', swatch: 'blue', meaning: 'A faster car is about to lap you. Yield within three corners or earn a penalty.', who: 'Marshals' },
   { name: 'Green', swatch: 'green', meaning: 'Track is clear of hazard. Racing resumes.', who: 'Marshals' },
-  { name: 'White', swatch: 'white', meaning: 'Slow vehicle ahead — usually a recovery truck or course car.', who: 'Marshals' },
+  { name: 'White', swatch: 'white', meaning: 'Slow vehicle ahead, usually a recovery truck or course car.', who: 'Marshals' },
   { name: 'Chequered', swatch: 'chequered', meaning: 'End of session.', who: 'Race director' },
   { name: 'Black', swatch: 'black', meaning: 'Disqualification. Return to pits immediately.', who: 'Race director' },
   { name: 'Black + orange disc', swatch: 'black-orange', meaning: 'Mechanical problem on your car (visible to officials but maybe not you). Pit immediately for inspection.', who: 'Race director' },
@@ -37,27 +38,27 @@ const flags: FlagDef[] = [
 ];
 
 const penalties = [
-  { name: '5-second time penalty', when: 'Minor incidents — small track-limit infringements, slight contact.', effect: '5 seconds added to race time, or served at next pit stop before mechanics can touch the car.' },
+  { name: '5-second time penalty', when: 'Minor incidents. Small track-limit infringements, slight contact.', effect: '5 seconds added to race time, or served at next pit stop before mechanics can touch the car.' },
   { name: '10-second time penalty', when: 'Causing a collision, more serious track limits.', effect: 'Same as above but 10 s.' },
-  { name: 'Drive-through penalty', when: 'Mid-severity offense — unsafe release from the pit, jumping the start.', effect: 'Driver must enter the pit lane, drive its length below the speed limit, and exit without stopping. Costs ~20 s.' },
-  { name: '10-second stop-go', when: 'Severe offense — a dangerous unsafe release, ignoring blue flags repeatedly.', effect: 'Stop in the pit box for 10 seconds (no work allowed), then rejoin. Costs ~30 s.' },
+  { name: 'Drive-through penalty', when: 'Mid-severity offense. Unsafe release from the pit, jumping the start.', effect: 'Driver must enter the pit lane, drive its length below the speed limit, and exit without stopping. Costs ~20 s.' },
+  { name: '10-second stop-go', when: 'Severe offense. A dangerous unsafe release, ignoring blue flags repeatedly.', effect: 'Stop in the pit box for 10 seconds (no work allowed), then rejoin. Costs ~30 s.' },
   { name: 'Grid penalty', when: 'Power-unit element changed beyond the season allocation, or causing-a-collision penalty applied to next race.', effect: '5, 10, 15 places, or "back of grid" for severe cases.' },
   { name: 'Disqualification', when: 'Technical infringement (car illegal under regulations), major safety breach.', effect: 'Removed from race results entirely.' },
 ];
 ---
 
-<BaseLayout title="Rules & Regulations" description="Points, flags, penalties, parc fermé — what you actually need to know.">
+<BaseLayout title="Rules & Regulations" description="Points, flags, penalties, parc fermé. What you actually need to know.">
   <Hero
     eyebrow="Section 05"
     title="Rules & Regulations"
-    subtitle="The rulebook is over 200 pages. The bits you'll see on a broadcast — points, flags, penalties, parc fermé — fit on one screen."
+    subtitle="The rulebook is over 200 pages. The bits you'll see on a broadcast (points, flags, penalties, parc fermé) fit on one screen."
   />
 
   <KerbDivider variant="thin" />
 
   <section class="container intro">
     <p class="lead">
-      Two rule books govern every race weekend: the <strong>Sporting Regulations</strong> (how a race is run — flags, penalties, qualifying format) and the <strong>Technical Regulations</strong> (what the car can be — dimensions, weight, materials, fuel flow). Below: the slices of both that you'll actually encounter watching a race.
+      Two rule books govern every race weekend: the <strong>Sporting Regulations</strong> (how a race is run: flags, penalties, qualifying format) and the <strong>Technical Regulations</strong> (what the car can be: dimensions, weight, materials, fuel flow). Below: the slices of both that you'll actually encounter watching a race.
     </p>
   </section>
 
@@ -76,11 +77,11 @@ const penalties = [
     <div class="points-extras">
       <div class="pe">
         <span class="pe-key mono">+1</span>
-        <p><strong>Fastest lap.</strong> A bonus point goes to whoever sets the race's fastest lap — but only if they finish in the top 10.</p>
+        <p><strong>Fastest lap.</strong> A bonus point goes to whoever sets the race's <JargonTip slug="fastest-lap">fastest lap</JargonTip>, but only if they finish in the top 10.</p>
       </div>
       <div class="pe">
         <span class="pe-key mono">+8…+1</span>
-        <p><strong>Sprint points.</strong> On sprint weekends, the Saturday Sprint awards points to the top 8 finishers (8-7-6-5-4-3-2-1). Separate from the main race.</p>
+        <p><strong>Sprint points.</strong> On sprint weekends, the Saturday <JargonTip slug="sprint">Sprint</JargonTip> awards points to the top 8 finishers (8-7-6-5-4-3-2-1). Separate from the main race.</p>
       </div>
       <div class="pe">
         <span class="pe-key mono">½</span>
@@ -112,7 +113,7 @@ const penalties = [
 
   <section class="container penalties-section">
     <h2 id="penalties">Penalty primer</h2>
-    <p class="section-sub">Stewards review every incident. Penalties are typically announced 5–15 minutes after the incident itself.</p>
+    <p class="section-sub"><JargonTip slug="stewards">Stewards</JargonTip> review every incident. Penalties are typically announced 5–15 minutes after the incident itself.</p>
     <div class="pen-grid">
       {penalties.map((pen) => (
         <article class="pen-card">
@@ -129,10 +130,10 @@ const penalties = [
   <section class="container content-section">
     <h2 id="parc-ferme">Parc fermé</h2>
     <p>
-      A French phrase that translates to "closed park." From the moment a car leaves the pit lane for qualifying on Saturday until the start of the race on Sunday, it is in <strong>parc fermé conditions</strong>: teams cannot make setup changes. Mechanical adjustments allowed are extremely limited (front wing flap angles, tyre pressures, brake balance).
+      A French phrase that translates to "closed park." From the moment a car leaves the pit lane for <JargonTip slug="qualifying">qualifying</JargonTip> on Saturday until the start of the race on Sunday, it is in <strong>parc fermé conditions</strong>: teams cannot make setup changes. Mechanical adjustments allowed are extremely limited (front wing flap angles, tyre pressures, brake balance).
     </p>
     <p>
-      If a team needs to change something significant — engine, gearbox, suspension geometry — they must declare it, and the driver starts the race from the pit lane behind the rest of the grid.
+      If a team needs to change something significant (engine, gearbox, suspension geometry), they must declare it, and the driver starts the race from the pit lane behind the rest of the grid.
     </p>
     <p>
       <strong>Why it exists:</strong> to stop teams from running aggressive low-fuel qualifying setups and then re-tuning for the race. Whatever wins pole has to also race.
@@ -143,11 +144,11 @@ const penalties = [
       The technical regs are where most of the engineering competition happens. The headline numbers for 2026:
     </p>
     <ul>
-      <li><strong>Minimum weight</strong> — 768 kg with driver, dropping ~30 kg from the 2022–2025 era.</li>
-      <li><strong>Power unit</strong> — 1.6L V6 turbo + ~350 kW MGU-K, no MGU-H. Total combined output approximately 1,000 hp.</li>
-      <li><strong>Fuel</strong> — 100% sustainable (synthetic or biofuel), 70 kg max for a race.</li>
-      <li><strong>Aero</strong> — narrower car (1.9 m wide vs 2.0 m), active front and rear wing modes for straight-line drag reduction.</li>
-      <li><strong>Cost cap</strong> — $135 m per team (excluding driver salaries, top three engineers, marketing, and a few other carve-outs).</li>
+      <li><strong>Minimum weight:</strong> 768 kg with driver, dropping ~30 kg from the 2022–2025 era.</li>
+      <li><strong>Power unit:</strong> 1.6L V6 turbo + ~350 kW MGU-K, no MGU-H. Total combined output approximately 1,000 hp.</li>
+      <li><strong>Fuel:</strong> 100% sustainable (synthetic or biofuel), 70 kg max for a race.</li>
+      <li><strong>Aero:</strong> narrower car (1.9 m wide vs 2.0 m), active front and rear wing modes for straight-line drag reduction.</li>
+      <li><strong>Cost cap:</strong> $135 m per team (excluding driver salaries, top three engineers, marketing, and a few other carve-outs).</li>
     </ul>
 
     <h2 id="reviews">Stewards and reviews</h2>
@@ -155,7 +156,7 @@ const penalties = [
       Every Grand Prix has a panel of <strong>four stewards</strong>: three permanent FIA officials plus one rotating "driver steward" (typically a retired F1 driver). They review on-track incidents, hear team representatives if needed, and issue penalties.
     </p>
     <p>
-      Their decisions are appealable but rarely overturned. Race-defining decisions — like the safety-car procedure that decided the 2021 Abu Dhabi championship — are litigated for years afterward in the press but almost never officially.
+      Their decisions are appealable but rarely overturned. Race-defining decisions (like the <JargonTip slug="safety-car">safety-car</JargonTip> procedure that decided the 2021 Abu Dhabi championship) are litigated for years afterward in the press but almost never officially.
     </p>
   </section>
 </BaseLayout>
@@ -190,8 +191,6 @@ const penalties = [
   h2 {
     font-family: var(--font-display);
     font-size: var(--fs-700);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
     color: var(--text-primary);
     margin-block: 0 var(--sp-4);
     padding-bottom: var(--sp-3);
@@ -271,7 +270,9 @@ const penalties = [
 
   .pe {
     background: var(--asphalt-800);
-    border-left: 3px solid var(--kerb-yellow);
+    border: var(--border-thin);
+    border-top: 3px solid var(--kerb-yellow);
+    border-radius: var(--radius-md);
     padding: var(--sp-4) var(--sp-5);
     display: grid;
     grid-template-columns: 80px 1fr;

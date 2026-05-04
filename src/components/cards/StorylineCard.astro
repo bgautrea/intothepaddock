@@ -1,0 +1,87 @@
+---
+/**
+ * StorylineCard — homepage current-storylines band card.
+ *
+ * Headline + summary + optional "read more →" link. The card is its own
+ * unit of editorial content: if `href` is present, the whole card is a
+ * link to the deeper article; if not, the card stands alone with the
+ * summary as the full payload.
+ */
+interface Props {
+  title: string;
+  summary: string;
+  href?: string;
+  /** Eyebrow label, e.g. "Storyline 01". Optional. */
+  index?: number;
+}
+
+const { title, summary, href, index } = Astro.props;
+const eyebrow = index !== undefined ? `Storyline ${String(index).padStart(2, '0')}` : 'Storyline';
+
+const Wrapper = href ? 'a' : 'article';
+---
+
+<Wrapper class={`storyline-card ${href ? 'storyline-card--linked' : ''}`} href={href}>
+  <span class="sc-eyebrow mono">{eyebrow}</span>
+  <h3 class="sc-title">{title}</h3>
+  <p class="sc-summary">{summary}</p>
+  {href && <span class="sc-more mono" aria-hidden="true">Read more →</span>}
+</Wrapper>
+
+<style>
+  .storyline-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    background: var(--asphalt-800);
+    border: var(--border-thin);
+    border-top: 3px solid var(--kerb-yellow);
+    border-radius: var(--radius-md);
+    padding: var(--sp-6);
+    color: var(--text-primary);
+    text-decoration: none;
+    transition:
+      border-color var(--dur-base) var(--ease-snap),
+      background var(--dur-base) var(--ease-snap),
+      transform var(--dur-base) var(--ease-snap);
+  }
+
+  .storyline-card--linked:hover,
+  .storyline-card--linked:focus-visible {
+    background: var(--asphalt-700);
+    transform: translateY(-2px);
+    border-top-color: var(--kerb-yellow);
+  }
+
+  .sc-eyebrow {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .sc-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-600);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .sc-summary {
+    color: var(--text-secondary);
+    font-size: var(--fs-300);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .sc-more {
+    color: var(--kerb-yellow);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-top: auto;
+    padding-top: var(--sp-2);
+  }
+</style>

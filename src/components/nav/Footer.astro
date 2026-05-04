@@ -8,7 +8,7 @@ const year = new Date().getFullYear();
     <div class="footer-cols">
       <div class="col">
         <p class="eyebrow">About</p>
-        <p class="muted">An independent, educational guide to Formula 1 — built for newcomers and casual fans leveling up.</p>
+        <p class="muted">An independent, educational guide to Formula 1 for newcomers and casual fans leveling up.</p>
       </div>
       <div class="col">
         <p class="eyebrow">Data</p>
@@ -25,8 +25,9 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="footer-tail">
-      <p class="mono small">© {year} INTO THE PADDOCK — INDEPENDENT FAN PROJECT</p>
-      <p class="mono small disclaimer">NOT AFFILIATED WITH FORMULA 1, FIA, FOM, OR ANY TEAM.</p>
+      <p class="mono small trust">Independent and unofficial</p>
+      <p class="mono small">© {year} Into the Paddock · An independent fan project</p>
+      <p class="mono small disclaimer">Not affiliated with Formula 1, FIA, FOM, or any team.</p>
     </div>
   </div>
 </footer>
@@ -66,9 +67,8 @@ const year = new Date().getFullYear();
 
   .footer-tail {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: var(--sp-2);
+    flex-direction: column;
+    gap: var(--sp-1);
     border-top: var(--border-thin);
     padding-top: var(--sp-4);
   }
@@ -78,6 +78,10 @@ const year = new Date().getFullYear();
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--concrete);
+  }
+
+  .trust {
+    color: var(--kerb-yellow);
   }
 
   .disclaimer {

@@ -1,0 +1,253 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/hero/Hero.astro';
+import KerbDivider from '../components/ui/KerbDivider.astro';
+import DecoderSearch from '../components/decoder/DecoderSearch.astro';
+import DecoderEntry from '../components/decoder/DecoderEntry.astro';
+
+const glossary = await getCollection('glossary');
+
+const categoryOrder = ['race-control', 'race-weekend', 'penalties', 'strategy', 'tyres', 'the-car'] as const;
+const categoryLabels: Record<string, string> = {
+  'race-control': 'Race control',
+  'race-weekend': 'Race weekend',
+  penalties: 'Penalties',
+  strategy: 'Strategy',
+  tyres: 'Tyres',
+  'the-car': 'The car',
+};
+
+const grouped = categoryOrder
+  .map((cat) => ({
+    category: cat,
+    label: categoryLabels[cat],
+    entries: glossary
+      .filter((e) => e.data.category === cat)
+      .sort((a, b) => a.data.term.localeCompare(b.data.term)),
+  }))
+  .filter((group) => group.entries.length > 0);
+
+const quickChips = [
+  'undercut',
+  'parc-ferme',
+  'blue-flag',
+  'drs',
+  'virtual-safety-car',
+  'track-limits',
+  'slipstream',
+  'sprint',
+];
+const quickChipEntries = quickChips
+  .map((slug) => glossary.find((e) => e.id === slug))
+  .filter(Boolean) as typeof glossary;
+---
+
+<BaseLayout title="Decoder" description="What it means when you hear it on the broadcast. F1 vocabulary, decoded.">
+  <Hero
+    eyebrow="The decoder"
+    title="What they mean when they say it"
+    subtitle="Every confusing term you'll hear during a broadcast, plain-language. Search for one or browse by category."
+  />
+
+  <KerbDivider variant="thin" />
+
+  <section class="container decoder-search-section">
+    <DecoderSearch id="decoder-page-search" />
+
+    <div class="quick-chips" aria-label="Common terms">
+      <p class="qc-label mono">Try one</p>
+      <ul class="qc-list">
+        {quickChipEntries.map((entry) => (
+          <li><a class="qc-chip" href={`#${entry.id}`}>{entry.data.term}</a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <KerbDivider variant="thin" />
+
+  <section class="container category-jumps" aria-label="Jump to a category">
+    <p class="cj-label mono">Jump to</p>
+    <ul class="cj-list">
+      {grouped.map((group) => (
+        <li><a class="cj-link" href={`#category-${group.category}`}>{group.label}</a></li>
+      ))}
+    </ul>
+  </section>
+
+  <KerbDivider variant="thin" />
+
+  <section class="container decoder-list">
+    {grouped.map((group, idx) => (
+      <>
+        {idx > 0 && <KerbDivider variant="thin" />}
+        <div class="category" id={`category-${group.category}`}>
+          <header class="cat-head">
+            <p class="cat-eyebrow mono">Category {String(idx + 1).padStart(2, '0')}</p>
+            <div class="cat-head-row">
+              <h2 class="cat-title">{group.label}</h2>
+              <p class="cat-count mono">{group.entries.length} {group.entries.length === 1 ? 'term' : 'terms'}</p>
+            </div>
+          </header>
+          <div class="entry-grid">
+            {group.entries.map((entry) => <DecoderEntry entry={entry} />)}
+          </div>
+        </div>
+      </>
+    ))}
+  </section>
+
+  <KerbDivider variant="thin" />
+
+  <section class="container decoder-foot">
+    <p class="df-prompt">Don't see a term? Hit us up. A feedback form lands in the next release.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .decoder-search-section {
+    padding-block: var(--sp-12);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-6);
+    max-width: 720px;
+  }
+
+  .quick-chips {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--sp-3) var(--sp-4);
+  }
+
+  .qc-label,
+  .cj-label {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .qc-list,
+  .cj-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-2);
+  }
+
+  .qc-chip,
+  .cj-link {
+    display: inline-block;
+    padding: var(--sp-2) var(--sp-3);
+    background: var(--asphalt-800);
+    border: var(--border-thin);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: var(--fs-300);
+    text-decoration: none;
+    transition: border-color var(--dur-fast) var(--ease-snap), color var(--dur-fast) var(--ease-snap);
+  }
+
+  .qc-chip:hover,
+  .qc-chip:focus-visible,
+  .cj-link:hover,
+  .cj-link:focus-visible {
+    border-color: var(--kerb-yellow);
+    color: var(--kerb-yellow);
+  }
+
+  .category-jumps {
+    padding-block: var(--sp-6);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--sp-3) var(--sp-4);
+    position: sticky;
+    top: var(--nav-height);
+    z-index: 10;
+    background: var(--asphalt-900);
+  }
+
+  .decoder-list {
+    padding-block: var(--sp-12);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-12);
+  }
+
+  .category {
+    scroll-margin-top: calc(var(--nav-height) + var(--sp-12));
+    padding-block: var(--sp-6) var(--sp-4);
+  }
+
+  .cat-head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    margin-bottom: var(--sp-8);
+  }
+
+  .cat-eyebrow {
+    color: var(--kerb-yellow);
+    font-size: var(--fs-200);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .cat-head-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    padding-bottom: var(--sp-3);
+    border-bottom: 1px solid var(--asphalt-600);
+  }
+
+  .cat-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-800);
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .cat-count {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .entry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: var(--sp-5);
+  }
+
+  .decoder-foot {
+    padding-block: var(--sp-12) var(--sp-16);
+    text-align: center;
+  }
+
+  .df-prompt {
+    color: var(--text-secondary);
+    font-size: var(--fs-300);
+    margin: 0;
+  }
+
+  @media (max-width: 720px) {
+    .category-jumps {
+      gap: var(--sp-2);
+    }
+
+    .entry-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

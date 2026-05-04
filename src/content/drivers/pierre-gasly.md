@@ -19,7 +19,7 @@ portraitCredit: 'Photo: nabtifal (CC BY 2.0) via Wikimedia Commons'
 
 ## Why he matters
 
-Gasly came up through the Red Bull system — won GP2 in 2016, debuted at Toro Rosso in 2017, was promoted to Red Bull in 2019, was demoted back to Toro Rosso mid-season, and then won the wildest race of 2020 at Monza. He moved to Alpine for 2023 alongside fellow French driver Esteban Ocon (a difficult pairing — they had a karting rivalry going back two decades), and is now Alpine's lead driver in the team's rebuild on Mercedes power.
+Gasly came up through the Red Bull system: won GP2 in 2016, debuted at Toro Rosso in 2017, was promoted to Red Bull in 2019, was demoted back to Toro Rosso mid-season, and then won the wildest race of 2020 at Monza. He moved to Alpine for 2023 alongside fellow French driver Esteban Ocon (a difficult pairing, since they had a karting rivalry going back two decades), and is now Alpine's lead driver in the team's rebuild on Mercedes power.
 
 ## How he drives
 
@@ -27,6 +27,6 @@ Gasly is at his best when a car has a stable rear end at high speed. He's a stro
 
 ## Watch for
 
-- Power-circuit qualifying laps — Spa, Baku, Monza, Las Vegas.
-- His starts — Gasly was the best starter in the midfield through 2024 and 2025.
-- His relationship with new teammate Franco Colapinto — Gasly is the senior, Colapinto the breakout signing of 2025.
+- Power-circuit qualifying laps: Spa, Baku, Monza, Las Vegas.
+- His starts. Gasly was the best starter in the midfield through 2024 and 2025.
+- His relationship with new teammate Franco Colapinto. Gasly is the senior, Colapinto the breakout signing of 2025.

@@ -1,17 +1,55 @@
 ---
+/**
+ * JargonTip — inline broadcast-vocabulary affordance.
+ *
+ * Wrap a word in body copy with <JargonTip slug="virtual-safety-car">VSC</JargonTip>
+ * and the reader gets a dotted-yellow underline on the term plus a tap/keyboard
+ * affordance to expand a small inline panel containing the entry's term name and
+ * "you'll hear this when…" line, with a "more →" anchor-link to /decoder#<slug>.
+ *
+ * Reads from the `glossary` content collection so the definition lives in one place.
+ * If the slug is missing from the collection, falls back to rendering the slot text
+ * as a plain inline span (no dotted underline, no panel) so a typo doesn't break the
+ * page.
+ *
+ * Tap to open. Esc or click outside to close. Keyboard-activatable via Enter / Space
+ * because the trigger is a real <button>.
+ */
+import { getEntry } from 'astro:content';
+
 interface Props {
-  term: string;
+  /** The glossary entry slug, e.g. 'undercut', 'virtual-safety-car'. */
+  slug: string;
 }
 
-const { term } = Astro.props;
+const { slug } = Astro.props;
+const entry = await getEntry('glossary', slug);
+
+// Stable id for aria-controls / aria-labelledby. Astro doesn't have crypto.randomUUID
+// available by default, so a slug-suffixed id is sufficient and deterministic.
+const panelId = `jt-${slug}-${Math.random().toString(36).slice(2, 8)}`;
 ---
 
-<span class="jargon">
-  <span class="jargon-term">{term}</span>
-  <span class="jargon-tip" role="tooltip">
-    <slot />
+{entry ? (
+  <span class="jargon" data-jargon-tip>
+    <button
+      class="jargon-term"
+      type="button"
+      aria-expanded="false"
+      aria-controls={panelId}
+      data-jargon-trigger
+    >
+      <slot />
+    </button>
+    <span class="jargon-panel" id={panelId} role="region" aria-label={entry.data.term} hidden>
+      <span class="jt-term">{entry.data.term}</span>
+      <span class="jt-trigger">{entry.data.youllHearWhen}</span>
+      <a class="jt-more mono" href={`/decoder#${slug}`}>More →</a>
+    </span>
   </span>
-</span>
+) : (
+  <slot />
+)}
 
 <style>
   .jargon {
@@ -20,33 +58,56 @@ const { term } = Astro.props;
   }
 
   .jargon-term {
-    border-bottom: 1px dotted var(--kerb-yellow);
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
     color: var(--text-primary);
+    font: inherit;
     cursor: help;
+    border-bottom: 1px dotted var(--kerb-yellow);
+    text-decoration: none;
   }
 
-  .jargon-tip {
+  .jargon-term:focus-visible {
+    outline: 2px solid var(--kerb-yellow);
+    outline-offset: 2px;
+    border-radius: 1px;
+  }
+
+  .jargon-term[aria-expanded='true'] {
+    color: var(--kerb-yellow);
+  }
+
+  .jargon-panel {
     position: absolute;
     left: 50%;
     bottom: calc(100% + 8px);
     transform: translateX(-50%);
+    width: max-content;
+    max-width: min(320px, calc(100vw - var(--sp-8)));
     background: var(--asphalt-700);
     border: 1px solid var(--asphalt-600);
     border-radius: var(--radius-sm);
-    padding: var(--sp-2) var(--sp-3);
-    font-size: var(--fs-300);
-    color: var(--text-primary);
-    width: max-content;
-    max-width: 280px;
-    line-height: 1.45;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--dur-fast) var(--ease-snap);
-    z-index: 10;
+    padding: var(--sp-3);
+    z-index: 30;
     box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    font-family: var(--font-body);
+    font-size: var(--fs-300);
+    line-height: 1.5;
+    color: var(--text-primary);
+    text-align: left;
+    text-transform: none;
   }
 
-  .jargon-tip::after {
+  .jargon-panel[hidden] {
+    display: none;
+  }
+
+  .jargon-panel::after {
     content: '';
     position: absolute;
     left: 50%;
@@ -56,9 +117,76 @@ const { term } = Astro.props;
     border-top-color: var(--asphalt-700);
   }
 
-  .jargon:hover .jargon-tip,
-  .jargon:focus-within .jargon-tip {
-    opacity: 1;
-    pointer-events: auto;
+  .jt-term {
+    font-family: var(--font-display);
+    font-size: var(--fs-500);
+    font-weight: 700;
+    color: var(--kerb-yellow);
+    line-height: 1;
+  }
+
+  .jt-trigger {
+    color: var(--text-secondary);
+  }
+
+  .jt-more {
+    color: var(--kerb-yellow);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    align-self: flex-start;
+    transition: border-color var(--dur-fast) var(--ease-snap);
+    min-height: 28px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .jt-more:hover,
+  .jt-more:focus-visible {
+    border-bottom-color: var(--kerb-yellow);
   }
 </style>
+
+<script>
+  // Open / close behaviour for every JargonTip on the page.
+  const root = document.documentElement;
+  let openPanel: HTMLElement | null = null;
+  let openTrigger: HTMLButtonElement | null = null;
+
+  const close = () => {
+    if (openPanel) openPanel.hidden = true;
+    if (openTrigger) openTrigger.setAttribute('aria-expanded', 'false');
+    openPanel = null;
+    openTrigger = null;
+  };
+
+  for (const wrapper of document.querySelectorAll<HTMLSpanElement>('[data-jargon-tip]')) {
+    const trigger = wrapper.querySelector<HTMLButtonElement>('[data-jargon-trigger]');
+    const panel = wrapper.querySelector<HTMLElement>('.jargon-panel');
+    if (!trigger || !panel) continue;
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const expanded = trigger.getAttribute('aria-expanded') === 'true';
+      close();
+      if (!expanded) {
+        panel.hidden = false;
+        trigger.setAttribute('aria-expanded', 'true');
+        openPanel = panel;
+        openTrigger = trigger;
+      }
+    });
+
+    panel.addEventListener('click', (e) => e.stopPropagation());
+  }
+
+  root.addEventListener('click', () => close());
+  root.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && openPanel) {
+      close();
+      openTrigger?.focus();
+    }
+  });
+</script>

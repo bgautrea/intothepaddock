@@ -12,7 +12,7 @@ careerPoles: 2
 championships: 0
 status: 'active'
 bio: 'The teenager Mercedes hand-picked to replace Lewis Hamilton. Won twice in his rookie year and arrived at the start of 2026 leading the championship.'
-funFact: 'His first name is the same as his racing hero Kimi Räikkönen — chosen by his father, ex-touring-car driver Marco Antonelli, before Andrea was born.'
+funFact: 'His first name is the same as his racing hero Kimi Räikkönen, chosen by his father, ex-touring-car driver Marco Antonelli, before Andrea was born.'
 portrait: '../../assets/photos/drivers/andrea-kimi-antonelli.jpg'
 portraitCredit: 'Photo: Kuyper (CC BY-SA 4.0) via Wikimedia Commons'
 ---
@@ -23,10 +23,10 @@ Mercedes signed Antonelli straight from F2 in 2025 to replace Lewis Hamilton. Th
 
 ## How he drives
 
-Antonelli is unusually composed for his age. He doesn't make rookie-pattern errors — no early-season mid-corner mistakes, no panicked overtakes. His best laps come from clean lines and very late braking, like a more measured Hamilton.
+Antonelli is unusually composed for his age. He doesn't make rookie-pattern errors: no early-season mid-corner mistakes, no panicked overtakes. His best laps come from clean lines and very late braking, like a more measured Hamilton.
 
 ## Watch for
 
-- Starts — he is one of the best on the current grid at converting grid position on lap one.
-- Wet sessions in qualifying — he ranked top-three in Q1/Q2 in the wet four times in 2025.
-- His radio in race trim — he asks for less feedback than any other driver in the paddock.
+- Starts. He is one of the best on the current grid at converting grid position on lap one.
+- Wet sessions in qualifying. He ranked top-three in Q1/Q2 in the wet four times in 2025.
+- His radio in race trim. He asks for less feedback than any other driver in the paddock.
