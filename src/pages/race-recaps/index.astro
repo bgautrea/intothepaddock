@@ -1,0 +1,127 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/hero/Hero.astro';
+import KerbDivider from '../../components/ui/KerbDivider.astro';
+
+const recaps = (await getCollection('raceRecaps')).sort((a, b) => {
+  if (a.data.season !== b.data.season) return b.data.season - a.data.season;
+  return b.data.round - a.data.round;
+});
+
+const grouped = new Map<number, typeof recaps>();
+for (const r of recaps) {
+  const arr = grouped.get(r.data.season) ?? [];
+  arr.push(r);
+  grouped.set(r.data.season, arr);
+}
+const seasons = [...grouped.keys()].sort((a, b) => b - a);
+---
+
+<BaseLayout
+  title="Race recaps · Into the Paddock"
+  description="Plain-language post-race breakdowns: the 5-sentence story plus what the timing data was actually telling you."
+>
+  <Hero
+    eyebrow="Decoder · Per race"
+    title="Race recaps"
+    subtitle="The 5-sentence story plus the data the timing screens were showing."
+  />
+
+  <KerbDivider variant="thin" />
+
+  <section class="container recap-index">
+    {recaps.length === 0 ? (
+      <p class="empty">No recaps yet. The first one lands after the next race.</p>
+    ) : (
+      seasons.map((season) => (
+        <div class="season-block">
+          <h2 class="season-h">{season}</h2>
+          <ul class="recap-list">
+            {grouped.get(season)!.map((r) => (
+              <li class="recap-row">
+                <a class="recap-link" href={`/race-recaps/${r.id}`}>
+                  <span class="recap-round mono">R{String(r.data.round).padStart(2, '0')}</span>
+                  <span class="recap-name">{r.data.raceName}</span>
+                  <span class="recap-date mono">
+                    {r.data.raceDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+  .recap-index {
+    padding-block: var(--sp-12);
+    max-width: 720px;
+  }
+
+  .empty {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .season-block + .season-block {
+    margin-top: var(--sp-10);
+  }
+
+  .season-h {
+    font-family: var(--font-display);
+    font-size: var(--fs-700);
+    color: var(--kerb-yellow);
+    margin: 0 0 var(--sp-4);
+    padding-bottom: var(--sp-2);
+    border-bottom: 1px solid var(--asphalt-600);
+  }
+
+  .recap-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .recap-link {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    align-items: baseline;
+    gap: var(--sp-4);
+    padding: var(--sp-4) 0;
+    border-bottom: 1px dashed var(--asphalt-600);
+    text-decoration: none;
+    color: inherit;
+    transition: background var(--dur-base) var(--ease-snap);
+  }
+
+  .recap-link:hover {
+    background: var(--asphalt-800);
+    padding-inline: var(--sp-3);
+    border-radius: var(--radius-sm);
+    border-bottom-color: var(--kerb-yellow);
+  }
+
+  .recap-round {
+    color: var(--kerb-yellow);
+    font-size: var(--fs-200);
+    letter-spacing: 0.12em;
+  }
+
+  .recap-name {
+    color: var(--text-primary);
+    font-size: var(--fs-500);
+  }
+
+  .recap-date {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+</style>

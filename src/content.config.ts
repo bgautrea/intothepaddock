@@ -157,4 +157,31 @@ const storylines = defineCollection({
   }),
 });
 
-export const collections = { drivers, teams, tracks, topics, glossary, storylines };
+/**
+ * Post-race recaps. One MDX file per race; the body is the 5-sentence
+ * ELI5 prose (with inline JargonTip components for vocabulary), and
+ * frontmatter carries metadata only. The structured "what the data said"
+ * panel lives separately as JSON in data/snapshots/race-recaps/<slug>.json
+ * — the page joins the two at build time.
+ *
+ * File naming: `<season>-<track-slug>.mdx`, e.g. `2026-monaco.mdx`.
+ * The id (filename without extension) is the canonical slug.
+ *
+ * `notesIncluded` flags whether the cron drafter had user race notes
+ * available; when false, the prose was generated from data alone and
+ * is more clinical.
+ */
+const raceRecaps = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/race-recaps' }),
+  schema: z.object({
+    season: z.number().int(),
+    round: z.number().int(),
+    raceName: z.string(),
+    circuitRef: reference('tracks'),
+    raceDate: z.coerce.date(),
+    draftStatus: z.enum(['draft', 'published']).default('published'),
+    notesIncluded: z.boolean().default(true),
+  }),
+});
+
+export const collections = { drivers, teams, tracks, topics, glossary, storylines, raceRecaps };

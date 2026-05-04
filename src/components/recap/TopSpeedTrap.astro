@@ -1,0 +1,106 @@
+---
+import type { RecapPanel } from '../../lib/raceRecaps';
+
+interface Props {
+  rows: RecapPanel['topSpeeds'];
+}
+
+const { rows } = Astro.props;
+const top = rows.slice(0, 6);
+---
+
+{top.length > 0 && (
+  <div class="top-speed-trap">
+    <header class="tst-head">
+      <h3>Top of the speed trap</h3>
+      <p class="tst-sub mono">Highest km/h crossing the line</p>
+    </header>
+    <ol class="tst-list">
+      {top.map((r, i) => (
+        <li class="tst-row">
+          <span class="tst-rank mono">{String(i + 1).padStart(2, '0')}</span>
+          <span class="tst-name">{r.driverName}</span>
+          <span class="tst-speed mono">
+            {r.speedKmh}
+            <span class="tst-unit">km/h</span>
+          </span>
+        </li>
+      ))}
+    </ol>
+  </div>
+)}
+
+<style>
+  .top-speed-trap {
+    background: var(--asphalt-800);
+    border: var(--border-thin);
+    border-radius: var(--radius-md);
+    padding: var(--sp-5);
+  }
+
+  .tst-head {
+    margin-bottom: var(--sp-4);
+    padding-bottom: var(--sp-3);
+    border-bottom: 1px solid var(--asphalt-600);
+  }
+
+  .tst-head h3 {
+    font-family: var(--font-display);
+    font-size: var(--fs-500);
+    color: var(--text-primary);
+    margin: 0 0 var(--sp-1);
+  }
+
+  .tst-sub {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .tst-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+
+  .tst-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: var(--sp-3);
+    align-items: baseline;
+    padding: var(--sp-2) 0;
+    border-bottom: 1px dashed var(--asphalt-600);
+  }
+
+  .tst-row:last-child {
+    border-bottom: 0;
+  }
+
+  .tst-rank {
+    color: var(--kerb-yellow);
+    font-size: var(--fs-200);
+    letter-spacing: 0.12em;
+  }
+
+  .tst-name {
+    color: var(--text-primary);
+    font-size: var(--fs-400);
+  }
+
+  .tst-speed {
+    color: var(--text-primary);
+    font-size: var(--fs-500);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tst-unit {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.1em;
+    margin-left: var(--sp-1);
+  }
+</style>

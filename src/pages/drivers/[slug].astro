@@ -43,6 +43,15 @@ if (team) {
 }
 
 const next = entry.data.status === 'active' ? await getNextRace() : null;
+
+// Most recent published recap (any track). Hidden if none exist yet.
+const allRecaps = await getCollection('raceRecaps');
+const latestRecap = allRecaps
+  .filter((r) => r.data.draftStatus !== 'draft')
+  .sort((a, b) => {
+    if (a.data.season !== b.data.season) return b.data.season - a.data.season;
+    return b.data.round - a.data.round;
+  })[0] ?? null;
 ---
 
 <BaseLayout title={entry.data.name} description={entry.data.bio}>
@@ -102,6 +111,26 @@ const next = entry.data.status === 'active' ? await getNextRace() : null;
         <StatBlock value={entry.data.championships} label="Championships" />
       </div>
     </section>
+
+    {latestRecap && (
+      <>
+        <KerbDivider variant="thin" />
+        <section class="container last-race-section">
+          <header class="lrs-head">
+            <h2>Last race</h2>
+            <p class="lrs-sub mono">Decoder breakdown of the most recent round</p>
+          </header>
+          <a class="last-race-card" href={`/race-recaps/${latestRecap.id}`}>
+            <span class="lrc-round mono">R{String(latestRecap.data.round).padStart(2, '0')}</span>
+            <span class="lrc-name">{latestRecap.data.raceName}</span>
+            <span class="lrc-date mono">
+              {latestRecap.data.raceDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
+            </span>
+            <span class="lrc-cta mono">Read the decoder →</span>
+          </a>
+        </section>
+      </>
+    )}
 
     {next && (
       <>
@@ -263,8 +292,89 @@ const next = entry.data.status === 'active' ? await getNextRace() : null;
     font-style: italic;
   }
 
-  .next-race-section {
+  .next-race-section,
+  .last-race-section {
     padding-block: var(--sp-12);
+  }
+
+  .lrs-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: var(--sp-6);
+    padding-bottom: var(--sp-3);
+    border-bottom: 1px solid var(--asphalt-600);
+  }
+
+  .lrs-head h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-700);
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .lrs-sub {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .last-race-card {
+    display: grid;
+    grid-template-columns: 60px 1fr auto auto;
+    align-items: baseline;
+    gap: var(--sp-4);
+    padding: var(--sp-4) var(--sp-5);
+    background: var(--asphalt-800);
+    border: var(--border-thin);
+    border-left: 3px solid var(--team-primary);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: inherit;
+    transition: background var(--dur-base) var(--ease-snap), transform var(--dur-base) var(--ease-snap);
+  }
+
+  .last-race-card:hover {
+    background: var(--asphalt-700);
+    transform: translateX(2px);
+  }
+
+  .lrc-round {
+    color: var(--team-primary-text);
+    font-size: var(--fs-200);
+    letter-spacing: 0.12em;
+  }
+
+  .lrc-name {
+    color: var(--text-primary);
+    font-size: var(--fs-500);
+  }
+
+  .lrc-date {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .lrc-cta {
+    color: var(--team-primary-text);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 600px) {
+    .last-race-card {
+      grid-template-columns: 50px 1fr;
+    }
+
+    .lrc-date,
+    .lrc-cta {
+      grid-column: 2;
+      text-align: left;
+    }
   }
 
   .nrs-head {

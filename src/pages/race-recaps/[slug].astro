@@ -1,0 +1,89 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/hero/Hero.astro';
+import KerbDivider from '../../components/ui/KerbDivider.astro';
+import RecapPanel from '../../components/recap/RecapPanel.astro';
+import { getRecapPanel } from '../../lib/raceRecaps';
+
+export async function getStaticPaths() {
+  const recaps = await getCollection('raceRecaps');
+  return recaps.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const track = await getEntry(entry.data.circuitRef);
+const panel = getRecapPanel(entry.id);
+
+const date = entry.data.raceDate;
+const dateLabel = date.toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<BaseLayout
+  title={`${entry.data.raceName} ${entry.data.season} · recap`}
+  description={`A short, plain-language recap of the ${entry.data.season} ${entry.data.raceName} with the data the timing screens were showing.`}
+>
+  <article>
+    <Hero
+      eyebrow={`Race recap · Round ${entry.data.round}`}
+      title={entry.data.raceName}
+      subtitle={`${track?.data.name ?? ''} · ${dateLabel}`}
+    />
+
+    <section class="container recap-prose">
+      <Content />
+      {!entry.data.notesIncluded && (
+        <p class="recap-prose-flag mono">
+          Drafted from data alone. Race notes weren't available to the drafter.
+        </p>
+      )}
+    </section>
+
+    {panel && <RecapPanel panel={panel} />}
+
+    {!panel && (
+      <section class="container recap-no-data">
+        <p>The structured data panel for this race isn't available yet.</p>
+      </section>
+    )}
+  </article>
+</BaseLayout>
+
+<style>
+  .recap-prose {
+    padding-block: var(--sp-12);
+    max-width: 760px;
+    color: var(--text-secondary);
+    font-size: var(--fs-500);
+    line-height: 1.7;
+  }
+
+  .recap-prose :global(p) {
+    margin-bottom: var(--sp-4);
+  }
+
+  .recap-prose :global(p):last-child {
+    margin-bottom: 0;
+  }
+
+  .recap-prose-flag {
+    margin-top: var(--sp-6);
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border-top: 1px dashed var(--asphalt-600);
+    padding-top: var(--sp-3);
+  }
+
+  .recap-no-data {
+    padding-block: var(--sp-12);
+    color: var(--text-muted);
+    font-style: italic;
+  }
+</style>

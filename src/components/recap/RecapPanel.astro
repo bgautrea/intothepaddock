@@ -1,0 +1,375 @@
+---
+/**
+ * RecapPanel: orchestrates the structured "what the data said" panel below
+ * the prose body on a recap page.
+ *
+ * Layout: a result table at top (canonical finishing order), then a
+ * 2-column grid of cards covering fastest lap, sector leaders, top speeds,
+ * biggest movers, and pit stops, then a full-width stint breakdown at the
+ * bottom (the most space-hungry visualization).
+ *
+ * If `panel` is null (snapshot missing), renders nothing; the page still
+ * shows the prose. If `hasTelemetry` is false, sector leaders and top-speed
+ * sections are skipped (Jolpica-only data).
+ */
+import type { RecapPanel as PanelType } from '../../lib/raceRecaps';
+import KerbDivider from '../ui/KerbDivider.astro';
+import StatBlock from '../ui/StatBlock.astro';
+import SectorLeaders from './SectorLeaders.astro';
+import TopSpeedTrap from './TopSpeedTrap.astro';
+import StintBreakdown from './StintBreakdown.astro';
+
+interface Props {
+  panel: PanelType;
+}
+
+const { panel } = Astro.props;
+const topResults = panel.results.slice(0, 10);
+const otherResults = panel.results.slice(10);
+---
+
+<section class="container recap-results">
+  <header class="rr-head">
+    <h2>Final order</h2>
+    <p class="rr-sub mono">Top 10 finishers</p>
+  </header>
+  <ol class="rr-table">
+    {topResults.map((r) => (
+      <li class="rr-row">
+        <span class="rr-pos mono">P{r.position}</span>
+        <span class="rr-name">{r.driverName}</span>
+        <span class="rr-team mono">{r.teamSlug ?? ''}</span>
+        <span class="rr-gap mono">{r.position === 1 ? r.gapToLeader : (r.gapToLeader ?? r.status)}</span>
+      </li>
+    ))}
+  </ol>
+  {otherResults.length > 0 && (
+    <details class="rr-rest">
+      <summary class="mono">Show the rest of the field ({otherResults.length})</summary>
+      <ol class="rr-table rr-table--rest">
+        {otherResults.map((r) => (
+          <li class="rr-row">
+            <span class="rr-pos mono">P{r.position}</span>
+            <span class="rr-name">{r.driverName}</span>
+            <span class="rr-team mono">{r.teamSlug ?? ''}</span>
+            <span class="rr-gap mono">{r.gapToLeader ?? r.status}</span>
+          </li>
+        ))}
+      </ol>
+    </details>
+  )}
+</section>
+
+<KerbDivider variant="thin" />
+
+<section class="container recap-grid">
+  <header class="rg-head">
+    <h2>What the data said</h2>
+    <p class="rg-sub mono">The race the timing screens showed you</p>
+  </header>
+
+  <div class="rg-cards">
+    {panel.fastestLap && (
+      <div class="rg-card rg-card--highlight">
+        <span class="rg-label mono">Fastest lap</span>
+        <p class="rg-value mono">{panel.fastestLap.time}</p>
+        <p class="rg-meta">
+          <span>{panel.fastestLap.driverName}</span>
+          <span class="mono"> · lap {panel.fastestLap.lap}</span>
+        </p>
+      </div>
+    )}
+
+    {panel.hasTelemetry && <SectorLeaders sectors={panel.sectorLeaders} />}
+
+    {panel.hasTelemetry && panel.topSpeeds.length > 0 && (
+      <TopSpeedTrap rows={panel.topSpeeds} />
+    )}
+
+    {(panel.biggestMovers.gainers.length > 0 || panel.biggestMovers.losers.length > 0) && (
+      <div class="rg-card">
+        <header class="rg-card-head">
+          <h3>Biggest movers</h3>
+          <p class="rg-sub mono">Grid → finish</p>
+        </header>
+        <div class="movers-cols">
+          <div>
+            <span class="movers-label mono">Gainers</span>
+            <ul class="movers-list">
+              {panel.biggestMovers.gainers.map((m) => (
+                <li class="mover-row">
+                  <span class="mover-name">{m.driverName}</span>
+                  <span class="mover-change mono mover-change--up">+{m.change}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <span class="movers-label mono">Losers</span>
+            <ul class="movers-list">
+              {panel.biggestMovers.losers.map((m) => (
+                <li class="mover-row">
+                  <span class="mover-name">{m.driverName}</span>
+                  <span class="mover-change mono mover-change--down">{m.change}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {panel.pitStops.length > 0 && (
+      <div class="rg-card">
+        <header class="rg-card-head">
+          <h3>Pit stops</h3>
+          <p class="rg-sub mono">Lap of stop · stationary time</p>
+        </header>
+        <ul class="pit-list">
+          {panel.pitStops.map((p) => (
+            <li class="pit-row">
+              <span class="pit-name">{p.driverName}</span>
+              <span class="pit-stops mono">
+                {p.stops.map((s, i) => (
+                  <>
+                    {i > 0 && <span class="pit-sep">·</span>}
+                    L{s.lap}
+                    {typeof s.durationSec === 'number' && (
+                      <span class="pit-dur"> ({s.durationSec.toFixed(1)}s)</span>
+                    )}
+                  </>
+                ))}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </div>
+</section>
+
+<KerbDivider variant="thin" />
+
+<section class="container recap-stints">
+  <StintBreakdown drivers={panel.stintAnalysis} results={panel.results} />
+</section>
+
+<style>
+  .recap-results {
+    padding-block: var(--sp-12);
+  }
+
+  .rr-head,
+  .rg-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    margin-bottom: var(--sp-6);
+    padding-bottom: var(--sp-3);
+    border-bottom: 1px solid var(--asphalt-600);
+  }
+
+  .rr-head h2,
+  .rg-head h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-700);
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .rr-sub,
+  .rg-sub {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .rr-table {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rr-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 120px auto;
+    gap: var(--sp-4);
+    align-items: baseline;
+    padding: var(--sp-3) 0;
+    border-bottom: 1px dashed var(--asphalt-600);
+  }
+
+  .rr-pos {
+    color: var(--kerb-yellow);
+    font-size: var(--fs-300);
+    letter-spacing: 0.08em;
+  }
+
+  .rr-name {
+    color: var(--text-primary);
+    font-size: var(--fs-400);
+  }
+
+  .rr-team {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .rr-gap {
+    color: var(--text-secondary);
+    font-size: var(--fs-300);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rr-rest {
+    margin-top: var(--sp-4);
+  }
+
+  .rr-rest summary {
+    cursor: pointer;
+    color: var(--kerb-yellow);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: var(--sp-2) 0;
+  }
+
+  .rr-table--rest .rr-row {
+    opacity: 0.85;
+  }
+
+  .recap-grid {
+    padding-block: var(--sp-12);
+  }
+
+  .rg-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--sp-5);
+  }
+
+  .rg-card {
+    background: var(--asphalt-800);
+    border: var(--border-thin);
+    border-radius: var(--radius-md);
+    padding: var(--sp-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .rg-card--highlight {
+    background: var(--asphalt-700);
+    border-top: 3px solid var(--kerb-yellow);
+  }
+
+  .rg-card-head {
+    margin-bottom: var(--sp-3);
+    padding-bottom: var(--sp-3);
+    border-bottom: 1px solid var(--asphalt-600);
+  }
+
+  .rg-card-head h3 {
+    font-family: var(--font-display);
+    font-size: var(--fs-500);
+    color: var(--text-primary);
+    margin: 0 0 var(--sp-1);
+  }
+
+  .rg-label {
+    color: var(--kerb-yellow);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .rg-value {
+    color: var(--text-primary);
+    font-size: var(--fs-800);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    margin: 0;
+  }
+
+  .rg-meta {
+    color: var(--text-secondary);
+    font-size: var(--fs-300);
+    margin: 0;
+  }
+
+  .movers-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-4);
+  }
+
+  .movers-label {
+    color: var(--kerb-yellow);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: var(--sp-2);
+  }
+
+  .movers-list,
+  .pit-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+
+  .mover-row,
+  .pit-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--sp-3);
+    border-bottom: 1px dashed var(--asphalt-600);
+    padding-bottom: var(--sp-2);
+  }
+
+  .mover-name,
+  .pit-name {
+    color: var(--text-primary);
+    font-size: var(--fs-300);
+  }
+
+  .mover-change--up {
+    color: #4dd99b;
+  }
+
+  .mover-change--down {
+    color: #ff6b6b;
+  }
+
+  .pit-stops {
+    color: var(--text-secondary);
+    font-size: var(--fs-300);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .pit-sep {
+    color: var(--text-muted);
+    margin: 0 var(--sp-1);
+  }
+
+  .pit-dur {
+    color: var(--text-muted);
+  }
+
+  .recap-stints {
+    padding-block: var(--sp-12);
+  }
+</style>

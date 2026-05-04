@@ -1,0 +1,173 @@
+name: Draft race recap
+
+on:
+  schedule:
+    # Mon–Fri at 12:00 UTC during F1 season. Off-week / off-season runs are
+    # no-ops because the detection step exits clean when no race finished
+    # in the last 48h.
+    - cron: '0 12 * * 1,2,3,4,5'
+  workflow_dispatch:
+    inputs:
+      year:
+        description: 'Season year (e.g. 2026). Optional override.'
+        required: false
+      round:
+        description: 'Round number (e.g. 8). Optional override.'
+        required: false
+      slug:
+        description: 'Recap slug (e.g. 2026-monaco). Optional override.'
+        required: false
+      force_draft_without_notes:
+        description: 'Set to "true" to draft even if race-notes file is missing.'
+        required: false
+        default: 'false'
+
+permissions:
+  models: read
+  pull-requests: write
+  contents: write
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Detect race
+        id: detect
+        run: |
+          node scripts/detect-recap-target.mjs \
+            ${{ github.event.inputs.year && format('--year={0}', github.event.inputs.year) || '' }} \
+            ${{ github.event.inputs.round && format('--round={0}', github.event.inputs.round) || '' }} \
+            ${{ github.event.inputs.slug && format('--slug={0}', github.event.inputs.slug) || '' }} \
+            >> "$GITHUB_OUTPUT"
+
+      - name: Stop if no race detected
+        if: steps.detect.outputs.detected != 'true'
+        run: echo "No race in the last 48h; nothing to draft."
+
+      - name: Check for existing draft / published recap
+        id: status
+        if: steps.detect.outputs.detected == 'true'
+        env:
+          SLUG: ${{ steps.detect.outputs.slug }}
+        run: |
+          if git ls-remote --exit-code --heads origin "recap-draft/$SLUG" >/dev/null 2>&1; then
+            echo "branch_exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "branch_exists=false" >> "$GITHUB_OUTPUT"
+          fi
+          if [ -f "src/content/race-recaps/$SLUG.mdx" ] || [ -f "src/content/race-recaps/$SLUG.md" ]; then
+            echo "already_published=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "already_published=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Stop if already in flight
+        if: |
+          steps.detect.outputs.detected == 'true' &&
+          (steps.status.outputs.branch_exists == 'true' || steps.status.outputs.already_published == 'true')
+        run: |
+          echo "Recap for ${{ steps.detect.outputs.slug }} already in flight or published."
+
+      - name: Check for race notes
+        id: notes
+        if: |
+          steps.detect.outputs.detected == 'true' &&
+          steps.status.outputs.branch_exists == 'false' &&
+          steps.status.outputs.already_published == 'false'
+        env:
+          SLUG: ${{ steps.detect.outputs.slug }}
+          RACE_DATE: ${{ steps.detect.outputs.race_date }}
+          FORCE: ${{ github.event.inputs.force_draft_without_notes }}
+        run: |
+          NOTES_FILE="data/race-notes/$SLUG.md"
+          if [ -f "$NOTES_FILE" ]; then
+            echo "notes_present=true" >> "$GITHUB_OUTPUT"
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "notes_present=false" >> "$GITHUB_OUTPUT"
+
+          if [ "$FORCE" = "true" ]; then
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Days since race date. Drafts in degraded mode after 5 days.
+          DAYS=$(( ( $(date -u +%s) - $(date -u -d "$RACE_DATE" +%s) ) / 86400 ))
+          echo "Days since race: $DAYS"
+          if [ "$DAYS" -ge 5 ]; then
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "proceed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Stop if notes missing and not yet 5 days post-race
+        if: |
+          steps.detect.outputs.detected == 'true' &&
+          steps.status.outputs.branch_exists == 'false' &&
+          steps.status.outputs.already_published == 'false' &&
+          steps.notes.outputs.proceed != 'true'
+        run: |
+          echo "Race notes missing for ${{ steps.detect.outputs.slug }}; will retry tomorrow."
+
+      - name: Fetch panel data
+        if: |
+          steps.detect.outputs.detected == 'true' &&
+          steps.notes.outputs.proceed == 'true'
+        env:
+          YEAR: ${{ steps.detect.outputs.year }}
+          ROUND: ${{ steps.detect.outputs.round }}
+          SLUG: ${{ steps.detect.outputs.slug }}
+        run: node scripts/fetch-recap-data.mjs --year="$YEAR" --round="$ROUND" --slug="$SLUG"
+
+      - name: Draft prose
+        if: |
+          steps.detect.outputs.detected == 'true' &&
+          steps.notes.outputs.proceed == 'true'
+        env:
+          MODELS_TOKEN: ${{ secrets.MODELS_TOKEN }}
+          SLUG: ${{ steps.detect.outputs.slug }}
+        run: node scripts/draft-recap-prose.mjs --slug="$SLUG"
+        continue-on-error: true
+
+      - name: Commit and open PR
+        if: |
+          steps.detect.outputs.detected == 'true' &&
+          steps.notes.outputs.proceed == 'true'
+        env:
+          SLUG: ${{ steps.detect.outputs.slug }}
+          NOTES_PRESENT: ${{ steps.notes.outputs.notes_present }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "recap-draft-bot"
+          git config user.email "recap-draft-bot@users.noreply.github.com"
+          git checkout -b "recap-draft/$SLUG"
+          git add data/snapshots/race-recaps/"$SLUG".json
+
+          if [ -f "src/content/race-recaps/$SLUG.draft.mdx" ]; then
+            git add "src/content/race-recaps/$SLUG.draft.mdx"
+            BODY="Race recap draft for **$SLUG**. Review the prose, edit if it misread the story, then rename \`.draft.mdx\` → \`.mdx\` and merge."
+          else
+            BODY="Panel data only. LLM draft failed; write prose by hand or re-run the workflow."
+          fi
+          if [ "$NOTES_PRESENT" != "true" ]; then
+            BODY="$BODY"$'\n\n'":warning: Drafted without race notes; prose is more clinical than usual."
+          fi
+
+          git commit -m "draft(recap): $SLUG"
+          git push -u origin "recap-draft/$SLUG"
+          gh pr create \
+            --title "Race recap draft: $SLUG" \
+            --body "$BODY" \
+            --base main \
+            --head "recap-draft/$SLUG"

@@ -15,6 +15,17 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const t = entry.data;
+
+const trackRecaps = (await getCollection('raceRecaps'))
+  .filter((r) => {
+    const ref = r.data.circuitRef;
+    const id = typeof ref === 'string' ? ref : ref.id;
+    return id === entry.id && r.data.draftStatus !== 'draft';
+  })
+  .sort((a, b) => {
+    if (a.data.season !== b.data.season) return b.data.season - a.data.season;
+    return b.data.round - a.data.round;
+  });
 ---
 
 <BaseLayout title={t.grandPrix} description={`${t.name}, ${t.city}, ${t.country}`}>
@@ -99,6 +110,30 @@ const t = entry.data;
     <section class="container long-form">
       <Content />
     </section>
+
+    {trackRecaps.length > 0 && (
+      <>
+        <KerbDivider variant="thin" />
+        <section class="container races-here-section">
+          <header class="rh-head">
+            <h2>Races held here</h2>
+            <p class="rh-sub mono">Decoder breakdowns for past rounds at this circuit</p>
+          </header>
+          <ul class="rh-list">
+            {trackRecaps.map((r) => (
+              <li>
+                <a class="rh-row" href={`/race-recaps/${r.id}`}>
+                  <span class="rh-season mono">{r.data.season}</span>
+                  <span class="rh-round mono">R{String(r.data.round).padStart(2, '0')}</span>
+                  <span class="rh-name">{r.data.raceName}</span>
+                  <span class="rh-cta mono">Read →</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </>
+    )}
   </article>
 </BaseLayout>
 
@@ -276,5 +311,83 @@ const t = entry.data;
 
   .long-form :global(strong) {
     color: var(--text-primary);
+  }
+
+  .races-here-section {
+    padding-block: var(--sp-12);
+  }
+
+  .rh-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: var(--sp-6);
+    padding-bottom: var(--sp-3);
+    border-bottom: 1px solid var(--asphalt-600);
+  }
+
+  .rh-head h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-700);
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .rh-sub {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .rh-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rh-row {
+    display: grid;
+    grid-template-columns: 60px 50px 1fr auto;
+    align-items: baseline;
+    gap: var(--sp-4);
+    padding: var(--sp-3) 0;
+    border-bottom: 1px dashed var(--asphalt-600);
+    text-decoration: none;
+    color: inherit;
+    transition: background var(--dur-base) var(--ease-snap);
+  }
+
+  .rh-row:hover {
+    background: var(--asphalt-800);
+    border-radius: var(--radius-sm);
+    padding-inline: var(--sp-3);
+    border-bottom-color: var(--kerb-yellow);
+  }
+
+  .rh-season {
+    color: var(--kerb-yellow);
+    font-size: var(--fs-300);
+    letter-spacing: 0.08em;
+  }
+
+  .rh-round {
+    color: var(--text-muted);
+    font-size: var(--fs-200);
+    letter-spacing: 0.12em;
+  }
+
+  .rh-name {
+    color: var(--text-primary);
+    font-size: var(--fs-400);
+  }
+
+  .rh-cta {
+    color: var(--kerb-yellow);
+    font-size: var(--fs-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
   }
 </style>
