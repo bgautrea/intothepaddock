@@ -38,7 +38,7 @@ public domain.
 | `drivers/juan-manuel-fangio.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Fangio_in_1955_(cropped).jpg) | Bjørn Fjørtoft | CC BY 4.0 |
 | `drivers/lance-stroll.jpg` | [Source](https://commons.wikimedia.org/wiki/File:2025_Japan_GP_-_Aston_Martin_-_Lance_Stroll_-_Fanzone_Stage_(cropped).jpg) | Liauzh | CC BY-SA 4.0 |
 | `drivers/lando-norris.jpg` | [Source](https://commons.wikimedia.org/wiki/File:2024-08-25_Motorsport,_Formel_1,_Gro%C3%9Fer_Preis_der_Niederlande_2024_STP_3968_by_Stepro_(cropped2).jpg) | Original: Steffen Prößdorf; Derivative work: Mb2437 | CC BY-SA 4.0 |
-| `drivers/lewis-hamilton.jpg` | [Source](https://commons.wikimedia.org/wiki/File:2025_Japan_GP_-_Ferrari_-_Lewis_Hamilton_-_FP1.jpg) | Liauzh | CC BY-SA 4.0 |
+| `drivers/lewis-hamilton.jpg` | [Source](https://commons.wikimedia.org/wiki/File:2025_Japan_GP_-_Ferrari_-_Lewis_Hamilton_-_Fanzone_Stage_(cropped).jpg) | Liauzh | CC BY-SA 4.0 |
 | `drivers/liam-lawson.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Liam_Lawson_at_the_Red_Bull_Fan_Zone_%E2%80%93_Crown_Riverwalk,_Melbourne_(028A7793).jpg) | Yu Chu Chin | CC BY-SA 4.0 |
 | `drivers/max-verstappen.jpg` | [Source](https://commons.wikimedia.org/wiki/File:2024-08-25_Motorsport,_Formel_1,_Gro%C3%9Fer_Preis_der_Niederlande_2024_STP_3973_by_Stepro_(medium_crop).jpg) | Steffen Prößdorf | CC BY-SA 4.0 |
 | `drivers/michael-schumacher.jpg` | [Source](https://commons.wikimedia.org/wiki/File:A%C3%A9cio_Neves,_Michael_Schumacher_e_Didi_(Cropped).jpg) | Original: Aécio Neves – Wellington Pedro/Imprensa MG / Derivative work: F1fans, FMSky | CC BY 2.0 |

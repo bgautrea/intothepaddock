@@ -409,13 +409,13 @@
   "drivers/lewis-hamilton": {
     "type": "drivers",
     "slug": "lewis-hamilton",
-    "fileTitle": "File:2025 Japan GP - Ferrari - Lewis Hamilton - FP1.jpg",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2025_Japan_GP_-_Ferrari_-_Lewis_Hamilton_-_FP1.jpg",
-    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2025_Japan_GP_-_Ferrari_-_Lewis_Hamilton_-_FP1.jpg/1920px-2025_Japan_GP_-_Ferrari_-_Lewis_Hamilton_-_FP1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "fileTitle": "File:2025 Japan GP - Ferrari - Lewis Hamilton - Fanzone Stage (cropped).jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2025_Japan_GP_-_Ferrari_-_Lewis_Hamilton_-_Fanzone_Stage_(cropped).jpg",
+    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/3/32/2025_Japan_GP_-_Ferrari_-_Lewis_Hamilton_-_Fanzone_Stage_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
     "artist": "Liauzh",
     "licenseShortName": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "fetchedAt": "2026-05-03T19:03:50.789Z"
+    "fetchedAt": "2026-05-05T13:12:46.162Z"
   },
   "teams/aston-martin": {
     "type": "teams",
