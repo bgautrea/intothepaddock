@@ -19,7 +19,7 @@ nickname: 'The Wall of Champions'
 difficulty: 'high'
 overtakingDifficulty: 'easy'
 photo: '../../assets/photos/tracks/montreal.jpg'
-photoCredit: 'Photo: Nacho Barbosa (CC BY-SA 3.0) via Wikimedia Commons'
+photoCredit: 'Photo: Planet Labs, Inc. (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## A semi-permanent street

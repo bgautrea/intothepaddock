@@ -64,16 +64,16 @@ public domain.
 | `tracks/catalunya.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Curvas_1-6_de_Circuit_de_Barcelona-Catalunya_Montmel%C3%B3_(2023).jpg) | Wilnel José Verdú Guerrero | CC BY-SA 4.0 |
 | `tracks/hungaroring.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Pest_county_Mogyor%C3%B3d_Hungariring_raceway_IMG_0210.JPG) | Bjoertvedt | CC BY-SA 4.0 |
 | `tracks/interlagos.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Aut%C3%B3dromo_de_Interlagos_em_Dezembro_de_2023.jpg) | Boaventuravinicius | CC BY-SA 4.0 |
-| `tracks/las-vegas.jpg` | [Source](https://commons.wikimedia.org/wiki/File:2023_Las_Vegas_street_circuit.svg) | Valentin JJ. | CC BY-SA 4.0 |
-| `tracks/losail.jpg` | [Source](https://commons.wikimedia.org/wiki/File:01_GP_Qatar_7,_8,_9_y_10_de_marzo_de_2019._Circuito_de_Lusail,_QATAR.jpg) | Box Repsol | CC BY 2.0 |
+| `tracks/las-vegas.jpg` | [Source](https://commons.wikimedia.org/wiki/File:2024_Las_Vegas_Grand_Prix_at_the_Sphere_-_Saturday,_November_23,_Orbi.jpg) | Nascar9919 | CC BY 4.0 |
+| `tracks/losail.jpg` | [Source](https://commons.wikimedia.org/wiki/File:WTCC_2016,_Qatar.jpg) | Dmitry Racer | CC BY-SA 4.0 |
 | `tracks/madrid.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Madring_(2026).svg) | GabrielStella | CC BY-SA 3.0 |
 | `tracks/marina-bay.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Singapore_Grand_Prix_course_along_Marina_Bay_waterfront.jpg) | Daniel Case | CC BY-SA 4.0 |
 | `tracks/melbourne.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Melbourne_Grand_Prix_Circuit_pit_building.jpg) | Ozzmosis | CC BY-SA 2.5 |
 | `tracks/mexico-city.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Autodromo_Hermanos_Rodriguez_-_panoramio.jpg) | Wiper México | CC BY-SA 3.0 |
 | `tracks/miami.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Start_of_the_Porsche_Sprint_Challenge_North_America_at_the_F1_Miami_GP_-_2022.jpg) | USACJack | CC BY-SA 4.0 |
 | `tracks/monaco.jpg` | [Source](https://commons.wikimedia.org/wiki/File:MONACO_FORMULA_1_TURN_1_-_panoramio.jpg) | otterboris | CC BY 3.0 |
-| `tracks/montreal.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Raikkonen_2017_Montreal_F1_Gp_(216316323).jpeg) | Nacho Barbosa | CC BY-SA 3.0 |
-| `tracks/monza.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Autodromo_Nazionale_di_Monza,_Italy_(Ank_Kumar)_04.jpg) | Ank Kumar | CC BY-SA 4.0 |
+| `tracks/montreal.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Circuit_Gilles-Villeneuve,_May_29,_2018_SkySat.jpg) | Planet Labs, Inc. | CC BY-SA 4.0 |
+| `tracks/monza.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Autodromo_Nazionale_Monza,_April_22,_2018_SkySat_(cropped).jpg) | Planet Labs, Inc. | CC BY-SA 4.0 |
 | `tracks/red-bull-ring.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Red_Bull_Ring,_April_18,_2018_SkySat.jpg) | Planet Labs, Inc. | CC BY-SA 4.0 |
 | `tracks/shanghai.jpg` | [Source](https://commons.wikimedia.org/wiki/File:Shanghai_International_Circuit,_April_7,_2018_SkySat.jpg) | Planet Labs, Inc. | CC BY-SA 4.0 |
 | `tracks/silverstone.jpg` | [Source](https://commons.wikimedia.org/wiki/File:International_Pits_Straight_Stand,_Silverstone_-_geograph.org.uk_-_4590072.jpg) | Ian S | CC BY-SA 2.0 |

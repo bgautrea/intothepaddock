@@ -52,7 +52,7 @@
     "artist": "Yu Chu Chin",
     "licenseShortName": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "fetchedAt": "2026-05-03T19:03:36.076Z"
+    "fetchedAt": "2026-05-05T20:22:50.484Z"
   },
   "drivers/ayrton-senna": {
     "type": "drivers",
@@ -118,7 +118,7 @@
     "artist": "Yu Chu Chin",
     "licenseShortName": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "fetchedAt": "2026-05-03T19:03:42.425Z"
+    "fetchedAt": "2026-05-05T20:22:45.708Z"
   },
   "drivers/gabriel-bortoleto": {
     "type": "drivers",
@@ -206,7 +206,7 @@
     "artist": "Yu Chu Chin",
     "licenseShortName": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "fetchedAt": "2026-05-03T19:03:52.131Z"
+    "fetchedAt": "2026-05-05T20:22:48.198Z"
   },
   "drivers/michael-schumacher": {
     "type": "drivers",
@@ -283,7 +283,7 @@
     "artist": "Yu Chu Chin",
     "licenseShortName": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "fetchedAt": "2026-05-03T19:04:00.895Z"
+    "fetchedAt": "2026-05-05T20:22:43.551Z"
   },
   "teams/alpine": {
     "type": "teams",
@@ -519,24 +519,24 @@
   "tracks/las-vegas": {
     "type": "tracks",
     "slug": "las-vegas",
-    "fileTitle": "File:2023_Las_Vegas_street_circuit.svg",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2023_Las_Vegas_street_circuit.svg",
-    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/2023_Las_Vegas_street_circuit.svg/1920px-2023_Las_Vegas_street_circuit.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-    "artist": "Valentin JJ.",
-    "licenseShortName": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "fetchedAt": "2026-05-03T19:04:22.967Z"
+    "fileTitle": "File:2024 Las Vegas Grand Prix at the Sphere - Saturday, November 23, Orbi.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2024_Las_Vegas_Grand_Prix_at_the_Sphere_-_Saturday,_November_23,_Orbi.jpg",
+    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/2024_Las_Vegas_Grand_Prix_at_the_Sphere_-_Saturday%2C_November_23%2C_Orbi.jpg/1920px-2024_Las_Vegas_Grand_Prix_at_the_Sphere_-_Saturday%2C_November_23%2C_Orbi.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "artist": "Nascar9919",
+    "licenseShortName": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "fetchedAt": "2026-05-05T20:28:28.390Z"
   },
   "tracks/losail": {
     "type": "tracks",
     "slug": "losail",
-    "fileTitle": "File:01 GP Qatar 7, 8, 9 y 10 de marzo de 2019. Circuito de Lusail, QATAR.jpg",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:01_GP_Qatar_7,_8,_9_y_10_de_marzo_de_2019._Circuito_de_Lusail,_QATAR.jpg",
-    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/01_GP_Qatar_7%2C_8%2C_9_y_10_de_marzo_de_2019._Circuito_de_Lusail%2C_QATAR.jpg/1920px-01_GP_Qatar_7%2C_8%2C_9_y_10_de_marzo_de_2019._Circuito_de_Lusail%2C_QATAR.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-    "artist": "Box Repsol",
-    "licenseShortName": "CC BY 2.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-    "fetchedAt": "2026-05-03T19:04:24.502Z"
+    "fileTitle": "File:WTCC 2016, Qatar.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:WTCC_2016,_Qatar.jpg",
+    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9e/WTCC_2016%2C_Qatar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "artist": "Dmitry Racer",
+    "licenseShortName": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "fetchedAt": "2026-05-05T20:28:30.134Z"
   },
   "tracks/madrid": {
     "type": "tracks",
@@ -596,24 +596,24 @@
   "tracks/montreal": {
     "type": "tracks",
     "slug": "montreal",
-    "fileTitle": "File:Raikkonen 2017 Montreal F1 Gp (216316323).jpeg",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Raikkonen_2017_Montreal_F1_Gp_(216316323).jpeg",
-    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Raikkonen_2017_Montreal_F1_Gp_%28216316323%29.jpeg/1920px-Raikkonen_2017_Montreal_F1_Gp_%28216316323%29.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-    "artist": "Nacho Barbosa",
-    "licenseShortName": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "fetchedAt": "2026-05-03T19:04:33.570Z"
+    "fileTitle": "File:Circuit Gilles-Villeneuve, May 29, 2018 SkySat.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Circuit_Gilles-Villeneuve,_May_29,_2018_SkySat.jpg",
+    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Circuit_Gilles-Villeneuve%2C_May_29%2C_2018_SkySat.jpg/1920px-Circuit_Gilles-Villeneuve%2C_May_29%2C_2018_SkySat.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "artist": "Planet Labs, Inc.",
+    "licenseShortName": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "fetchedAt": "2026-05-05T20:28:34.191Z"
   },
   "tracks/monza": {
     "type": "tracks",
     "slug": "monza",
-    "fileTitle": "File:Autodromo Nazionale di Monza, Italy (Ank Kumar) 04.jpg",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Autodromo_Nazionale_di_Monza,_Italy_(Ank_Kumar)_04.jpg",
-    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Autodromo_Nazionale_di_Monza%2C_Italy_%28Ank_Kumar%29_04.jpg/1920px-Autodromo_Nazionale_di_Monza%2C_Italy_%28Ank_Kumar%29_04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-    "artist": "Ank Kumar",
+    "fileTitle": "File:Autodromo Nazionale Monza, April 22, 2018 SkySat (cropped).jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Autodromo_Nazionale_Monza,_April_22,_2018_SkySat_(cropped).jpg",
+    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Autodromo_Nazionale_Monza%2C_April_22%2C_2018_SkySat_%28cropped%29.jpg/1920px-Autodromo_Nazionale_Monza%2C_April_22%2C_2018_SkySat_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "artist": "Planet Labs, Inc.",
     "licenseShortName": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "fetchedAt": "2026-05-03T19:04:34.811Z"
+    "fetchedAt": "2026-05-05T20:28:32.057Z"
   },
   "tracks/red-bull-ring": {
     "type": "tracks",

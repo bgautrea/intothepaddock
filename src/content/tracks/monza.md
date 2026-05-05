@@ -19,7 +19,7 @@ nickname: 'The Temple of Speed'
 difficulty: 'medium'
 overtakingDifficulty: 'easy'
 photo: '../../assets/photos/tracks/monza.jpg'
-photoCredit: 'Photo: Ank Kumar (CC BY-SA 4.0) via Wikimedia Commons'
+photoCredit: 'Photo: Planet Labs, Inc. (CC BY-SA 4.0) via Wikimedia Commons'
 ---
 
 ## The fastest race of the year
